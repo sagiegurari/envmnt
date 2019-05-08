@@ -338,3 +338,26 @@ pub fn set_bool(key: &str, value: bool) {
 pub fn get_set(key: &str, value: &str) -> Option<String> {
     environment::get_set(key, value)
 }
+
+/// Returns true if the provided environment variable is defined and equals the provided value.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The value to check
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///
+///     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
+///     println!("Value Is Same: {}", &same);
+/// }
+/// ```
+pub fn is_equal(key: &str, value: &str) -> bool {
+    environment::is_equal(key, value)
+}

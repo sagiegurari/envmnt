@@ -160,3 +160,23 @@ fn get_set_not_exists() {
         "NEW".to_string()
     );
 }
+
+#[test]
+fn is_equal_not_exists() {
+    let output = is_equal("TEST_IS_EQUAL_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn is_equal_same() {
+    env::set_var("TEST_IS_EQUAL_SAME", "VALUE");
+    let output = is_equal("TEST_IS_EQUAL_SAME", "VALUE");
+    assert!(output);
+}
+
+#[test]
+fn is_equal_not_same() {
+    env::set_var("TEST_IS_EQUAL_NOT_SAME", "1");
+    let output = is_equal("TEST_IS_EQUAL_NOT_SAME", "2");
+    assert!(!output);
+}

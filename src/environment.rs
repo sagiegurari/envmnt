@@ -68,3 +68,13 @@ pub(crate) fn get_set(key: &str, value: &str) -> Option<String> {
 
     pre_value
 }
+
+pub(crate) fn is_equal(key: &str, value: &str) -> bool {
+    if exists(key) {
+        let current_value = get_or(key, "");
+
+        current_value == value
+    } else {
+        false
+    }
+}
