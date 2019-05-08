@@ -29,6 +29,19 @@ fn remove_not_exists() {
 }
 
 #[test]
+fn get_remove_not_exists() {
+    let output = get_remove("TEST_LIB_GET_REMOVE_NOT_EXISTS");
+    assert!(output.is_none());
+}
+
+#[test]
+fn get_remove_exists() {
+    env::set_var("TEST_LIB_GET_REMOVE_EXISTS", "OLD");
+    let output = get_remove("TEST_LIB_GET_REMOVE_EXISTS");
+    assert_eq!(output.unwrap(), "OLD".to_string());
+}
+
+#[test]
 fn get_or_exists() {
     env::set_var("TEST_LIB_GET_OR_EXISTS", "EXISTS");
     let output = get_or("TEST_LIB_GET_OR_EXISTS", "bad");
