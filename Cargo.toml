@@ -1,0 +1,38 @@
+[package]
+name = "envmnt"
+version = "0.1.0"
+authors = ["Sagie Gur-Ari <sagiegurari@gmail.com>"]
+description = "Environment variables utility functions."
+license = "Apache-2.0"
+documentation = "https://sagiegurari.github.io/envmnt/api/envmnt/index.html"
+homepage = "http://github.com/sagiegurari/envmnt"
+repository = "https://github.com/sagiegurari/envmnt.git"
+readme = "README.md"
+keywords = ["environment", "build"]
+categories = ["config", "os"]
+include = [
+    "/benches/*",
+    "/docs/*",
+    "/examples/*",
+    "/src/*",
+    "/tests/*",
+    "/Cargo.toml",
+    "/LICENSE",
+    "/README.md",
+    "/Makefile.toml"
+]
+
+[badges.travis-ci]
+branch = "master"
+repository = "sagiegurari/envmnt"
+
+[badges.appveyor]
+repository = "sagiegurari/envmnt"
+service = "github"
+branch = "master"
+project_name = "sagiegurari/envmnt"
+
+[badges.codecov]
+branch = "master"
+repository = "sagiegurari/envmnt"
+service = "github"
