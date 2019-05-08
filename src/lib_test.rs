@@ -43,8 +43,8 @@ fn get_or_not_exists() {
 
 #[test]
 fn get_or_empty() {
-    env::set_var("TEST_LIB_GET_OR_EXISTS", "");
-    let output = get_or("TEST_LIB_GET_OR_EXISTS", "bad");
+    env::set_var("TEST_LIB_GET_OR_EMPTY", "");
+    let output = get_or("TEST_LIB_GET_OR_EMPTY", "bad");
     assert_eq!(output, "".to_string());
 }
 
