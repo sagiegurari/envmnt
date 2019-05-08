@@ -1,5 +1,5 @@
 #![feature(test)]
-extern crate ci_info;
+extern crate envmnt;
 extern crate test;
 
 use test::Bencher;

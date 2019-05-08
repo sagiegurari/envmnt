@@ -66,7 +66,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2019-05-07  | v0.1.0  | Initial release. |
+| 2019-05-08  | v0.1.0  | Initial release. |
 
 <a name="license"></a>
 ## License
