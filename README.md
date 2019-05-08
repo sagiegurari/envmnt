@@ -66,6 +66,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
+| 2019-05-08  | v0.1.1  | Added is_equal |
 | 2019-05-08  | v0.1.0  | Initial release. |
 
 <a name="license"></a>
