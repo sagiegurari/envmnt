@@ -246,8 +246,9 @@ pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
 /// Returns false if environment variable value if falsy.
 /// The value is falsy if it is one of the following:
 /// * Empty string
-/// * false (case insensitive)
-/// * 0
+/// * "false" (case insensitive)
+/// * "no" (case insensitive)
+/// * "0"
 /// Any other value is returned as true.
 ///
 /// # Arguments
