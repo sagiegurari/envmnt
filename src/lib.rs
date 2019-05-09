@@ -151,8 +151,11 @@
 #[path = "./lib_test.rs"]
 mod lib_test;
 
+mod bulk;
 mod environment;
 mod util;
+
+use std::ffi::OsStr;
 
 /// Returns true environment variable is defined.
 ///
@@ -171,7 +174,7 @@ mod util;
 ///     }
 /// }
 /// ```
-pub fn exists(key: &str) -> bool {
+pub fn exists<K: AsRef<OsStr>>(key: K) -> bool {
     environment::exists(key)
 }
 
@@ -192,7 +195,7 @@ pub fn exists(key: &str) -> bool {
 ///     envmnt::remove("MY_ENV_VAR");
 /// }
 /// ```
-pub fn remove(key: &str) {
+pub fn remove<K: AsRef<OsStr>>(key: K) {
     environment::remove(key)
 }
 
@@ -214,7 +217,7 @@ pub fn remove(key: &str) {
 ///     println!("Env Value: {:?}", &value);
 /// }
 /// ```
-pub fn get_remove(key: &str) -> Option<String> {
+pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
     environment::get_remove(key)
 }
 
@@ -237,15 +240,16 @@ pub fn get_remove(key: &str) -> Option<String> {
 ///     println!("Env Value: {}", &value);
 /// }
 /// ```
-pub fn get_or(key: &str, default_value: &str) -> String {
+pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
     environment::get_or(key, default_value)
 }
 
 /// Returns false if environment variable value if falsy.
 /// The value is falsy if it is one of the following:
 /// * Empty string
-/// * false (case insensitive)
-/// * 0
+/// * "false" (case insensitive)
+/// * "no" (case insensitive)
+/// * "0"
 /// Any other value is returned as true.
 ///
 /// # Arguments
@@ -265,7 +269,7 @@ pub fn get_or(key: &str, default_value: &str) -> String {
 ///     println!("Bool Flag: {}", &flag_value);
 /// }
 /// ```
-pub fn is_or(key: &str, default_value: bool) -> bool {
+pub fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
     environment::is_or(key, default_value)
 }
 
@@ -288,7 +292,7 @@ pub fn is_or(key: &str, default_value: bool) -> bool {
 ///     println!("Env Value: {}", &value);
 /// }
 /// ```
-pub fn set(key: &str, value: &str) {
+pub fn set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
     environment::set(key, value)
 }
 
@@ -311,7 +315,7 @@ pub fn set(key: &str, value: &str) {
 ///     println!("Bool Flag: {}", &flag_value);
 /// }
 /// ```
-pub fn set_bool(key: &str, value: bool) {
+pub fn set_bool<K: AsRef<OsStr>>(key: K, value: bool) {
     environment::set_bool(key, value)
 }
 
@@ -335,7 +339,7 @@ pub fn set_bool(key: &str, value: bool) {
 ///     println!("Previous Env Value: {:?}", &pre_value);
 /// }
 /// ```
-pub fn get_set(key: &str, value: &str) -> Option<String> {
+pub fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<String> {
     environment::get_set(key, value)
 }
 
@@ -358,6 +362,54 @@ pub fn get_set(key: &str, value: &str) -> Option<String> {
 ///     println!("Value Is Same: {}", &same);
 /// }
 /// ```
-pub fn is_equal(key: &str, value: &str) -> bool {
+pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     environment::is_equal(key, value)
+}
+
+/// Returns true if any of environment variables is defined.
+///
+/// # Arguments
+///
+/// * `keys` - The environment variable names
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let found = envmnt::is_any_exists(&vec![
+///         "ENV_VAR1",
+///         "ENV_VAR2",
+///     ]);
+///     
+///     println!("Any Found: {}", &found);
+/// }
+/// ```
+pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+    bulk::is_any_exists(keys)
+}
+
+/// Returns true if all of environment variables are defined.
+///
+/// # Arguments
+///
+/// * `keys` - The environment variable names
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let found = envmnt::is_all_exists(&vec![
+///         "ENV_VAR1",
+///         "ENV_VAR2",
+///     ]);
+///     
+///     println!("All Found: {}", &found);
+/// }
+/// ```
+pub fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+    bulk::is_all_exists(keys)
 }

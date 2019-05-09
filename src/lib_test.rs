@@ -189,3 +189,28 @@ fn is_equal_not_same() {
     let output = is_equal("TEST_LIB_IS_EQUAL_NOT_SAME", "2");
     assert!(!output);
 }
+
+#[test]
+fn is_any_exists_found() {
+    env::set_var("TEST_LIB_ANY_EXISTS_FOUND1", "EMPTY");
+
+    let found = is_any_exists(&vec![
+        "TEST_LIB_ANY_EXISTS_FOUND1",
+        "TEST_LIB_ANY_EXISTS_FOUND2",
+    ]);
+
+    assert!(found);
+}
+
+#[test]
+fn is_all_exists_found() {
+    env::set_var("TEST_LIB_ALL_EXISTS_FOUND1", "EMPTY");
+    env::set_var("TEST_LIB_ALL_EXISTS_FOUND2", "EMPTY");
+
+    let found = is_all_exists(&vec![
+        "TEST_LIB_ALL_EXISTS_FOUND1",
+        "TEST_LIB_ALL_EXISTS_FOUND2",
+    ]);
+
+    assert!(found);
+}

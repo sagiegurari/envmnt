@@ -9,21 +9,22 @@ mod environment_test;
 
 use crate::util;
 use std::env;
+use std::ffi::OsStr;
 
-pub(crate) fn exists(key: &str) -> bool {
+pub(crate) fn exists<K: AsRef<OsStr>>(key: K) -> bool {
     match env::var(key) {
         Ok(_) => true,
         _ => false,
     }
 }
 
-pub(crate) fn remove(key: &str) {
+pub(crate) fn remove<K: AsRef<OsStr>>(key: K) {
     env::remove_var(key)
 }
 
-pub(crate) fn get_remove(key: &str) -> Option<String> {
-    let pre_value = if exists(key) {
-        Some(get_or(key, ""))
+pub(crate) fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
+    let pre_value = if exists(&key) {
+        Some(get_or(&key, ""))
     } else {
         None
     };
@@ -33,14 +34,14 @@ pub(crate) fn get_remove(key: &str) -> Option<String> {
     pre_value
 }
 
-pub(crate) fn get_or(key: &str, default_value: &str) -> String {
+pub(crate) fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
     match env::var(key) {
         Ok(value) => value.to_string(),
         _ => default_value.to_string(),
     }
 }
 
-pub(crate) fn is_or(key: &str, default_value: bool) -> bool {
+pub(crate) fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
     let default_str = util::bool_to_string(default_value);
 
     let value = get_or(key, &default_str);
@@ -48,18 +49,18 @@ pub(crate) fn is_or(key: &str, default_value: bool) -> bool {
     util::string_to_bool(&value)
 }
 
-pub(crate) fn set(key: &str, value: &str) {
+pub(crate) fn set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
     env::set_var(&key, &value);
 }
 
-pub(crate) fn set_bool(key: &str, value: bool) {
+pub(crate) fn set_bool<K: AsRef<OsStr>>(key: K, value: bool) {
     let value_str = util::bool_to_string(value);
     set(key, &value_str);
 }
 
-pub(crate) fn get_set(key: &str, value: &str) -> Option<String> {
-    let pre_value = if exists(key) {
-        Some(get_or(key, ""))
+pub(crate) fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<String> {
+    let pre_value = if exists(&key) {
+        Some(get_or(&key, ""))
     } else {
         None
     };
@@ -69,9 +70,9 @@ pub(crate) fn get_set(key: &str, value: &str) -> Option<String> {
     pre_value
 }
 
-pub(crate) fn is_equal(key: &str, value: &str) -> bool {
-    if exists(key) {
-        let current_value = get_or(key, "");
+pub(crate) fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    if exists(&key) {
+        let current_value = get_or(&key, "");
 
         current_value == value
     } else {
