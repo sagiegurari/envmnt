@@ -151,6 +151,7 @@
 #[path = "./lib_test.rs"]
 mod lib_test;
 
+mod bulk;
 mod environment;
 mod util;
 
@@ -363,4 +364,52 @@ pub fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<Str
 /// ```
 pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     environment::is_equal(key, value)
+}
+
+/// Returns true if any of environment variables is defined.
+///
+/// # Arguments
+///
+/// * `keys` - The environment variable names
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let found = envmnt::is_any_exists(&vec![
+///         "ENV_VAR1",
+///         "ENV_VAR2",
+///     ]);
+///     
+///     println!("Any Found: {}", &found);
+/// }
+/// ```
+pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+    bulk::is_any_exists(keys)
+}
+
+/// Returns true if all of environment variables are defined.
+///
+/// # Arguments
+///
+/// * `keys` - The environment variable names
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let found = envmnt::is_all_exists(&vec![
+///         "ENV_VAR1",
+///         "ENV_VAR2",
+///     ]);
+///     
+///     println!("All Found: {}", &found);
+/// }
+/// ```
+pub fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+    bulk::is_all_exists(keys)
 }
