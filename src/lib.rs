@@ -108,6 +108,8 @@
 //!
 //! # Example
 //!
+//! ## Get/Set/Remove environment variables
+//!
 //! ```
 //! extern crate envmnt;
 //!
@@ -116,18 +118,62 @@
 //!         envmnt::set("MY_ENV_VAR", "SOME VALUE");
 //!     }
 //!
-//!     let value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
+//!     let mut value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
 //!     println!("Env Value: {}", &value);
 //!
-//!     envmnt::set_bool("FLAG_VAR", true);
-//!     let flag_value = envmnt::is_or("FLAG_VAR", false);
-//!     println!("Bool Flag: {}", &flag_value);
+//!     value = envmnt::get_or_panic("MY_ENV_VAR");
 //!
 //!     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
 //!
 //!     let value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
 //!     println!("New Env Value: {}", &value);
 //!     println!("Previous Env Value: {:?}", &pre_value);
+//!
+//!     let all_vars = envmnt::vars(); // returned as Vec<(String, String)>
+//!
+//!     for (key, value) in all_vars {
+//!         println!("{}: {}", key, value);
+//!     }
+//! }
+//! ```
+//!
+//! ## Get/Set boolean environment variables and other comparisons
+//!
+//! ```
+//! extern crate envmnt;
+//!
+//! fn main() {
+//!     envmnt::set_bool("FLAG_VAR", true);
+//!     let flag_value = envmnt::is_or("FLAG_VAR", false);
+//!     println!("Bool Flag: {}", &flag_value);
+//!
+//!     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
+//!
+//!     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+//!     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
+//!     println!("Value Is Same: {}", &same);
+//! }
+//! ```
+//!
+//! ## Bulk Operations
+//!
+//! ```
+//! extern crate envmnt;
+//!
+//! fn main() {
+//!     let mut found = envmnt::is_any_exists(&vec![
+//!         "ENV_VAR1",
+//!         "ENV_VAR2",
+//!     ]);
+//!
+//!     println!("Any Found: {}", &found);
+//!
+//!     found = envmnt::is_all_exists(&vec![
+//!         "ENV_VAR1",
+//!         "ENV_VAR2",
+//!     ]);
+//!
+//!     println!("All Found: {}", &found);
 //! }
 //! ```
 //!
