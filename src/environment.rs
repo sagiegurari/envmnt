@@ -74,6 +74,10 @@ pub(crate) fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Opt
     pre_value
 }
 
+pub(crate) fn vars() -> Vec<(String, String)> {
+    env::vars().collect()
+}
+
 pub(crate) fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     if exists(&key) {
         let current_value = get_or(&key, "");

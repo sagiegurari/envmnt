@@ -67,6 +67,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 **v0.3.0 (2019-05-10)**
 
 * Added new get_or_panic function #5
+* Added new get all args function #6
 
 **v0.2.0 (2019-05-09)**
 

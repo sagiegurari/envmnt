@@ -184,6 +184,12 @@ fn get_set_not_exists() {
 }
 
 #[test]
+fn vars_valid() {
+    let output = vars();
+    assert!(output.len() > 0);
+}
+
+#[test]
 fn is_equal_not_exists() {
     let output = is_equal("TEST_LIB_IS_EQUAL_NOT_EXISTS", "VALUE");
     assert!(!output);

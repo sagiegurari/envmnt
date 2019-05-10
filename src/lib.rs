@@ -366,6 +366,25 @@ pub fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<Str
     environment::get_set(key, value)
 }
 
+/// Returns all environment variables as a vector.
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let all_vars = envmnt::vars();
+///
+///     for (key, value) in all_vars {
+///         println!("{}: {}", key, value);
+///     }
+/// }
+/// ```
+pub fn vars() -> Vec<(String, String)> {
+    environment::vars()
+}
+
 /// Returns true if the provided environment variable is defined and equals the provided value.
 ///
 /// # Arguments

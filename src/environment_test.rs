@@ -182,6 +182,18 @@ fn get_set_not_exists() {
 }
 
 #[test]
+fn vars_valid() {
+    let output = vars();
+    assert!(output.len() > 0);
+
+    for (key, value) in output {
+        if !key.starts_with("TEST") {
+            assert!(is_equal(&key, &value));
+        }
+    }
+}
+
+#[test]
 fn is_equal_not_exists() {
     let output = is_equal("TEST_IS_EQUAL_NOT_EXISTS", "VALUE");
     assert!(!output);
