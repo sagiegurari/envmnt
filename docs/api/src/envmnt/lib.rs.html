@@ -413,6 +413,94 @@
 <span id="413">413</span>
 <span id="414">414</span>
 <span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">deny</span>(
     <span class="ident">absolute_paths_not_starting_with_crate</span>,
@@ -524,6 +612,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Example</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! ## Get/Set/Remove environment variables</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! extern crate envmnt;</span>
 <span class="doccomment">//!</span>
@@ -532,18 +622,62 @@
 <span class="doccomment">//!         envmnt::set(&quot;MY_ENV_VAR&quot;, &quot;SOME VALUE&quot;);</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let value = envmnt::get_or(&quot;MY_ENV_VAR&quot;, &quot;DEFAULT_VALUE&quot;);</span>
+<span class="doccomment">//!     let mut value = envmnt::get_or(&quot;MY_ENV_VAR&quot;, &quot;DEFAULT_VALUE&quot;);</span>
 <span class="doccomment">//!     println!(&quot;Env Value: {}&quot;, &amp;value);</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     envmnt::set_bool(&quot;FLAG_VAR&quot;, true);</span>
-<span class="doccomment">//!     let flag_value = envmnt::is_or(&quot;FLAG_VAR&quot;, false);</span>
-<span class="doccomment">//!     println!(&quot;Bool Flag: {}&quot;, &amp;flag_value);</span>
+<span class="doccomment">//!     value = envmnt::get_or_panic(&quot;MY_ENV_VAR&quot;);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let pre_value = envmnt::get_set(&quot;MY_ENV_VAR&quot;, &quot;SOME NEW VALUE&quot;);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let value = envmnt::get_or(&quot;MY_ENV_VAR&quot;, &quot;DEFAULT_VALUE&quot;);</span>
 <span class="doccomment">//!     println!(&quot;New Env Value: {}&quot;, &amp;value);</span>
 <span class="doccomment">//!     println!(&quot;Previous Env Value: {:?}&quot;, &amp;pre_value);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let all_vars = envmnt::vars(); // returned as Vec&lt;(String, String)&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     for (key, value) in all_vars {</span>
+<span class="doccomment">//!         println!(&quot;{}: {}&quot;, key, value);</span>
+<span class="doccomment">//!     }</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Get/Set boolean environment variables and other comparisons</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! extern crate envmnt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! fn main() {</span>
+<span class="doccomment">//!     envmnt::set_bool(&quot;FLAG_VAR&quot;, true);</span>
+<span class="doccomment">//!     let flag_value = envmnt::is_or(&quot;FLAG_VAR&quot;, false);</span>
+<span class="doccomment">//!     println!(&quot;Bool Flag: {}&quot;, &amp;flag_value);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let pre_value = envmnt::get_set(&quot;MY_ENV_VAR&quot;, &quot;SOME NEW VALUE&quot;);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     envmnt::set(&quot;MY_ENV_VAR&quot;, &quot;SOME VALUE&quot;);</span>
+<span class="doccomment">//!     let same = envmnt::is_equal(&quot;MY_ENV_VAR&quot;, &quot;SOME VALUE&quot;);</span>
+<span class="doccomment">//!     println!(&quot;Value Is Same: {}&quot;, &amp;same);</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Bulk Operations</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! extern crate envmnt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! fn main() {</span>
+<span class="doccomment">//!     let mut found = envmnt::is_any_exists(&amp;vec![</span>
+<span class="doccomment">//!         &quot;ENV_VAR1&quot;,</span>
+<span class="doccomment">//!         &quot;ENV_VAR2&quot;,</span>
+<span class="doccomment">//!     ]);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     println!(&quot;Any Found: {}&quot;, &amp;found);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     found = envmnt::is_all_exists(&amp;vec![</span>
+<span class="doccomment">//!         &quot;ENV_VAR1&quot;,</span>
+<span class="doccomment">//!         &quot;ENV_VAR2&quot;,</span>
+<span class="doccomment">//!     ]);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     println!(&quot;All Found: {}&quot;, &amp;found);</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -660,6 +794,29 @@
     <span class="ident">environment</span>::<span class="ident">get_or</span>(<span class="ident">key</span>, <span class="ident">default_value</span>)
 }
 
+<span class="doccomment">/// Returns the environment variable value.</span>
+<span class="doccomment">/// If the variable is not defined, this function will panic.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Arguments</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// * `key` - The environment variable name</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// extern crate envmnt;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// fn main() {</span>
+<span class="doccomment">///     envmnt::set(&quot;MY_ENV_VAR&quot;, &quot;SOME VALUE&quot;);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///     let value = envmnt::get_or_panic(&quot;MY_ENV_VAR&quot;);</span>
+<span class="doccomment">///     println!(&quot;Env Value: {}&quot;, &amp;value);</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_or_panic</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="ident">environment</span>::<span class="ident">get_or_panic</span>(<span class="ident">key</span>)
+}
+
 <span class="doccomment">/// Returns false if environment variable value if falsy.</span>
 <span class="doccomment">/// The value is falsy if it is one of the following:</span>
 <span class="doccomment">/// * Empty string</span>
@@ -759,6 +916,25 @@
     <span class="ident">environment</span>::<span class="ident">get_set</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
+<span class="doccomment">/// Returns all environment variables as a vector.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// extern crate envmnt;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// fn main() {</span>
+<span class="doccomment">///     let all_vars = envmnt::vars();</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///     for (key, value) in all_vars {</span>
+<span class="doccomment">///         println!(&quot;{}: {}&quot;, key, value);</span>
+<span class="doccomment">///     }</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vars</span>() <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    <span class="ident">environment</span>::<span class="ident">vars</span>()
+}
+
 <span class="doccomment">/// Returns true if the provided environment variable is defined and equals the provided value.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Arguments</span>
@@ -798,7 +974,7 @@
 <span class="doccomment">///         &quot;ENV_VAR1&quot;,</span>
 <span class="doccomment">///         &quot;ENV_VAR2&quot;,</span>
 <span class="doccomment">///     ]);</span>
-<span class="doccomment">///     </span>
+<span class="doccomment">///</span>
 <span class="doccomment">///     println!(&quot;Any Found: {}&quot;, &amp;found);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
@@ -822,7 +998,7 @@
 <span class="doccomment">///         &quot;ENV_VAR1&quot;,</span>
 <span class="doccomment">///         &quot;ENV_VAR2&quot;,</span>
 <span class="doccomment">///     ]);</span>
-<span class="doccomment">///     </span>
+<span class="doccomment">///</span>
 <span class="doccomment">///     println!(&quot;All Found: {}&quot;, &amp;found);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
