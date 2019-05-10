@@ -41,6 +41,10 @@ pub(crate) fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
     }
 }
 
+pub(crate) fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
+    env::var(key).unwrap()
+}
+
 pub(crate) fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
     let default_str = util::bool_to_string(default_value);
 

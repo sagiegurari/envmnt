@@ -244,6 +244,29 @@ pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
     environment::get_or(key, default_value)
 }
 
+/// Returns the environment variable value.
+/// If the variable is not defined, this function will panic.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///
+///     let value = envmnt::get_or_panic("MY_ENV_VAR");
+///     println!("Env Value: {}", &value);
+/// }
+/// ```
+pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
+    environment::get_or_panic(key)
+}
+
 /// Returns false if environment variable value if falsy.
 /// The value is falsy if it is one of the following:
 /// * Empty string
@@ -382,7 +405,7 @@ pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 ///         "ENV_VAR1",
 ///         "ENV_VAR2",
 ///     ]);
-///     
+///
 ///     println!("Any Found: {}", &found);
 /// }
 /// ```
@@ -406,7 +429,7 @@ pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
 ///         "ENV_VAR1",
 ///         "ENV_VAR2",
 ///     ]);
-///     
+///
 ///     println!("All Found: {}", &found);
 /// }
 /// ```

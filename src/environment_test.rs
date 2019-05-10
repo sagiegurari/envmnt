@@ -62,6 +62,26 @@ fn get_or_empty() {
 }
 
 #[test]
+fn get_or_panic_exists() {
+    env::set_var("TEST_GET_OR_PANIC_EXISTS", "EXISTS");
+    let output = get_or_panic("TEST_GET_OR_PANIC_EXISTS");
+    assert_eq!(output, "EXISTS".to_string());
+}
+
+#[test]
+#[should_panic]
+fn get_or_panic_not_exists() {
+    get_or_panic("TEST_GET_OR_PANIC_NOT_EXISTS");
+}
+
+#[test]
+fn get_or_panic_empty() {
+    env::set_var("TEST_GET_OR_PANIC_EMPTY", "");
+    let output = get_or_panic("TEST_GET_OR_PANIC_EMPTY");
+    assert_eq!(output, "".to_string());
+}
+
+#[test]
 fn is_or_false() {
     env::set_var("TEST_IS_OR_BOOL_FALSE", "false");
     let output = is_or("TEST_IS_OR_BOOL_FALSE", true);

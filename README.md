@@ -64,6 +64,10 @@ See [contributing guide](.github/CONTRIBUTING.md)
 <a name="history"></a>
 ## Release History
 
+**v0.3.0 (2019-05-10)**
+
+* Added new get_or_panic function #5
+
 **v0.2.0 (2019-05-09)**
 
 * Added bulk variables exists operations #3
