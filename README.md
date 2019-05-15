@@ -36,6 +36,7 @@ fn main() {
     println!("Env Value: {}", &value);
 
     value = envmnt::get_or_panic("MY_ENV_VAR");
+    println!("Env Value: {}", &value);
 
     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
 
@@ -62,6 +63,7 @@ fn main() {
     println!("Bool Flag: {}", &flag_value);
 
     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
+    println!("Pre Value Exists: {}", &pre_value.is_some());
 
     envmnt::set("MY_ENV_VAR", "SOME VALUE");
     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
@@ -73,21 +75,47 @@ fn main() {
 
 ```rust
 extern crate envmnt;
+extern crate indexmap;
+
+use indexmap::IndexMap;
 
 fn main() {
-    let mut found = envmnt::is_any_exists(&vec![
-        "ENV_VAR1",
-        "ENV_VAR2",
-    ]);
+    let mut env: IndexMap<String, String> = IndexMap::new();
+    env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
+    env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
+
+    envmnt::set_all(&env);
+
+    let value = envmnt::get_or_panic("ENV_VAR1");
+    println!("Value Is: {}", &value);
+
+    let mut found = envmnt::is_any_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 
     println!("Any Found: {}", &found);
 
-    found = envmnt::is_all_exists(&vec![
-        "ENV_VAR1",
-        "ENV_VAR2",
-    ]);
+    found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 
     println!("All Found: {}", &found);
+}
+```
+
+**File Operations**
+
+```rust
+extern crate envmnt;
+
+fn main() {
+    let mut output = envmnt::load_file("./src/test/var.env");
+    assert!(output.is_ok());
+
+    let eval_env = |value: String| {
+        let mut buffer = String::from("PREFIX-");
+        buffer.push_str(&value);
+        buffer
+    };
+
+    output = envmnt::evaluate_and_load_file("./src/test/var.env", eval_env);
+    assert!(output.is_ok());
 }
 ```
 

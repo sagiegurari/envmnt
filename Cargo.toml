@@ -22,6 +22,10 @@ include = [
     "/Makefile.toml"
 ]
 
+[dependencies]
+failure = "^0.1"
+indexmap = "^1.0"
+
 [badges.travis-ci]
 branch = "master"
 repository = "sagiegurari/envmnt"

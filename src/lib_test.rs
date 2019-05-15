@@ -210,6 +210,20 @@ fn is_equal_not_same() {
 }
 
 #[test]
+fn set_all_valid() {
+    let mut env: IndexMap<String, String> = IndexMap::new();
+    env.insert("MY_ENV_VAR".to_string(), "MY VALUE".to_string());
+    env.insert("MY_ENV_VAR2".to_string(), "MY VALUE2".to_string());
+
+    set_all(&env);
+
+    let mut output = is_equal("MY_ENV_VAR", "MY VALUE");
+    assert!(output);
+    output = is_equal("MY_ENV_VAR2", "MY VALUE2");
+    assert!(output);
+}
+
+#[test]
 fn is_any_exists_found() {
     env::set_var("TEST_LIB_ANY_EXISTS_FOUND1", "EMPTY");
 
@@ -232,4 +246,36 @@ fn is_all_exists_found() {
     ]);
 
     assert!(found);
+}
+
+#[test]
+fn load_file_valid() {
+    let output = load_file("./src/test/var.env");
+
+    assert!(output.is_ok());
+
+    assert_eq!(get_or_panic("var1"), "value1");
+    assert_eq!(get_or_panic("var2"), "value2");
+    assert_eq!(get_or_panic("var3"), "==value3==");
+}
+
+#[test]
+fn evaluate_and_load_file_no_evaluation() {
+    let output = evaluate_and_load_file("./src/test/var.env", file::empty_evaluate_fn);
+
+    assert!(output.is_ok());
+
+    assert_eq!(get_or_panic("var1"), "value1");
+    assert_eq!(get_or_panic("var2"), "value2");
+    assert_eq!(get_or_panic("var3"), "==value3==");
+}
+
+#[test]
+fn parse_file_valid() {
+    let output = parse_file("./src/test/parse.env").unwrap();
+
+    assert!(output.len() == 3);
+    assert_eq!(output.get("key1").unwrap(), "value1");
+    assert_eq!(output.get("key2").unwrap(), "value2");
+    assert_eq!(output.get("key3").unwrap(), "==value3==");
 }

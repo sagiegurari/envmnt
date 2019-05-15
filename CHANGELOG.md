@@ -1,5 +1,12 @@
 ## CHANGELOG
 
+### v0.3.1
+
+* Added new set_all function
+* Added new load_file function #7
+* Added new evaluate_and_load_file function #7
+* Added new parse_file function #7
+
 ### v0.3.0 (2019-05-10)
 
 * Added new get_or_panic function #5
