@@ -1,7 +1,6 @@
 use super::*;
 
 use crate::environment;
-use std::io::ErrorKind;
 
 #[test]
 fn load_file_valid() {
@@ -21,7 +20,10 @@ fn load_file_not_found() {
     assert!(output.is_err());
 
     match output {
-        Err(error) => assert!(error.to_string().contains("./src/test/bad.env")),
+        Err(error) => match error.info {
+            ErrorInfo::FileNotFound(_) => (),
+            _ => panic!("Invalid Case"),
+        },
         _ => panic!("Invalid Case"),
     };
 }
@@ -61,7 +63,10 @@ fn evaluate_and_load_file_not_found() {
     assert!(output.is_err());
 
     match output {
-        Err(error) => assert!(error.to_string().contains("./src/test/bad.env")),
+        Err(error) => match error.info {
+            ErrorInfo::FileNotFound(_) => (),
+            _ => panic!("Invalid Case"),
+        },
         _ => panic!("Invalid Case"),
     };
 }
@@ -83,17 +88,22 @@ fn parse_file_not_found() {
     assert!(output.is_err());
 
     match output {
-        Err(error) => assert!(error.to_string().contains("./src/test/bad.env")),
+        Err(error) => match error.info {
+            ErrorInfo::FileNotFound(_) => (),
+            _ => panic!("Invalid Case"),
+        },
         _ => panic!("Invalid Case"),
     };
 }
 
 #[test]
 fn create_file_open_error_valid() {
-    let io_error = Error::new(ErrorKind::Other, "test");
-    let output = create_file_open_error("./src/test/bad.env", io_error);
+    let error = create_file_open_error();
 
-    assert!(output.to_string().contains("./src/test/bad.env"));
+    match error.info {
+        ErrorInfo::FileOpen(_) => (),
+        _ => panic!("Invalid Case"),
+    };
 }
 
 #[test]

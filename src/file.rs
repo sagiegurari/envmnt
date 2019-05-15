@@ -8,10 +8,10 @@
 mod file_test;
 
 use crate::environment;
-use crate::types::EnvmntError;
+use crate::types::{EnvmntError, ErrorInfo};
 use indexmap::IndexMap;
 use std::fs::File;
-use std::io::{Error, Read};
+use std::io::Read;
 use std::path::Path;
 
 pub(crate) fn empty_evaluate_fn(value: String) -> String {
@@ -53,19 +53,18 @@ pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntE
 
                 Ok(env)
             }
-            Err(error) => Err(create_file_open_error(file, error)),
+            Err(_) => Err(create_file_open_error()),
         }
     } else {
-        Err(EnvmntError::FileNotFound {
-            file: file.to_string(),
+        Err(EnvmntError {
+            info: ErrorInfo::FileNotFound("File Not Found."),
         })
     }
 }
 
-fn create_file_open_error(file: &str, error: Error) -> EnvmntError {
-    EnvmntError::FileOpen {
-        file: file.to_string(),
-        cause: error,
+fn create_file_open_error() -> EnvmntError {
+    EnvmntError {
+        info: ErrorInfo::FileOpen("Unable To Open File."),
     }
 }
 

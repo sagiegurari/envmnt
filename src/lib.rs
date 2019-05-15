@@ -225,7 +225,6 @@
 #[path = "./lib_test.rs"]
 mod lib_test;
 
-extern crate failure;
 extern crate indexmap;
 
 mod bulk;
