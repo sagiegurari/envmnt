@@ -23,7 +23,6 @@ include = [
 ]
 
 [dependencies]
-failure = "^0.1"
 indexmap = "^1.0"
 
 [badges.travis-ci]
