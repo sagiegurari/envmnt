@@ -124,9 +124,9 @@ fn is_or_empty() {
 }
 
 #[test]
-fn is_or_else() {
-    env::set_var("TEST_IS_OR_BOOL_ELSE", "true");
-    let output = is_or("TEST_IS_OR_BOOL_ELSE", false);
+fn is_or_true() {
+    env::set_var("TEST_IS_OR_BOOL_TRUE", "true");
+    let output = is_or("TEST_IS_OR_BOOL_TRUE", false);
     assert!(output);
 }
 
@@ -139,6 +139,33 @@ fn is_or_default_true() {
 #[test]
 fn is_or_default_false() {
     let output = is_or("TEST_IS_OR_BOOL_NO_EXISTS_FALSE", false);
+    assert!(!output);
+}
+
+#[test]
+fn is_false() {
+    env::set_var("TEST_IS_BOOL_FALSE", "false");
+    let output = is("TEST_IS_BOOL_FALSE");
+    assert!(!output);
+}
+
+#[test]
+fn is_empty() {
+    env::set_var("TEST_IS_BOOL_EMPTY", "");
+    let output = is("TEST_IS_BOOL_EMPTY");
+    assert!(!output);
+}
+
+#[test]
+fn is_true() {
+    env::set_var("TEST_IS_BOOL_TRUE", "true");
+    let output = is("TEST_IS_BOOL_TRUE");
+    assert!(output);
+}
+
+#[test]
+fn is_undefined() {
+    let output = is("TEST_IS_BOOL_UNDEFINED");
     assert!(!output);
 }
 

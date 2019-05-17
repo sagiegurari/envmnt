@@ -53,6 +53,10 @@ pub(crate) fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
     util::string_to_bool(&value)
 }
 
+pub(crate) fn is<K: AsRef<OsStr>>(key: K) -> bool {
+    is_or(&key, false)
+}
+
 pub(crate) fn set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
     env::set_var(&key, &value);
 }

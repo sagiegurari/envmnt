@@ -136,6 +136,33 @@ fn is_or_default_false() {
 }
 
 #[test]
+fn is_false() {
+    env::set_var("TEST_LIB_IS_BOOL_FALSE", "false");
+    let output = is("TEST_LIB_IS_BOOL_FALSE");
+    assert!(!output);
+}
+
+#[test]
+fn is_empty() {
+    env::set_var("TEST_LIB_IS_BOOL_EMPTY", "");
+    let output = is("TEST_LIB_IS_BOOL_EMPTY");
+    assert!(!output);
+}
+
+#[test]
+fn is_true() {
+    env::set_var("TEST_LIB_IS_BOOL_TRUE", "true");
+    let output = is("TEST_LIB_IS_BOOL_TRUE");
+    assert!(output);
+}
+
+#[test]
+fn is_undefined() {
+    let output = is("TEST_LIB_IS_BOOL_UNDEFINED");
+    assert!(!output);
+}
+
+#[test]
 fn set_value() {
     set("TEST_LIB_SET_VALUE", "SIMPLE");
     assert_eq!(
