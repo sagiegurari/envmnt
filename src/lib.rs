@@ -229,11 +229,11 @@ extern crate indexmap;
 
 mod bulk;
 mod environment;
+mod errors;
 mod file;
-mod types;
 mod util;
 
-use crate::types::EnvmntError;
+use crate::errors::EnvmntError;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
 

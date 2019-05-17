@@ -19,13 +19,9 @@ fn load_file_not_found() {
 
     assert!(output.is_err());
 
-    match output {
-        Err(error) => match error.info {
-            ErrorInfo::FileNotFound(_) => (),
-            _ => panic!("Invalid Case"),
-        },
-        _ => panic!("Invalid Case"),
-    };
+    let error = output.err().unwrap();
+
+    assert!(error.is_file_not_found());
 }
 
 #[test]
@@ -62,13 +58,9 @@ fn evaluate_and_load_file_not_found() {
 
     assert!(output.is_err());
 
-    match output {
-        Err(error) => match error.info {
-            ErrorInfo::FileNotFound(_) => (),
-            _ => panic!("Invalid Case"),
-        },
-        _ => panic!("Invalid Case"),
-    };
+    let error = output.err().unwrap();
+
+    assert!(error.is_file_not_found());
 }
 
 #[test]
@@ -87,23 +79,16 @@ fn parse_file_not_found() {
 
     assert!(output.is_err());
 
-    match output {
-        Err(error) => match error.info {
-            ErrorInfo::FileNotFound(_) => (),
-            _ => panic!("Invalid Case"),
-        },
-        _ => panic!("Invalid Case"),
-    };
+    let error = output.err().unwrap();
+
+    assert!(error.is_file_not_found());
 }
 
 #[test]
 fn create_file_open_error_valid() {
     let error = create_file_open_error();
 
-    match error.info {
-        ErrorInfo::FileOpen(_) => (),
-        _ => panic!("Invalid Case"),
-    };
+    assert!(error.is_file_open());
 }
 
 #[test]

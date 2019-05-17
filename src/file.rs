@@ -8,7 +8,7 @@
 mod file_test;
 
 use crate::environment;
-use crate::types::{EnvmntError, ErrorInfo};
+use crate::errors::{EnvmntError, ErrorInfo};
 use indexmap::IndexMap;
 use std::fs::File;
 use std::io::Read;

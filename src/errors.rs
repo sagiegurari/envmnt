@@ -1,7 +1,11 @@
-//! # types
+//! # errors
 //!
-//! Common library types.
+//! Common library errors.
 //!
+
+#[cfg(test)]
+#[path = "./errors_test.rs"]
+mod errors_test;
 
 use std::error::Error;
 use std::fmt;
@@ -31,11 +35,6 @@ impl Error for EnvmntError {
             ErrorInfo::FileOpen(description) => description,
         }
     }
-
-    /// The lower-level cause of this error, if any.
-    fn cause(&self) -> Option<&Error> {
-        None
-    }
 }
 
 impl Display for EnvmntError {
@@ -44,6 +43,22 @@ impl Display for EnvmntError {
         match self.info {
             ErrorInfo::FileNotFound(ref file) => file.fmt(format),
             ErrorInfo::FileOpen(ref file) => file.fmt(format),
+        }
+    }
+}
+
+impl EnvmntError {
+    pub fn is_file_not_found(&self) -> bool {
+        match self.info {
+            ErrorInfo::FileNotFound(_) => true,
+            _ => false,
+        }
+    }
+
+    pub fn is_file_open(&self) -> bool {
+        match self.info {
+            ErrorInfo::FileOpen(_) => true,
+            _ => false,
         }
     }
 }
