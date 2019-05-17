@@ -1,16 +1,20 @@
 ## CHANGELOG
 
+### v0.3.2
+
+* Added new **is** function
+*
 ### v0.3.1 (2019-05-17)
 
-* Added new set_all function
-* Added new load_file function #7
-* Added new evaluate_and_load_file function #7
-* Added new parse_file function #7
+* Added new **set_all** function
+* Added new **load_file** function #7
+* Added new **evaluate_and_load_file** function #7
+* Added new **parse_fil**e function #7
 
 ### v0.3.0 (2019-05-10)
 
-* Added new get_or_panic function #5
-* Added new get all args function #6
+* Added new **get_or_panic** function #5
+* Added new **get all args** function #6
 
 ### v0.2.0 (2019-05-09)
 
@@ -20,7 +24,7 @@
 
 ### v0.1.1 (2019-05-08)
 
-* Added 'is_equal' function
+* Added **is_equal** function
 
 ### v0.1.0 (2019-05-08)
 
