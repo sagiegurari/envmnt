@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.3.1
+### v0.3.1 (2019-05-17)
 
 * Added new set_all function
 * Added new load_file function #7

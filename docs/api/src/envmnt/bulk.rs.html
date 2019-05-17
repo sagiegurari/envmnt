@@ -37,6 +37,13 @@
 <span id="37">37</span>
 <span id="38">38</span>
 <span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # bulk</span>
 <span class="doccomment">//!</span>
@@ -48,7 +55,14 @@
 <span class="kw">mod</span> <span class="ident">bulk_test</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">environment</span>;
+<span class="kw">use</span> <span class="ident">indexmap</span>::<span class="ident">IndexMap</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span>;
+
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">set_all</span>(<span class="ident">env</span>: <span class="kw-2">&amp;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) {
+    <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">env</span>.<span class="ident">iter</span>() {
+        <span class="ident">environment</span>::<span class="ident">set</span>(<span class="ident">key</span>, <span class="ident">value</span>);
+    }
+}
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_any_exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found</span> <span class="op">=</span> <span class="bool-val">false</span>;
