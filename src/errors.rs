@@ -17,7 +17,7 @@ pub enum ErrorInfo {
     /// File not found error
     FileNotFound(&'static str),
     /// File open error
-    FileOpen(Error),
+    FileOpen(&'static str),
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -32,15 +32,7 @@ impl Error for EnvmntError {
     fn description(&self) -> &str {
         match self.info {
             ErrorInfo::FileNotFound(description) => description,
-            ErrorInfo::FileOpen(ref cause) => cause.description(),
-        }
-    }
-
-    /// The lower-level cause of this error, if any.
-    fn cause(&self) -> Option<&error::Error> {
-        match self.info {
-            ErrorInfo::FileOpen(ref cause) => Some(cause),
-            _ => None,
+            ErrorInfo::FileOpen(description) => description,
         }
     }
 }
@@ -49,8 +41,8 @@ impl Display for EnvmntError {
     /// Formats the value using the given formatter.
     fn fmt(&self, format: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         match self.info {
-            ErrorInfo::FileNotFound(ref file) => file.fmt("File: {} not found.", format),
-            ErrorInfo::FileOpen(ref cause) => cause.fmt(format),
+            ErrorInfo::FileNotFound(ref file) => file.fmt(format),
+            ErrorInfo::FileOpen(ref file) => file.fmt(format),
         }
     }
 }
