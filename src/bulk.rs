@@ -8,7 +8,14 @@
 mod bulk_test;
 
 use crate::environment;
+use indexmap::IndexMap;
 use std::ffi::OsStr;
+
+pub(crate) fn set_all(env: &IndexMap<String, String>) {
+    for (key, value) in env.iter() {
+        environment::set(key, value);
+    }
+}
 
 pub(crate) fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
     let mut found = false;

@@ -122,6 +122,7 @@
 //!     println!("Env Value: {}", &value);
 //!
 //!     value = envmnt::get_or_panic("MY_ENV_VAR");
+//!     println!("Env Value: {}", &value);
 //!
 //!     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
 //!
@@ -148,6 +149,7 @@
 //!     println!("Bool Flag: {}", &flag_value);
 //!
 //!     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
+//!     println!("Pre Value Exists: {}", &pre_value.is_some());
 //!
 //!     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 //!     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
@@ -159,21 +161,47 @@
 //!
 //! ```
 //! extern crate envmnt;
+//! extern crate indexmap;
+//!
+//! use indexmap::IndexMap;
 //!
 //! fn main() {
-//!     let mut found = envmnt::is_any_exists(&vec![
-//!         "ENV_VAR1",
-//!         "ENV_VAR2",
-//!     ]);
+//!     let mut env: IndexMap<String, String> = IndexMap::new();
+//!     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
+//!     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
+//!
+//!     envmnt::set_all(&env);
+//!
+//!     let value = envmnt::get_or_panic("ENV_VAR1");
+//!     println!("Value Is: {}", &value);
+//!
+//!     let mut found = envmnt::is_any_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 //!
 //!     println!("Any Found: {}", &found);
 //!
-//!     found = envmnt::is_all_exists(&vec![
-//!         "ENV_VAR1",
-//!         "ENV_VAR2",
-//!     ]);
+//!     found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 //!
 //!     println!("All Found: {}", &found);
+//! }
+//! ```
+//!
+//! ## File Operations
+//!
+//! ```
+//! extern crate envmnt;
+//!
+//! fn main() {
+//!     let mut output = envmnt::load_file("./src/test/var.env");
+//!     assert!(output.is_ok());
+//!
+//!     let eval_env = |value: String| {
+//!         let mut buffer = String::from("PREFIX-");
+//!         buffer.push_str(&value);
+//!         buffer
+//!     };
+//!
+//!     output = envmnt::evaluate_and_load_file("./src/test/var.env", eval_env);
+//!     assert!(output.is_ok());
 //! }
 //! ```
 //!
@@ -197,10 +225,16 @@
 #[path = "./lib_test.rs"]
 mod lib_test;
 
+extern crate indexmap;
+
 mod bulk;
 mod environment;
+mod errors;
+mod file;
 mod util;
 
+use crate::errors::EnvmntError;
+use indexmap::IndexMap;
 use std::ffi::OsStr;
 
 /// Returns true environment variable is defined.
@@ -217,6 +251,7 @@ use std::ffi::OsStr;
 /// fn main() {
 ///     if !envmnt::exists("MY_ENV_VAR") {
 ///         envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///         assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
 ///     }
 /// }
 /// ```
@@ -237,8 +272,10 @@ pub fn exists<K: AsRef<OsStr>>(key: K) -> bool {
 ///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
 ///
 ///     envmnt::remove("MY_ENV_VAR");
+///     assert!(!envmnt::exists("MY_ENV_VAR"));
 /// }
 /// ```
 pub fn remove<K: AsRef<OsStr>>(key: K) {
@@ -258,9 +295,11 @@ pub fn remove<K: AsRef<OsStr>>(key: K) {
 ///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
 ///
 ///     let value = envmnt::get_remove("MY_ENV_VAR");
-///     println!("Env Value: {:?}", &value);
+///     assert!(!envmnt::exists("MY_ENV_VAR"));
+///     assert_eq!(value.unwrap(), "SOME VALUE");
 /// }
 /// ```
 pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
@@ -281,9 +320,13 @@ pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
 ///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
 ///
-///     let value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
-///     println!("Env Value: {}", &value);
+///     let mut value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
+///     assert_eq!(value, "SOME VALUE");
+///
+///     value = envmnt::get_or("ANOTHER_ENV_VAR", "DEFAULT_VALUE");
+///     assert_eq!(value, "DEFAULT_VALUE");
 /// }
 /// ```
 pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
@@ -304,9 +347,10 @@ pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
 ///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
 ///
 ///     let value = envmnt::get_or_panic("MY_ENV_VAR");
-///     println!("Env Value: {}", &value);
+///     assert_eq!(value, "SOME VALUE");
 /// }
 /// ```
 pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
@@ -333,9 +377,10 @@ pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
 ///
 /// fn main() {
 ///     envmnt::set_bool("FLAG_VAR", true);
+///     assert!(envmnt::is_equal("FLAG_VAR", "true"));
 ///
 ///     let flag_value = envmnt::is_or("FLAG_VAR", false);
-///     println!("Bool Flag: {}", &flag_value);
+///     assert!(flag_value);
 /// }
 /// ```
 pub fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
@@ -356,9 +401,10 @@ pub fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
 ///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
 ///
 ///     let value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
-///     println!("Env Value: {}", &value);
+///     assert_eq!(value, "SOME VALUE");
 /// }
 /// ```
 pub fn set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
@@ -379,9 +425,10 @@ pub fn set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
 ///
 /// fn main() {
 ///     envmnt::set_bool("FLAG_VAR", true);
+///     assert!(envmnt::is_equal("FLAG_VAR", "true"));
 ///
 ///     let flag_value = envmnt::is_or("FLAG_VAR", false);
-///     println!("Bool Flag: {}", &flag_value);
+///     assert!(flag_value);
 /// }
 /// ```
 pub fn set_bool<K: AsRef<OsStr>>(key: K, value: bool) {
@@ -401,11 +448,14 @@ pub fn set_bool<K: AsRef<OsStr>>(key: K, value: bool) {
 /// extern crate envmnt;
 ///
 /// fn main() {
-///     let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME VALUE");
+///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
+///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
+///
+///     let pre_value = envmnt::get_set("MY_ENV_VAR", "NEW VALUE");
 ///
 ///     let value = envmnt::get_or("MY_ENV_VAR", "DEFAULT_VALUE");
-///     println!("New Env Value: {}", &value);
-///     println!("Previous Env Value: {:?}", &pre_value);
+///     assert_eq!(value, "NEW VALUE");
+///     assert_eq!(pre_value.unwrap(), "SOME VALUE");
 /// }
 /// ```
 pub fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<String> {
@@ -447,11 +497,42 @@ pub fn vars() -> Vec<(String, String)> {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///
 ///     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
-///     println!("Value Is Same: {}", &same);
+///     assert!(same);
 /// }
 /// ```
 pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     environment::is_equal(key, value)
+}
+
+/// Sets all the provided env key/value pairs.
+///
+/// # Arguments
+///
+/// * `env` - The environment variables to set
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+/// extern crate indexmap;
+///
+/// use indexmap::IndexMap;
+///
+/// fn main() {
+///     let mut env: IndexMap<String, String> = IndexMap::new();
+///     env.insert("MY_ENV_VAR".to_string(), "MY VALUE".to_string());
+///     env.insert("MY_ENV_VAR2".to_string(), "MY VALUE2".to_string());
+///
+///     envmnt::set_all(&env);
+///
+///     let mut value = envmnt::get_or_panic("MY_ENV_VAR");
+///     assert_eq!(value, "MY VALUE");
+///     value = envmnt::get_or_panic("MY_ENV_VAR2");
+///     assert_eq!(value, "MY VALUE2");
+/// }
+/// ```
+pub fn set_all(env: &IndexMap<String, String>) {
+    bulk::set_all(&env);
 }
 
 /// Returns true if any of environment variables is defined.
@@ -466,12 +547,15 @@ pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 /// extern crate envmnt;
 ///
 /// fn main() {
+///     envmnt::set("ENV_VAR1", "SOME VALUE");
+///     envmnt::remove("ENV_VAR2");
+///
 ///     let found = envmnt::is_any_exists(&vec![
 ///         "ENV_VAR1",
 ///         "ENV_VAR2",
 ///     ]);
 ///
-///     println!("Any Found: {}", &found);
+///     assert!(found);
 /// }
 /// ```
 pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
@@ -490,14 +574,99 @@ pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
 /// extern crate envmnt;
 ///
 /// fn main() {
-///     let found = envmnt::is_all_exists(&vec![
+///     envmnt::set("ENV_VAR1", "SOME VALUE");
+///     envmnt::set("ENV_VAR2", "SOME VALUE");
+///
+///     let mut found = envmnt::is_all_exists(&vec![
 ///         "ENV_VAR1",
 ///         "ENV_VAR2",
 ///     ]);
 ///
-///     println!("All Found: {}", &found);
+///     assert!(found);
+///
+///     envmnt::remove("ENV_VAR2");
+///
+///     found = envmnt::is_all_exists(&vec![
+///         "ENV_VAR1",
+///         "ENV_VAR2",
+///     ]);
+///
+///     assert!(!found);
 /// }
 /// ```
 pub fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
     bulk::is_all_exists(keys)
+}
+
+/// Parses the provided env file and loads all environment variables.
+///
+/// # Arguments
+///
+/// * `file` - The file path to load and parse
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let output = envmnt::load_file("./src/test/var.env");
+///
+///     assert!(output.is_ok());
+/// }
+/// ```
+pub fn load_file(file: &str) -> Result<(), EnvmntError> {
+    file::load_file(file)
+}
+
+/// Parses the provided env file and loads all environment variables.
+///
+/// # Arguments
+///
+/// * `file` - The file path to load and parse
+/// * `evaluate` - Evalute function which will modify the read value before it is loaded into the environment
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let eval_env = |value: String| {
+///         let mut buffer = String::from("PREFIX-");
+///         buffer.push_str(&value);
+///         buffer
+///     };
+///
+///     let output = envmnt::evaluate_and_load_file("./src/test/var.env", eval_env);
+///
+///     assert!(output.is_ok());
+/// }
+/// ```
+pub fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> Result<(), EnvmntError>
+where
+    F: Fn(String) -> String,
+{
+    file::evaluate_and_load_file(file, evaluate)
+}
+
+/// Parses the provided env file and returns its content as a map of key/value.
+///
+/// # Arguments
+///
+/// * `file` - The file path to load and parse
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let env = envmnt::parse_file("./src/test/var.env").unwrap();
+///
+///     println!("Parsed Env: {:?}", &env);
+/// }
+/// ```
+pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
+    file::parse_file(file)
 }

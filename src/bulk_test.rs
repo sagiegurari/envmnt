@@ -3,6 +3,20 @@ use super::*;
 use std::env;
 
 #[test]
+fn set_all_valid() {
+    let mut env: IndexMap<String, String> = IndexMap::new();
+    env.insert("MY_ENV_VAR".to_string(), "MY VALUE".to_string());
+    env.insert("MY_ENV_VAR2".to_string(), "MY VALUE2".to_string());
+
+    set_all(&env);
+
+    let mut output = environment::is_equal("MY_ENV_VAR", "MY VALUE");
+    assert!(output);
+    output = environment::is_equal("MY_ENV_VAR2", "MY VALUE2");
+    assert!(output);
+}
+
+#[test]
 fn is_any_exists_empty() {
     let vars: Vec<String> = vec![];
     let found = is_any_exists(&vars);
