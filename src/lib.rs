@@ -185,6 +185,21 @@
 //!     found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 //!
 //!     println!("All Found: {}", &found);
+//!
+//!     env = IndexMap::new();
+//!     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
+//!     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
+//!
+//!     let eval_env = |value: String| {
+//!         let mut buffer = String::from("VALUE-");
+//!         buffer.push_str(&value);
+//!         buffer
+//!     };
+//!
+//!     envmnt::evaluate_and_set_all(&env, eval_env);
+//!
+//!     let value = envmnt::get_or_panic("ENV_VAR1");
+//!     println!("Value Is: {}", &value);
 //! }
 //! ```
 //!
@@ -566,6 +581,47 @@ pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 /// ```
 pub fn set_all(env: &IndexMap<String, String>) {
     bulk::set_all(&env);
+}
+
+/// Sets all the provided env key/value pairs.
+///
+/// # Arguments
+///
+/// * `env` - The environment variables to set
+/// * `evaluate` - Evalute function which will modify the read value before it is loaded into the environment
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+/// extern crate indexmap;
+///
+/// use indexmap::IndexMap;
+///
+/// fn main() {
+///     let mut env: IndexMap<String, String> = IndexMap::new();
+///     env.insert("MY_ENV_VAR".to_string(), "MY VALUE".to_string());
+///     env.insert("MY_ENV_VAR2".to_string(), "MY VALUE2".to_string());
+///
+///     let eval_env = |value: String| {
+///         let mut buffer = String::from("VALUE-");
+///         buffer.push_str(&value);
+///         buffer
+///     };
+///
+///     envmnt::evaluate_and_set_all(&env, eval_env);
+///
+///     let mut value = envmnt::get_or_panic("MY_ENV_VAR");
+///     assert_eq!(value, "VALUE-MY VALUE");
+///     value = envmnt::get_or_panic("MY_ENV_VAR2");
+///     assert_eq!(value, "VALUE-MY VALUE2");
+/// }
+/// ```
+pub fn evaluate_and_set_all<F>(env: &IndexMap<String, String>, evaluate: F)
+where
+    F: Fn(String) -> String,
+{
+    bulk::evaluate_and_set_all(&env, evaluate);
 }
 
 /// Returns true if any of environment variables is defined.

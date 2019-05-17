@@ -7,7 +7,7 @@
 #[path = "./file_test.rs"]
 mod file_test;
 
-use crate::environment;
+use crate::bulk;
 use crate::errors::{EnvmntError, ErrorInfo};
 use indexmap::IndexMap;
 use std::fs::File;
@@ -28,11 +28,7 @@ where
 {
     match parse_file(file) {
         Ok(env) => {
-            for (key, value) in env.iter() {
-                let evaluated_value = evaluate(value.to_string());
-
-                environment::set(key.to_string(), evaluated_value);
-            }
+            bulk::evaluate_and_set_all(&env, evaluate);
 
             Ok(())
         }

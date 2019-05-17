@@ -3,6 +3,7 @@
 ### v0.3.2
 
 * Added new **is** function
+* Added new **evaluate_and_set_all** function
 *
 ### v0.3.1 (2019-05-17)
 

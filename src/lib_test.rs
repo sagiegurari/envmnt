@@ -239,14 +239,40 @@ fn is_equal_not_same() {
 #[test]
 fn set_all_valid() {
     let mut env: IndexMap<String, String> = IndexMap::new();
-    env.insert("MY_ENV_VAR".to_string(), "MY VALUE".to_string());
-    env.insert("MY_ENV_VAR2".to_string(), "MY VALUE2".to_string());
+    env.insert("TEST_LIB_SET_ALL_VAR1".to_string(), "MY VALUE".to_string());
+    env.insert("TEST_LIB_SET_ALL_VAR2".to_string(), "MY VALUE2".to_string());
 
     set_all(&env);
 
-    let mut output = is_equal("MY_ENV_VAR", "MY VALUE");
+    let mut output = environment::is_equal("TEST_LIB_SET_ALL_VAR1", "MY VALUE");
     assert!(output);
-    output = is_equal("MY_ENV_VAR2", "MY VALUE2");
+    output = environment::is_equal("TEST_LIB_SET_ALL_VAR2", "MY VALUE2");
+    assert!(output);
+}
+
+#[test]
+fn evaluate_and_set_all_valid() {
+    let mut env: IndexMap<String, String> = IndexMap::new();
+    env.insert(
+        "TEST_LIB_EVAL_AND_SET_ALL_VAR1".to_string(),
+        "MY VALUE".to_string(),
+    );
+    env.insert(
+        "TEST_LIB_EVAL_AND_SET_ALL_VAR2".to_string(),
+        "MY VALUE2".to_string(),
+    );
+
+    let eval_env = |value: String| {
+        let mut buffer = String::from("VALUE-");
+        buffer.push_str(&value);
+        buffer
+    };
+
+    evaluate_and_set_all(&env, eval_env);
+
+    let mut output = environment::is_equal("TEST_LIB_EVAL_AND_SET_ALL_VAR1", "VALUE-MY VALUE");
+    assert!(output);
+    output = environment::is_equal("TEST_LIB_EVAL_AND_SET_ALL_VAR2", "VALUE-MY VALUE2");
     assert!(output);
 }
 
