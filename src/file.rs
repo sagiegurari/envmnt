@@ -8,7 +8,7 @@
 mod file_test;
 
 use crate::bulk;
-use crate::errors::{EnvmntError, ErrorInfo};
+use crate::errors::{EnvmntError, ErrorKind};
 use indexmap::IndexMap;
 use std::fs::File;
 use std::io::Read;
@@ -53,14 +53,14 @@ pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntE
         }
     } else {
         Err(EnvmntError {
-            info: ErrorInfo::FileNotFound("File Not Found."),
+            kind: ErrorKind::FileNotFound("File Not Found."),
         })
     }
 }
 
 fn create_file_open_error() -> EnvmntError {
     EnvmntError {
-        info: ErrorInfo::FileOpen("Unable To Open File."),
+        kind: ErrorKind::FileOpen("Unable To Open File."),
     }
 }
 

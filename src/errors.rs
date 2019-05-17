@@ -13,7 +13,7 @@ use std::fmt::Display;
 
 #[derive(Debug, Copy, Clone)]
 /// Holds the error information
-pub enum ErrorInfo {
+pub enum ErrorKind {
     /// File not found error
     FileNotFound(&'static str),
     /// File open error
@@ -24,15 +24,15 @@ pub enum ErrorInfo {
 /// Error struct
 pub struct EnvmntError {
     /// Holds the error information
-    pub info: ErrorInfo,
+    pub kind: ErrorKind,
 }
 
 impl Error for EnvmntError {
     /// A short description of the error.
     fn description(&self) -> &str {
-        match self.info {
-            ErrorInfo::FileNotFound(description) => description,
-            ErrorInfo::FileOpen(description) => description,
+        match self.kind {
+            ErrorKind::FileNotFound(description) => description,
+            ErrorKind::FileOpen(description) => description,
         }
     }
 }
@@ -40,24 +40,24 @@ impl Error for EnvmntError {
 impl Display for EnvmntError {
     /// Formats the value using the given formatter.
     fn fmt(&self, format: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        match self.info {
-            ErrorInfo::FileNotFound(ref file) => file.fmt(format),
-            ErrorInfo::FileOpen(ref file) => file.fmt(format),
+        match self.kind {
+            ErrorKind::FileNotFound(ref file) => file.fmt(format),
+            ErrorKind::FileOpen(ref file) => file.fmt(format),
         }
     }
 }
 
 impl EnvmntError {
     pub fn is_file_not_found(&self) -> bool {
-        match self.info {
-            ErrorInfo::FileNotFound(_) => true,
+        match self.kind {
+            ErrorKind::FileNotFound(_) => true,
             _ => false,
         }
     }
 
     pub fn is_file_open(&self) -> bool {
-        match self.info {
-            ErrorInfo::FileOpen(_) => true,
+        match self.kind {
+            ErrorKind::FileOpen(_) => true,
             _ => false,
         }
     }

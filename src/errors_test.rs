@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn is_file_not_found_true() {
     let error = EnvmntError {
-        info: ErrorInfo::FileNotFound("test"),
+        kind: ErrorKind::FileNotFound("test"),
     };
 
     assert!(error.is_file_not_found());
@@ -12,7 +12,7 @@ fn is_file_not_found_true() {
 #[test]
 fn is_file_not_found_false() {
     let error = EnvmntError {
-        info: ErrorInfo::FileOpen("test"),
+        kind: ErrorKind::FileOpen("test"),
     };
 
     assert!(!error.is_file_not_found());
@@ -21,7 +21,7 @@ fn is_file_not_found_false() {
 #[test]
 fn is_file_open_true() {
     let error = EnvmntError {
-        info: ErrorInfo::FileOpen("test"),
+        kind: ErrorKind::FileOpen("test"),
     };
 
     assert!(error.is_file_open());
@@ -30,7 +30,7 @@ fn is_file_open_true() {
 #[test]
 fn is_file_open_false() {
     let error = EnvmntError {
-        info: ErrorInfo::FileNotFound("test"),
+        kind: ErrorKind::FileNotFound("test"),
     };
 
     assert!(!error.is_file_open());
@@ -39,7 +39,7 @@ fn is_file_open_false() {
 #[test]
 fn description_file_not_found() {
     let error = EnvmntError {
-        info: ErrorInfo::FileNotFound("test"),
+        kind: ErrorKind::FileNotFound("test"),
     };
 
     assert_eq!(error.description(), "test");
@@ -48,7 +48,7 @@ fn description_file_not_found() {
 #[test]
 fn description_file_open() {
     let error = EnvmntError {
-        info: ErrorInfo::FileOpen("test"),
+        kind: ErrorKind::FileOpen("test"),
     };
 
     assert_eq!(error.description(), "test");
@@ -57,7 +57,7 @@ fn description_file_open() {
 #[test]
 fn format_file_not_found() {
     let error = EnvmntError {
-        info: ErrorInfo::FileNotFound("test"),
+        kind: ErrorKind::FileNotFound("test"),
     };
 
     // ensure compiles
@@ -67,7 +67,7 @@ fn format_file_not_found() {
 #[test]
 fn format_file_open() {
     let error = EnvmntError {
-        info: ErrorInfo::FileOpen("test"),
+        kind: ErrorKind::FileOpen("test"),
     };
 
     // ensure compiles

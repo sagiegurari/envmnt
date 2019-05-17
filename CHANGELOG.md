@@ -1,10 +1,11 @@
 ## CHANGELOG
 
-### v0.3.2
+### v0.4.0
 
 * Added new **is** function
 * Added new **evaluate_and_set_all** function
-*
+* Internal changes to EnvmntError
+
 ### v0.3.1 (2019-05-17)
 
 * Added new **set_all** function
