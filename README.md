@@ -20,7 +20,7 @@ This library has many helper functions to access/modify/check environment variab
 
 <a name="usage"></a>
 ## Usage
-Simply include the library and invoke the various utility functions, for example:
+Simply include the library and invoke the various utility functions.
 
 **Get/Set/Remove environment variables**
 
@@ -44,6 +44,9 @@ fn main() {
     println!("New Env Value: {}", &value);
     println!("Previous Env Value: {:?}", &pre_value);
 
+    let var_was_set = envmnt::set_optional("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
+    println!("Env Was Modified: {}", var_was_set);
+
     let all_vars = envmnt::vars(); // returned as Vec<(String, String)>
 
     for (key, value) in all_vars {
@@ -59,11 +62,14 @@ extern crate envmnt;
 
 fn main() {
     envmnt::set_bool("FLAG_VAR", true);
-    let flag_value = envmnt::is_or("FLAG_VAR", false);
+    let mut flag_value = envmnt::is_or("FLAG_VAR", false);
     println!("Bool Flag: {}", &flag_value);
 
-    let pre_value = envmnt::get_set("MY_ENV_VAR", "SOME NEW VALUE");
-    println!("Pre Value Exists: {}", &pre_value.is_some());
+    flag_value = envmnt::is("FLAG_VAR");
+    assert!(flag_value);
+
+    envmnt::set_bool("FLAG_VAR", true);
+    assert!(envmnt::is_equal("FLAG_VAR", "true"));
 
     envmnt::set("MY_ENV_VAR", "SOME VALUE");
     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
@@ -96,6 +102,21 @@ fn main() {
     found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 
     println!("All Found: {}", &found);
+
+    env = IndexMap::new();
+    env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
+    env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
+
+    let eval_env = |value: String| {
+        let mut buffer = String::from("VALUE-");
+        buffer.push_str(&value);
+        buffer
+    };
+
+    envmnt::evaluate_and_set_all(&env, eval_env);
+
+    let value = envmnt::get_or_panic("ENV_VAR1");
+    println!("Value Is: {}", &value);
 }
 ```
 

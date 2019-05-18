@@ -17,6 +17,9 @@ fn main() {
     println!("New Env Value: {}", &value);
     println!("Previous Env Value: {:?}", &pre_value);
 
+    let var_was_set = envmnt::set_optional("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
+    println!("Env Was Modified: {}", var_was_set);
+
     let all_vars = envmnt::vars(); // returned as Vec<(String, String)>
 
     for (key, value) in all_vars {

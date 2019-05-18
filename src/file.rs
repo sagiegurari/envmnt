@@ -7,8 +7,8 @@
 #[path = "./file_test.rs"]
 mod file_test;
 
-use crate::environment;
-use crate::errors::{EnvmntError, ErrorInfo};
+use crate::bulk;
+use crate::errors::{EnvmntError, ErrorKind};
 use indexmap::IndexMap;
 use std::fs::File;
 use std::io::Read;
@@ -28,11 +28,7 @@ where
 {
     match parse_file(file) {
         Ok(env) => {
-            for (key, value) in env.iter() {
-                let evaluated_value = evaluate(value.to_string());
-
-                environment::set(key.to_string(), evaluated_value);
-            }
+            bulk::evaluate_and_set_all(&env, evaluate);
 
             Ok(())
         }
@@ -57,14 +53,14 @@ pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntE
         }
     } else {
         Err(EnvmntError {
-            info: ErrorInfo::FileNotFound("File Not Found."),
+            kind: ErrorKind::FileNotFound("File Not Found."),
         })
     }
 }
 
 fn create_file_open_error() -> EnvmntError {
     EnvmntError {
-        info: ErrorInfo::FileOpen("Unable To Open File."),
+        kind: ErrorKind::FileOpen("Unable To Open File."),
     }
 }
 

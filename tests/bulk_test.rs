@@ -1,4 +1,7 @@
 extern crate envmnt;
+extern crate indexmap;
+
+use indexmap::IndexMap;
 
 #[test]
 fn get() {
@@ -16,4 +19,28 @@ fn get() {
 
     exists = envmnt::is_any_exists(&vec!["BULK_TEST_ENV1", "BULK_TEST_ENV2", "BULK_TEST_ENV3"]);
     assert!(exists);
+
+    let mut env: IndexMap<String, String> = IndexMap::new();
+    env.insert("BULK_TEST_ENV3".to_string(), "3".to_string());
+    env.insert("BULK_TEST_ENV4".to_string(), "4".to_string());
+
+    envmnt::set_all(&env);
+
+    assert!(envmnt::is_equal("BULK_TEST_ENV3", "3"));
+    assert!(envmnt::is_equal("BULK_TEST_ENV4", "4"));
+
+    let eval_env = |value: String| {
+        let mut buffer = String::from("VALUE-");
+        buffer.push_str(&value);
+        buffer
+    };
+
+    env = IndexMap::new();
+    env.insert("BULK_TEST_ENV5".to_string(), "5".to_string());
+    env.insert("BULK_TEST_ENV6".to_string(), "6".to_string());
+
+    envmnt::evaluate_and_set_all(&env, eval_env);
+
+    assert!(envmnt::is_equal("BULK_TEST_ENV5", "VALUE-5"));
+    assert!(envmnt::is_equal("BULK_TEST_ENV6", "VALUE-6"));
 }

@@ -20,4 +20,12 @@ fn get() {
     envmnt::remove("STRING_TEST_ENV");
     value = envmnt::get_or("STRING_TEST_ENV", "3");
     assert_eq!(value, "3");
+
+    let was_env_set =
+        envmnt::set_optional("STRING_TEST_SET_OPTIONAL_SOME", &Some("OPTIONAL VALUE"));
+    assert!(was_env_set);
+    assert!(envmnt::is_equal(
+        "STRING_TEST_SET_OPTIONAL_SOME",
+        "OPTIONAL VALUE"
+    ));
 }
