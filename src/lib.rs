@@ -106,7 +106,7 @@
 //!
 //! This library has many helper functions to access/modify/check environment variables.
 //!
-//! # Example
+//! # Examples
 //!
 //! ## Get/Set/Remove environment variables
 //!

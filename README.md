@@ -20,7 +20,7 @@ This library has many helper functions to access/modify/check environment variab
 
 <a name="usage"></a>
 ## Usage
-Simply include the library and invoke the various utility functions, for example:
+Simply include the library and invoke the various utility functions.
 
 **Get/Set/Remove environment variables**
 
