@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.4.0
+### v0.4.0 (2019-05-18)
 
 * Added new **is** function
 * Added new **evaluate_and_set_all** function

@@ -86,10 +86,6 @@
 <span id="86">86</span>
 <span id="87">87</span>
 <span id="88">88</span>
-<span id="89">89</span>
-<span id="90">90</span>
-<span id="91">91</span>
-<span id="92">92</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # file</span>
 <span class="doccomment">//!</span>
@@ -100,8 +96,8 @@
 <span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;./file_test.rs&quot;</span>]</span>
 <span class="kw">mod</span> <span class="ident">file_test</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">environment</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">errors</span>::{<span class="ident">EnvmntError</span>, <span class="ident">ErrorInfo</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">bulk</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">errors</span>::{<span class="ident">EnvmntError</span>, <span class="ident">ErrorKind</span>};
 <span class="kw">use</span> <span class="ident">indexmap</span>::<span class="ident">IndexMap</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>::<span class="ident">File</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Read</span>;
@@ -121,11 +117,7 @@
 {
     <span class="kw">match</span> <span class="ident">parse_file</span>(<span class="ident">file</span>) {
         <span class="prelude-val">Ok</span>(<span class="ident">env</span>) <span class="op">=&gt;</span> {
-            <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">env</span>.<span class="ident">iter</span>() {
-                <span class="kw">let</span> <span class="ident">evaluated_value</span> <span class="op">=</span> <span class="ident">evaluate</span>(<span class="ident">value</span>.<span class="ident">to_string</span>());
-
-                <span class="ident">environment</span>::<span class="ident">set</span>(<span class="ident">key</span>.<span class="ident">to_string</span>(), <span class="ident">evaluated_value</span>);
-            }
+            <span class="ident">bulk</span>::<span class="ident">evaluate_and_set_all</span>(<span class="kw-2">&amp;</span><span class="ident">env</span>, <span class="ident">evaluate</span>);
 
             <span class="prelude-val">Ok</span>(())
         }
@@ -150,14 +142,14 @@
         }
     } <span class="kw">else</span> {
         <span class="prelude-val">Err</span>(<span class="ident">EnvmntError</span> {
-            <span class="ident">info</span>: <span class="ident">ErrorInfo</span>::<span class="ident">FileNotFound</span>(<span class="string">&quot;File Not Found.&quot;</span>),
+            <span class="ident">kind</span>: <span class="ident">ErrorKind</span>::<span class="ident">FileNotFound</span>(<span class="string">&quot;File Not Found.&quot;</span>),
         })
     }
 }
 
 <span class="kw">fn</span> <span class="ident">create_file_open_error</span>() <span class="op">-&gt;</span> <span class="ident">EnvmntError</span> {
     <span class="ident">EnvmntError</span> {
-        <span class="ident">info</span>: <span class="ident">ErrorInfo</span>::<span class="ident">FileOpen</span>(<span class="string">&quot;Unable To Open File.&quot;</span>),
+        <span class="ident">kind</span>: <span class="ident">ErrorKind</span>::<span class="ident">FileOpen</span>(<span class="string">&quot;Unable To Open File.&quot;</span>),
     }
 }
 

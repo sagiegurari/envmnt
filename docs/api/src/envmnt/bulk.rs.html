@@ -44,6 +44,17 @@
 <span id="44">44</span>
 <span id="45">45</span>
 <span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # bulk</span>
 <span class="doccomment">//!</span>
@@ -61,6 +72,17 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">set_all</span>(<span class="ident">env</span>: <span class="kw-2">&amp;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) {
     <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">env</span>.<span class="ident">iter</span>() {
         <span class="ident">environment</span>::<span class="ident">set</span>(<span class="ident">key</span>, <span class="ident">value</span>);
+    }
+}
+
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">evaluate_and_set_all</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">env</span>: <span class="kw-2">&amp;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">evaluate</span>: <span class="ident">F</span>)
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">String</span>) <span class="op">-&gt;</span> <span class="ident">String</span>,
+{
+    <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">env</span>.<span class="ident">iter</span>() {
+        <span class="kw">let</span> <span class="ident">evaluated_value</span> <span class="op">=</span> <span class="ident">evaluate</span>(<span class="ident">value</span>.<span class="ident">to_string</span>());
+
+        <span class="ident">environment</span>::<span class="ident">set</span>(<span class="ident">key</span>.<span class="ident">to_string</span>(), <span class="ident">evaluated_value</span>);
     }
 }
 
