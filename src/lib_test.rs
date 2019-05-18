@@ -190,6 +190,24 @@ fn set_bool_true() {
 }
 
 #[test]
+fn set_optional_none() {
+    let output = set_optional::<&str, &str>("TEST_LIB_SET_OPTIONAL_NONE", &None);
+
+    assert!(!output);
+}
+
+#[test]
+fn set_optional_some() {
+    let output = set_optional("TEST_LIB_SET_OPTIONAL_SOME", &Some("OPTIONAL VALUE"));
+
+    assert!(output);
+    assert_eq!(
+        env::var("TEST_LIB_SET_OPTIONAL_SOME").unwrap(),
+        "OPTIONAL VALUE".to_string()
+    );
+}
+
+#[test]
 fn get_set_exists() {
     env::set_var("TEST_LIB_GET_SET_EXISTS", "OLD");
     let output = get_set("TEST_LIB_GET_SET_EXISTS", "NEW");

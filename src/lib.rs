@@ -130,6 +130,9 @@
 //!     println!("New Env Value: {}", &value);
 //!     println!("Previous Env Value: {:?}", &pre_value);
 //!
+//!     let var_was_set = envmnt::set_optional("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
+//!     println!("Env Was Modified: {}", var_was_set);
+//!
 //!     let all_vars = envmnt::vars(); // returned as Vec<(String, String)>
 //!
 //!     for (key, value) in all_vars {
@@ -483,6 +486,32 @@ pub fn set_bool<K: AsRef<OsStr>>(key: K, value: bool) {
     environment::set_bool(key, value)
 }
 
+/// Sets the environment variable if the provided option contains a value.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The optional value to set
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let output = envmnt::set_optional("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
+///
+///     assert!(output);
+///     assert!(envmnt::is_equal(
+///         "MY_ENV_VAR",
+///         "OPTIONAL VALUE"
+///     ));
+/// }
+/// ```
+pub fn set_optional<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Option<V>) -> bool {
+    environment::set_optional(key, value)
+}
+
 /// Sets the environment variable value and returns the previous value.
 ///
 /// # Arguments
@@ -580,7 +609,7 @@ pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 /// }
 /// ```
 pub fn set_all(env: &IndexMap<String, String>) {
-    bulk::set_all(&env);
+    bulk::set_all(&env)
 }
 
 /// Sets all the provided env key/value pairs.
@@ -621,7 +650,7 @@ pub fn evaluate_and_set_all<F>(env: &IndexMap<String, String>, evaluate: F)
 where
     F: Fn(String) -> String,
 {
-    bulk::evaluate_and_set_all(&env, evaluate);
+    bulk::evaluate_and_set_all(&env, evaluate)
 }
 
 /// Returns true if any of environment variables is defined.

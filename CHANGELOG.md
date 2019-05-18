@@ -4,6 +4,7 @@
 
 * Added new **is** function
 * Added new **evaluate_and_set_all** function
+* Added new **set_optional** function
 * Internal changes to EnvmntError
 
 ### v0.3.1 (2019-05-17)

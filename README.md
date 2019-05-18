@@ -44,6 +44,9 @@ fn main() {
     println!("New Env Value: {}", &value);
     println!("Previous Env Value: {:?}", &pre_value);
 
+    let var_was_set = envmnt::set_optional("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
+    println!("Env Was Modified: {}", var_was_set);
+
     let all_vars = envmnt::vars(); // returned as Vec<(String, String)>
 
     for (key, value) in all_vars {
@@ -99,7 +102,7 @@ fn main() {
     found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 
     println!("All Found: {}", &found);
-    
+
     env = IndexMap::new();
     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
