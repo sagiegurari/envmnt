@@ -257,3 +257,135 @@ fn is_equal_not_same() {
     let output = is_equal("TEST_IS_EQUAL_NOT_SAME", "2");
     assert!(!output);
 }
+
+#[test]
+fn set_list_empty() {
+    set_list("TEST_SET_LIST_EMPTY", &vec![]);
+
+    let output = exists("TEST_SET_LIST_EMPTY");
+    assert!(!output);
+}
+
+#[test]
+fn set_list_single() {
+    set_list("TEST_SET_LIST_SINGLE", &vec!["1".to_string()]);
+
+    let output = is_equal("TEST_SET_LIST_SINGLE", "1");
+    assert!(output);
+}
+
+#[test]
+fn set_list_multiple() {
+    set_list(
+        "TEST_SET_LIST_MULTIPLE",
+        &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+    );
+
+    let output = is_equal("TEST_SET_LIST_MULTIPLE", "1;2;3");
+    assert!(output);
+}
+
+#[test]
+fn get_list_none() {
+    let output = get_list("TEST_GET_LIST_NONE").is_none();
+    assert!(output);
+}
+
+#[test]
+fn get_list_empty() {
+    set_list("TEST_GET_LIST_EMPTY", &vec![]);
+
+    let output = get_list("TEST_GET_LIST_EMPTY").is_none();
+    assert!(output);
+}
+
+#[test]
+fn get_list_single() {
+    set_list("TEST_GET_LIST_SINGLE", &vec!["1".to_string()]);
+
+    let output = get_list("TEST_GET_LIST_SINGLE").unwrap();
+    assert_eq!(output.len(), 1);
+    assert_eq!(output, vec!["1".to_string()]);
+}
+
+#[test]
+fn get_list_multiple() {
+    set_list(
+        "TEST_GET_LIST_MULTIPLE",
+        &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+    );
+
+    let output = get_list("TEST_GET_LIST_MULTIPLE").unwrap();
+    assert_eq!(output.len(), 3);
+    assert_eq!(
+        output,
+        vec!["1".to_string(), "2".to_string(), "3".to_string()]
+    );
+}
+
+#[test]
+fn set_list_with_separator_empty() {
+    set_list_with_separator("TEST_SET_LIST_EMPTY", &vec![], ",");
+
+    let output = exists("TEST_SET_LIST_EMPTY");
+    assert!(!output);
+}
+
+#[test]
+fn set_list_with_separator_single() {
+    set_list_with_separator("TEST_SET_LIST_SINGLE", &vec!["1".to_string()], ",");
+
+    let output = is_equal("TEST_SET_LIST_SINGLE", "1");
+    assert!(output);
+}
+
+#[test]
+fn set_list_with_separator_multiple() {
+    set_list_with_separator(
+        "TEST_SET_LIST_MULTIPLE",
+        &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+        ",",
+    );
+
+    let output = is_equal("TEST_SET_LIST_MULTIPLE", "1,2,3");
+    assert!(output);
+}
+
+#[test]
+fn get_list_with_separator_none() {
+    let output = get_list_with_separator("TEST_GET_LIST_NONE", ",").is_none();
+    assert!(output);
+}
+
+#[test]
+fn get_list_with_separator_empty() {
+    set_list_with_separator("TEST_GET_LIST_EMPTY", &vec![], ",");
+
+    let output = get_list_with_separator("TEST_GET_LIST_EMPTY", ",").is_none();
+    assert!(output);
+}
+
+#[test]
+fn get_list_with_separator_single() {
+    set_list_with_separator("TEST_GET_LIST_SINGLE", &vec!["1".to_string()], ",");
+
+    let output = get_list_with_separator("TEST_GET_LIST_SINGLE", ",").unwrap();
+    assert_eq!(output.len(), 1);
+    assert_eq!(output, vec!["1".to_string()]);
+}
+
+#[test]
+fn get_list_with_separator_multiple() {
+    set_list_with_separator(
+        "TEST_GET_LIST_MULTIPLE",
+        &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+        ",",
+    );
+
+    let output = get_list_with_separator("TEST_GET_LIST_MULTIPLE", ",").unwrap();
+    assert_eq!(output.len(), 3);
+    assert_eq!(
+        output,
+        vec!["1".to_string(), "2".to_string(), "3".to_string()]
+    );
+}

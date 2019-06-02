@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.4.1
+
+* New vec<string> list get/set operations #10
+
 ### v0.4.0 (2019-05-18)
 
 * Added new **is** function

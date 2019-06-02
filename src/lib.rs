@@ -163,6 +163,37 @@
 //! }
 //! ```
 //!
+//! ## Get/Set list environment variables
+//!
+//! ```
+//! extern crate envmnt;
+//!
+//! fn main() {
+//!     envmnt::set_list(
+//!         "LIST_TEST_ENV",
+//!         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+//!     );
+//!
+//!     let mut values = envmnt::get_list("LIST_TEST_ENV").unwrap();
+//!     println!("List Values: {:?}", values);
+//!
+//!     let mut same = envmnt::is_equal("LIST_TEST_ENV", "1;2;3");
+//!     println!("Same: {}", same);
+//!
+//!     envmnt::set_list_with_separator(
+//!         "LIST_TEST_ENV",
+//!         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+//!         ",",
+//!     );
+//!
+//!     values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
+//!     println!("List Values: {:?}", values);
+//!
+//!     same = envmnt::is_equal("LIST_TEST_ENV", "1,2,3");
+//!     println!("Same: {}", same);
+//! }
+//! ```
+//!
 //! ## Bulk Operations
 //!
 //! ```
@@ -579,6 +610,124 @@ pub fn vars() -> Vec<(String, String)> {
 /// ```
 pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     environment::is_equal(key, value)
+}
+
+/// Sets the provided string vector as an environment variable.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `values` - String vector of values
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set_list(
+///         "LIST_TEST_ENV",
+///         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+///     );
+///
+///     let values = envmnt::get_list("LIST_TEST_ENV").unwrap();
+///     assert_eq!(
+///         values,
+///         vec!["1".to_string(), "2".to_string(), "3".to_string()]
+///     );
+/// }
+/// ```
+pub fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
+    environment::set_list(key, values)
+}
+
+/// Returns the requested environment variable as a string vector.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set_list(
+///         "LIST_TEST_ENV",
+///         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+///     );
+///
+///     let values = envmnt::get_list("LIST_TEST_ENV").unwrap();
+///     assert_eq!(
+///         values,
+///         vec!["1".to_string(), "2".to_string(), "3".to_string()]
+///     );
+/// }
+/// ```
+pub fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
+    environment::get_list(key)
+}
+
+/// Sets the provided string vector as an environment variable.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `values` - String vector of values
+/// * `separator` - The separator used to merge/split the values
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set_list_with_separator(
+///         "LIST_TEST_ENV",
+///         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+///         ",",
+///     );
+///
+///     let values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
+///     assert_eq!(
+///         values,
+///         vec!["1".to_string(), "2".to_string(), "3".to_string()]
+///     );
+/// }
+/// ```
+pub fn set_list_with_separator<K: AsRef<OsStr>>(key: K, values: &Vec<String>, separator: &str) {
+    environment::set_list_with_separator(key, values, separator)
+}
+
+/// Returns the requested environment variable as a string vector.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `separator` - The separator used to merge/split the values
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set_list_with_separator(
+///         "LIST_TEST_ENV",
+///         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
+///         ",",
+///     );
+///
+///     let values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
+///     assert_eq!(
+///         values,
+///         vec!["1".to_string(), "2".to_string(), "3".to_string()]
+///     );
+/// }
+/// ```
+pub fn get_list_with_separator<K: AsRef<OsStr>>(key: K, separator: &str) -> Option<Vec<String>> {
+    environment::get_list_with_separator(key, separator)
 }
 
 /// Sets all the provided env key/value pairs.

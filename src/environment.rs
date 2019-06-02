@@ -83,7 +83,7 @@ pub(crate) fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Opt
         None
     };
 
-    env::set_var(&key, &value);
+    set(&key, &value);
 
     pre_value
 }
@@ -99,5 +99,43 @@ pub(crate) fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
         current_value == value
     } else {
         false
+    }
+}
+
+pub(crate) fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
+    set_list_with_separator(key, values, ";")
+}
+
+pub(crate) fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
+    get_list_with_separator(key, ";")
+}
+
+pub(crate) fn set_list_with_separator<K: AsRef<OsStr>>(
+    key: K,
+    values: &Vec<String>,
+    separator: &str,
+) {
+    if !values.is_empty() {
+        let value = values.join(separator);
+        set(key, value)
+    }
+}
+
+pub(crate) fn get_list_with_separator<K: AsRef<OsStr>>(
+    key: K,
+    separator: &str,
+) -> Option<Vec<String>> {
+    match env::var(key) {
+        Ok(value_string) => {
+            let values = value_string.split(separator);
+            let mut values_vec = Vec::new();
+
+            for value in values {
+                values_vec.push(value.to_string());
+            }
+
+            Some(values_vec)
+        }
+        _ => None,
     }
 }
