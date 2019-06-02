@@ -11,6 +11,23 @@ use crate::util;
 use std::env;
 use std::ffi::OsStr;
 
+pub struct ListOptions {
+    /// The separator used to merge/split the values
+    pub separator: Option<String>,
+    /// if true, empty list will not be set and empty string will be considered as a list with a single empty value
+    pub ignore_empty: bool,
+}
+
+impl ListOptions {
+    /// Creates and returns a new instance.
+    pub fn new() -> ListOptions {
+        ListOptions {
+            separator: None,
+            ignore_empty: false,
+        }
+    }
+}
+
 pub(crate) fn exists<K: AsRef<OsStr>>(key: K) -> bool {
     match env::var(key) {
         Ok(_) => true,
@@ -103,47 +120,58 @@ pub(crate) fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 }
 
 pub(crate) fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
-    set_list_with_separator(key, values, ";")
+    let options = ListOptions::new();
+    set_list_with_options(key, values, &options)
 }
 
 pub(crate) fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
-    get_list_with_separator(key, ";")
+    let options = ListOptions::new();
+    get_list_with_options(key, &options)
 }
 
-pub(crate) fn set_list_with_separator<K: AsRef<OsStr>>(
+fn get_list_separator(options: &ListOptions) -> String {
+    match options.separator {
+        Some(ref separator) => separator.to_string(),
+        None => ";".to_string(),
+    }
+}
+
+pub(crate) fn set_list_with_options<K: AsRef<OsStr>>(
     key: K,
     values: &Vec<String>,
-    separator: &str,
+    options: &ListOptions,
 ) {
-    let value = if values.is_empty() {
-        util::EMPTY_VALUE.to_string()
-    } else {
-        values.join(separator)
-    };
+    let separator = get_list_separator(&options);
 
-    set(key, value)
+    if values.is_empty() && options.ignore_empty {
+        remove(key)
+    } else {
+        let value = values.join(&separator);
+
+        set(key, value)
+    }
 }
 
-pub(crate) fn get_list_with_separator<K: AsRef<OsStr>>(
+pub(crate) fn get_list_with_options<K: AsRef<OsStr>>(
     key: K,
-    separator: &str,
+    options: &ListOptions,
 ) -> Option<Vec<String>> {
+    let separator = get_list_separator(&options);
+
     match env::var(key) {
         Ok(value_string) => {
-            let values_vec = if value_string == util::EMPTY_VALUE {
-                vec![]
+            if value_string.len() == 0 && !options.ignore_empty {
+                Some(vec![])
             } else {
-                let values = value_string.split(separator);
-                let mut vec = Vec::new();
+                let values = value_string.split(&separator);
+                let mut values_vec = Vec::new();
 
                 for value in values {
-                    vec.push(value.to_string());
+                    values_vec.push(value.to_string());
                 }
 
-                vec
-            };
-
-            Some(values_vec)
+                Some(values_vec)
+            }
         }
         _ => None,
     }

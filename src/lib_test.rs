@@ -287,32 +287,42 @@ fn get_list_multiple() {
 }
 
 #[test]
-fn set_list_with_separator_multiple() {
-    set_list_with_separator(
-        "TEST_LIB_SET_LIST_WITH_SEPARATOR_MULTIPLE",
+fn set_list_with_options_multiple() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    set_list_with_options(
+        "TEST_LIB_SET_LIST_WITH_OPTIONS_MULTIPLE",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-        ",",
+        &options,
     );
 
-    let output = is_equal("TEST_LIB_SET_LIST_WITH_SEPARATOR_MULTIPLE", "1,2,3");
+    let output = is_equal("TEST_LIB_SET_LIST_WITH_OPTIONS_MULTIPLE", "1,2,3");
     assert!(output);
 }
 
 #[test]
-fn get_list_with_separator_none() {
-    let output = get_list_with_separator("TEST_LIB_GET_LIST_WITH_SEPARATOR_NONE", ",").is_none();
+fn get_list_with_options_none() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    let output = get_list_with_options("TEST_LIB_GET_LIST_WITH_OPTIONS_NONE", &options).is_none();
     assert!(output);
 }
 
 #[test]
-fn get_list_with_separator_multiple() {
-    set_list_with_separator(
-        "TEST_LIB_GET_LIST_WITH_SEPARATOR_MULTIPLE",
+fn get_list_with_options_multiple() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    set_list_with_options(
+        "TEST_LIB_GET_LIST_WITH_OPTIONS_MULTIPLE",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-        ",",
+        &options,
     );
 
-    let output = get_list_with_separator("TEST_LIB_GET_LIST_WITH_SEPARATOR_MULTIPLE", ",").unwrap();
+    let output =
+        get_list_with_options("TEST_LIB_GET_LIST_WITH_OPTIONS_MULTIPLE", &options).unwrap();
     assert_eq!(output.len(), 3);
     assert_eq!(
         output,

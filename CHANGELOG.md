@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.5.0 (2019-06-02)
+### v0.6.0 (2019-06-02)
 
 * New vec<string> list get/set operations #10
 

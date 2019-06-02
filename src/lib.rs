@@ -180,13 +180,15 @@
 //!     let mut same = envmnt::is_equal("LIST_TEST_ENV", "1;2;3");
 //!     println!("Same: {}", same);
 //!
-//!     envmnt::set_list_with_separator(
+//!     let mut options = envmnt::ListOptions::new();
+//!     options.separator = Some(",".to_string());
+//!     envmnt::set_list_with_options(
 //!         "LIST_TEST_ENV",
 //!         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-//!         ",",
+//!         &options,
 //!     );
 //!
-//!     values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
+//!     values = envmnt::get_list_with_options("LIST_TEST_ENV", &options).unwrap();
 //!     println!("List Values: {:?}", values);
 //!
 //!     same = envmnt::is_equal("LIST_TEST_ENV", "1,2,3");
@@ -288,6 +290,9 @@ mod util;
 use crate::errors::EnvmntError;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
+
+/// Error Type
+pub type ListOptions = environment::ListOptions;
 
 /// Returns true environment variable is defined.
 ///
@@ -675,7 +680,7 @@ pub fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
 ///
 /// * `key` - The environment variable name
 /// * `values` - String vector of values
-/// * `separator` - The separator used to merge/split the values
+/// * `options` - See ListOptions
 ///
 /// # Example
 ///
@@ -683,21 +688,23 @@ pub fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
 /// extern crate envmnt;
 ///
 /// fn main() {
-///     envmnt::set_list_with_separator(
+///     let mut options = envmnt::ListOptions::new();
+///     options.separator = Some(",".to_string());
+///     envmnt::set_list_with_options(
 ///         "LIST_TEST_ENV",
 ///         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-///         ",",
+///         &options,
 ///     );
 ///
-///     let values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
-///     assert_eq!(
-///         values,
-///         vec!["1".to_string(), "2".to_string(), "3".to_string()]
-///     );
+///     let values = envmnt::get_list_with_options("LIST_TEST_ENV", &options).unwrap();
+///     println!("List Values: {:?}", values);
+///
+///     let same = envmnt::is_equal("LIST_TEST_ENV", "1,2,3");
+///     println!("Same: {}", same);
 /// }
 /// ```
-pub fn set_list_with_separator<K: AsRef<OsStr>>(key: K, values: &Vec<String>, separator: &str) {
-    environment::set_list_with_separator(key, values, separator)
+pub fn set_list_with_options<K: AsRef<OsStr>>(key: K, values: &Vec<String>, options: &ListOptions) {
+    environment::set_list_with_options(key, values, options)
 }
 
 /// Returns the requested environment variable as a string vector.
@@ -705,7 +712,7 @@ pub fn set_list_with_separator<K: AsRef<OsStr>>(key: K, values: &Vec<String>, se
 /// # Arguments
 ///
 /// * `key` - The environment variable name
-/// * `separator` - The separator used to merge/split the values
+/// * `options` - See ListOptions
 ///
 /// # Example
 ///
@@ -713,21 +720,26 @@ pub fn set_list_with_separator<K: AsRef<OsStr>>(key: K, values: &Vec<String>, se
 /// extern crate envmnt;
 ///
 /// fn main() {
-///     envmnt::set_list_with_separator(
+///     let mut options = envmnt::ListOptions::new();
+///     options.separator = Some(",".to_string());
+///     envmnt::set_list_with_options(
 ///         "LIST_TEST_ENV",
 ///         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-///         ",",
+///         &options,
 ///     );
 ///
-///     let values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
-///     assert_eq!(
-///         values,
-///         vec!["1".to_string(), "2".to_string(), "3".to_string()]
-///     );
+///     let values = envmnt::get_list_with_options("LIST_TEST_ENV", &options).unwrap();
+///     println!("List Values: {:?}", values);
+///
+///     let same = envmnt::is_equal("LIST_TEST_ENV", "1,2,3");
+///     println!("Same: {}", same);
 /// }
 /// ```
-pub fn get_list_with_separator<K: AsRef<OsStr>>(key: K, separator: &str) -> Option<Vec<String>> {
-    environment::get_list_with_separator(key, separator)
+pub fn get_list_with_options<K: AsRef<OsStr>>(
+    key: K,
+    options: &ListOptions,
+) -> Option<Vec<String>> {
+    environment::get_list_with_options(key, options)
 }
 
 /// Sets all the provided env key/value pairs.

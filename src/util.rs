@@ -7,8 +7,6 @@
 #[path = "./util_test.rs"]
 mod util_test;
 
-pub(crate) const EMPTY_VALUE: &str = "<envmnt::empty>";
-
 pub(crate) fn bool_to_string(value: bool) -> String {
     if value {
         "true".to_string()

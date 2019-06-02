@@ -263,7 +263,15 @@ fn set_list_empty() {
     set_list("TEST_SET_LIST_EMPTY", &vec![]);
 
     let output = get_or_panic("TEST_SET_LIST_EMPTY");
-    assert_eq!(output, "<envmnt::empty>");
+    assert_eq!(output, "");
+}
+
+#[test]
+fn set_list_single_empty() {
+    set_list("TEST_SET_LIST_SINGLE", &vec!["".to_string()]);
+
+    let output = is_equal("TEST_SET_LIST_SINGLE", "");
+    assert!(output);
 }
 
 #[test]
@@ -324,73 +332,155 @@ fn get_list_multiple() {
 }
 
 #[test]
-fn set_list_with_separator_empty() {
-    set_list_with_separator("TEST_SET_LIST_WITH_SEPARATOR_EMPTY", &vec![], ",");
+fn set_list_with_options_empty() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
 
-    let output = get_or_panic("TEST_SET_LIST_WITH_SEPARATOR_EMPTY");
-    assert_eq!(output, "<envmnt::empty>");
+    set_list_with_options("TEST_SET_LIST_WITH_OPTIONS_EMPTY", &vec![], &options);
+
+    let output = get_or_panic("TEST_SET_LIST_WITH_OPTIONS_EMPTY");
+    assert_eq!(output, "");
 }
 
 #[test]
-fn set_list_with_separator_single() {
-    set_list_with_separator(
-        "TEST_SET_LIST_WITH_SEPARATOR_SINGLE",
+fn set_list_with_options_single_empty() {
+    let options = ListOptions::new();
+
+    set_list_with_options(
+        "TEST_SET_LIST_WITH_OPTIONS_SINGLE_EMPTY",
+        &vec!["".to_string()],
+        &options,
+    );
+
+    let output = is_equal("TEST_SET_LIST_WITH_OPTIONS_SINGLE_EMPTY", "");
+    assert!(output);
+}
+
+#[test]
+fn set_list_with_options_single() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    set_list_with_options(
+        "TEST_SET_LIST_WITH_OPTIONS_SINGLE",
         &vec!["1".to_string()],
-        ",",
+        &options,
     );
 
-    let output = is_equal("TEST_SET_LIST_WITH_SEPARATOR_SINGLE", "1");
+    let output = is_equal("TEST_SET_LIST_WITH_OPTIONS_SINGLE", "1");
     assert!(output);
 }
 
 #[test]
-fn set_list_with_separator_multiple() {
-    set_list_with_separator(
-        "TEST_SET_LIST_WITH_SEPARATOR_MULTIPLE",
+fn set_list_with_options_multiple() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    set_list_with_options(
+        "TEST_SET_LIST_WITH_OPTIONS_MULTIPLE",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-        ",",
+        &options,
     );
 
-    let output = is_equal("TEST_SET_LIST_WITH_SEPARATOR_MULTIPLE", "1,2,3");
+    let output = is_equal("TEST_SET_LIST_WITH_OPTIONS_MULTIPLE", "1,2,3");
     assert!(output);
 }
 
 #[test]
-fn get_list_with_separator_none() {
-    let output = get_list_with_separator("TEST_GET_LIST_WITH_SEPARATOR_NONE", ",").is_none();
+fn get_list_with_options_none() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    let output = get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_NONE", &options).is_none();
     assert!(output);
 }
 
 #[test]
-fn get_list_with_separator_empty() {
-    set_list_with_separator("TEST_GET_LIST_WITH_SEPARATOR_EMPTY", &vec![], ",");
+fn get_list_with_options_empty() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
 
-    let output = get_list_with_separator("TEST_GET_LIST_WITH_SEPARATOR_EMPTY", ",").unwrap();
+    set_list_with_options("TEST_GET_LIST_WITH_OPTIONS_EMPTY", &vec![], &options);
+
+    let output = get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_EMPTY", &options).unwrap();
     assert!(output.is_empty());
 }
 
 #[test]
-fn get_list_with_separator_single() {
-    set_list_with_separator(
-        "TEST_GET_LIST_WITH_SEPARATOR_SINGLE",
-        &vec!["1".to_string()],
-        ",",
+fn get_list_with_options_single_empty_ignore() {
+    let mut options = ListOptions::new();
+    options.ignore_empty = true;
+
+    set_list_with_options(
+        "TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE",
+        &vec![],
+        &options,
     );
 
-    let output = get_list_with_separator("TEST_GET_LIST_WITH_SEPARATOR_SINGLE", ",").unwrap();
+    let exists = exists("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE");
+    assert!(!exists);
+
+    options.ignore_empty = false;
+    set_list_with_options(
+        "TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE",
+        &vec![],
+        &options,
+    );
+
+    options.ignore_empty = true;
+    let output =
+        get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE", &options).unwrap();
+    assert_eq!(output.len(), 1);
+    assert_eq!(output, vec!["".to_string()]);
+}
+
+#[test]
+fn get_list_with_options_single_empty_no_ignore() {
+    let mut options = ListOptions::new();
+    options.ignore_empty = false;
+
+    set_list_with_options(
+        "TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_NO_IGNORE",
+        &vec![],
+        &options,
+    );
+
+    let output = get_list_with_options(
+        "TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_NO_IGNORE",
+        &options,
+    )
+    .unwrap();
+    assert_eq!(output.len(), 0);
+}
+
+#[test]
+fn get_list_with_options_single() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    set_list_with_options(
+        "TEST_GET_LIST_WITH_OPTIONS_SINGLE",
+        &vec!["1".to_string()],
+        &options,
+    );
+
+    let output = get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_SINGLE", &options).unwrap();
     assert_eq!(output.len(), 1);
     assert_eq!(output, vec!["1".to_string()]);
 }
 
 #[test]
-fn get_list_with_separator_multiple() {
-    set_list_with_separator(
-        "TEST_GET_LIST_WITH_SEPARATOR_MULTIPLE",
+fn get_list_with_options_multiple() {
+    let mut options = ListOptions::new();
+    options.separator = Some(",".to_string());
+
+    set_list_with_options(
+        "TEST_GET_LIST_WITH_OPTIONS_MULTIPLE",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-        ",",
+        &options,
     );
 
-    let output = get_list_with_separator("TEST_GET_LIST_WITH_SEPARATOR_MULTIPLE", ",").unwrap();
+    let output = get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_MULTIPLE", &options).unwrap();
     assert_eq!(output.len(), 3);
     assert_eq!(
         output,

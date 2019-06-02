@@ -16,13 +16,15 @@ fn get() {
     let mut same = envmnt::is_equal("LIST_TEST_ENV", "1;2;3");
     assert!(same);
 
-    envmnt::set_list_with_separator(
+    let mut options = envmnt::ListOptions::new();
+    options.separator = Some(",".to_string());
+    envmnt::set_list_with_options(
         "LIST_TEST_ENV",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
-        ",",
+        &options,
     );
 
-    values = envmnt::get_list_with_separator("LIST_TEST_ENV", ",").unwrap();
+    values = envmnt::get_list_with_options("LIST_TEST_ENV", &options).unwrap();
     assert_eq!(
         values,
         vec!["1".to_string(), "2".to_string(), "3".to_string()]
