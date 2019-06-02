@@ -289,30 +289,30 @@ fn get_list_multiple() {
 #[test]
 fn set_list_with_separator_multiple() {
     set_list_with_separator(
-        "TEST_LIB_SET_LIST_MULTIPLE",
+        "TEST_LIB_SET_LIST_WITH_SEPARATOR_MULTIPLE",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
         ",",
     );
 
-    let output = is_equal("TEST_LIB_SET_LIST_MULTIPLE", "1,2,3");
+    let output = is_equal("TEST_LIB_SET_LIST_WITH_SEPARATOR_MULTIPLE", "1,2,3");
     assert!(output);
 }
 
 #[test]
 fn get_list_with_separator_none() {
-    let output = get_list_with_separator("TEST_LIB_GET_LIST_NONE", ",").is_none();
+    let output = get_list_with_separator("TEST_LIB_GET_LIST_WITH_SEPARATOR_NONE", ",").is_none();
     assert!(output);
 }
 
 #[test]
 fn get_list_with_separator_multiple() {
     set_list_with_separator(
-        "TEST_LIB_GET_LIST_MULTIPLE",
+        "TEST_LIB_GET_LIST_WITH_SEPARATOR_MULTIPLE",
         &vec!["1".to_string(), "2".to_string(), "3".to_string()],
         ",",
     );
 
-    let output = get_list_with_separator("TEST_LIB_GET_LIST_MULTIPLE", ",").unwrap();
+    let output = get_list_with_separator("TEST_LIB_GET_LIST_WITH_SEPARATOR_MULTIPLE", ",").unwrap();
     assert_eq!(output.len(), 3);
     assert_eq!(
         output,

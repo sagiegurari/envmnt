@@ -115,10 +115,13 @@ pub(crate) fn set_list_with_separator<K: AsRef<OsStr>>(
     values: &Vec<String>,
     separator: &str,
 ) {
-    if !values.is_empty() {
-        let value = values.join(separator);
-        set(key, value)
-    }
+    let value = if values.is_empty() {
+        util::EMPTY_VALUE.to_string()
+    } else {
+        values.join(separator)
+    };
+
+    set(key, value)
 }
 
 pub(crate) fn get_list_with_separator<K: AsRef<OsStr>>(
@@ -127,12 +130,18 @@ pub(crate) fn get_list_with_separator<K: AsRef<OsStr>>(
 ) -> Option<Vec<String>> {
     match env::var(key) {
         Ok(value_string) => {
-            let values = value_string.split(separator);
-            let mut values_vec = Vec::new();
+            let values_vec = if value_string == util::EMPTY_VALUE {
+                vec![]
+            } else {
+                let values = value_string.split(separator);
+                let mut vec = Vec::new();
 
-            for value in values {
-                values_vec.push(value.to_string());
-            }
+                for value in values {
+                    vec.push(value.to_string());
+                }
+
+                vec
+            };
 
             Some(values_vec)
         }
