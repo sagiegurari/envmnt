@@ -268,9 +268,9 @@ fn set_list_empty() {
 
 #[test]
 fn set_list_single_empty() {
-    set_list("TEST_SET_LIST_SINGLE", &vec!["".to_string()]);
+    set_list("TEST_SET_LIST_SINGLE_EMPTY", &vec!["".to_string()]);
 
-    let output = is_equal("TEST_SET_LIST_SINGLE", "");
+    let output = is_equal("TEST_SET_LIST_SINGLE_EMPTY", "");
     assert!(output);
 }
 
