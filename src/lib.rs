@@ -291,7 +291,7 @@ use crate::errors::EnvmntError;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
 
-/// Error Type
+/// Get/Set list options
 pub type ListOptions = environment::ListOptions;
 
 /// Returns true environment variable is defined.
