@@ -411,14 +411,18 @@ fn get_list_with_options_single_empty_ignore() {
     let mut options = ListOptions::new();
     options.ignore_empty = true;
 
+    set("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE", "test");
+    let mut exists_value = exists("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE");
+    assert!(exists_value);
+
     set_list_with_options(
         "TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE",
         &vec![],
         &options,
     );
 
-    let exists = exists("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE");
-    assert!(!exists);
+    exists_value = exists("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE");
+    assert!(!exists_value);
 
     options.ignore_empty = false;
     set_list_with_options(
