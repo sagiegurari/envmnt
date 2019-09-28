@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.7.0
+### v0.7.0 (2019-09-28)
 
 * New **remove_all(&vec)** operation #12
 * New **contains** and **contains_ignore_case** operation #13
