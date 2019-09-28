@@ -82,6 +82,25 @@ fn get_or_panic_empty() {
 }
 
 #[test]
+fn get_any_exists() {
+    env::set_var("TEST_GET_ANY_EXISTS2", "EXISTS2");
+    let output = get_any(
+        &vec!["TEST_GET_ANY_EXISTS1", "TEST_GET_ANY_EXISTS2"],
+        "not found",
+    );
+    assert_eq!(output, "EXISTS2".to_string());
+}
+
+#[test]
+fn get_any_not_exists() {
+    let output = get_any(
+        &vec!["TEST_GET_ANY_NOT_EXISTS1", "TEST_GET_ANY_NOT_EXISTS2"],
+        "not found",
+    );
+    assert_eq!(output, "not found".to_string());
+}
+
+#[test]
 fn is_or_false() {
     env::set_var("TEST_IS_OR_BOOL_FALSE", "false");
     let output = is_or("TEST_IS_OR_BOOL_FALSE", true);

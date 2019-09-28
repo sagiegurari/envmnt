@@ -62,6 +62,21 @@ pub(crate) fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
     env::var(key).unwrap()
 }
 
+pub(crate) fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
+    let mut output = default_value.to_string();
+
+    for key in keys.iter() {
+        let current_value = env::var(key);
+
+        if current_value.is_ok() {
+            output = current_value.unwrap();
+            break;
+        }
+    }
+
+    output
+}
+
 pub(crate) fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
     let default_str = util::bool_to_string(default_value);
 

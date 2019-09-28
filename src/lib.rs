@@ -138,6 +138,13 @@
 //!     for (key, value) in all_vars {
 //!         println!("{}: {}", key, value);
 //!     }
+//!
+//!     envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
+//!
+//!     let value = envmnt::get_any(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"], "default");
+//!     println!("MY_ENV_VAR1 exists: {}", envmnt::exists("MY_ENV_VAR1"));
+//!     println!("MY_ENV_VAR2 exists: {}", envmnt::exists("MY_ENV_VAR2"));
+//!     println!("Found value: {}", value);
 //! }
 //! ```
 //!
@@ -446,6 +453,31 @@ pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
 /// ```
 pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
     environment::get_or_panic(key)
+}
+
+/// Returns the first environment variable found.
+///
+/// # Arguments
+///
+/// * `keys` - The environment variables to search
+/// * `default_value` - In case the environment variables are not defined, this value will be returned.
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
+///
+///     let value = envmnt::get_any(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"], "default");
+///     assert!(!envmnt::exists("MY_ENV_VAR1"));
+///     assert!(envmnt::exists("MY_ENV_VAR2"));
+///     assert_eq!(value, "SOME VALUE2");
+/// }
+/// ```
+pub fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
+    environment::get_any(keys, default_value)
 }
 
 /// Returns false if environment variable value if falsy.
