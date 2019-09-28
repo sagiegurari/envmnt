@@ -266,6 +266,53 @@ fn is_equal_not_same() {
 }
 
 #[test]
+fn contains_not_exists() {
+    let output = contains("TEST_LIB_CONTAINS_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn contains_same() {
+    env::set_var("TEST_LIB_CONTAINS_SAME", "VALUE");
+    let output = contains("TEST_LIB_CONTAINS_SAME", "VAL");
+    assert!(output);
+}
+
+#[test]
+fn contains_not_same() {
+    env::set_var("TEST_LIB_CONTAINS_NOT_SAME", "VALUE");
+    let output = contains("TEST_LIB_CONTAINS_NOT_SAME", "val");
+    assert!(!output);
+}
+
+#[test]
+fn contains_ignore_case_not_exists() {
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn contains_ignore_case_same() {
+    env::set_var("TEST_LIB_CONTAINS_IGNORE_CASE_SAME", "VALUE");
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_SAME", "VAL");
+    assert!(output);
+}
+
+#[test]
+fn contains_ignore_case_same_value_different_case() {
+    env::set_var("TEST_LIB_CONTAINS_IGNORE_CASE_SAME_DIFFERENT_CASE", "VALUE");
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_SAME_DIFFERENT_CASE", "val");
+    assert!(output);
+}
+
+#[test]
+fn contains_ignore_case_not_same() {
+    env::set_var("TEST_LIB_CONTAINS_IGNORE_CASE_NOT_SAME", "1");
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_NOT_SAME", "2");
+    assert!(!output);
+}
+
+#[test]
 fn set_list_multiple() {
     set_list(
         "TEST_LIB_SET_LIST_MULTIPLE",

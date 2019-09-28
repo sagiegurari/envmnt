@@ -3,6 +3,7 @@
 ### v0.7.0
 
 * New remove_all(&vec) operation #12
+* New contains and contains_ignore_case operation #13
 
 ### v0.6.0 (2019-06-02)
 

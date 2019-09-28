@@ -119,6 +119,26 @@ pub(crate) fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     }
 }
 
+pub(crate) fn contains<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    if exists(&key) {
+        let current_value = get_or(&key, "");
+
+        current_value.contains(value)
+    } else {
+        false
+    }
+}
+
+pub(crate) fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    if exists(&key) {
+        let current_value = get_or(&key, "").to_lowercase();
+
+        current_value.contains(&value.to_lowercase())
+    } else {
+        false
+    }
+}
+
 pub(crate) fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
     let options = ListOptions::new();
     set_list_with_options(key, values, &options)

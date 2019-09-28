@@ -160,6 +160,10 @@
 //!     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 //!     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
 //!     println!("Value Is Same: {}", &same);
+//!     let mut contains = envmnt::contains("MY_ENV_VAR", "_ENV_");
+//!     println!("Value Contained: {}", &contains);
+//!     contains = envmnt::contains_ignore_case("MY_ENV_VAR", "_env_");
+//!     println!("Value Contained (case insensitive): {}", &contains);
 //! }
 //! ```
 //!
@@ -645,6 +649,52 @@ pub fn vars() -> Vec<(String, String)> {
 /// ```
 pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     environment::is_equal(key, value)
+}
+
+/// Returns true if the provided environment variable is defined and contains the provided value.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The value to check
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR", "SOME TEST VALUE");
+///
+///     let contains = envmnt::contains("MY_ENV_VAR", "TEST");
+///     assert!(contains);
+/// }
+/// ```
+pub fn contains<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    environment::contains(key, value)
+}
+
+/// Returns true if the provided environment variable is defined and contains the provided value regardless of the case.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The value to check
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR", "SOME TEST VALUE");
+///
+///     let contains = envmnt::contains_ignore_case("MY_ENV_VAR", "test");
+///     assert!(contains);
+/// }
+/// ```
+pub fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    environment::contains_ignore_case(key, value)
 }
 
 /// Sets the provided string vector as an environment variable.
