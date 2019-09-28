@@ -62,6 +62,21 @@ pub(crate) fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
     env::var(key).unwrap()
 }
 
+pub(crate) fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
+    let mut output = default_value.to_string();
+
+    for key in keys.iter() {
+        let current_value = env::var(key);
+
+        if current_value.is_ok() {
+            output = current_value.unwrap();
+            break;
+        }
+    }
+
+    output
+}
+
 pub(crate) fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
     let default_str = util::bool_to_string(default_value);
 
@@ -114,6 +129,26 @@ pub(crate) fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
         let current_value = get_or(&key, "");
 
         current_value == value
+    } else {
+        false
+    }
+}
+
+pub(crate) fn contains<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    if exists(&key) {
+        let current_value = get_or(&key, "");
+
+        current_value.contains(value)
+    } else {
+        false
+    }
+}
+
+pub(crate) fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    if exists(&key) {
+        let current_value = get_or(&key, "").to_lowercase();
+
+        current_value.contains(&value.to_lowercase())
     } else {
         false
     }

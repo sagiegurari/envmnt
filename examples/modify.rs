@@ -25,4 +25,11 @@ fn main() {
     for (key, value) in all_vars {
         println!("{}: {}", key, value);
     }
+
+    envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
+
+    let value = envmnt::get_any(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"], "default");
+    println!("MY_ENV_VAR1 exists: {}", envmnt::exists("MY_ENV_VAR1"));
+    println!("MY_ENV_VAR2 exists: {}", envmnt::exists("MY_ENV_VAR2"));
+    println!("Found value: {}", value);
 }

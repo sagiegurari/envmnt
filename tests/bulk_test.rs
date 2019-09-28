@@ -20,6 +20,10 @@ fn get() {
     exists = envmnt::is_any_exists(&vec!["BULK_TEST_ENV1", "BULK_TEST_ENV2", "BULK_TEST_ENV3"]);
     assert!(exists);
 
+    envmnt::remove_all(&vec!["BULK_TEST_ENV1", "BULK_TEST_ENV2"]);
+    exists = envmnt::is_any_exists(&vec!["BULK_TEST_ENV1", "BULK_TEST_ENV2"]);
+    assert!(!exists);
+
     let mut env: IndexMap<String, String> = IndexMap::new();
     env.insert("BULK_TEST_ENV3".to_string(), "3".to_string());
     env.insert("BULK_TEST_ENV4".to_string(), "4".to_string());

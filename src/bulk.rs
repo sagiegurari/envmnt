@@ -11,6 +11,12 @@ use crate::environment;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
 
+pub(crate) fn remove_all<K: AsRef<OsStr>>(keys: &Vec<K>) {
+    for key in keys.iter() {
+        environment::remove(key);
+    }
+}
+
 pub(crate) fn set_all(env: &IndexMap<String, String>) {
     for (key, value) in env.iter() {
         environment::set(key, value);

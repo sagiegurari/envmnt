@@ -82,6 +82,25 @@ fn get_or_panic_empty() {
 }
 
 #[test]
+fn get_any_exists() {
+    env::set_var("TEST_GET_ANY_EXISTS2", "EXISTS2");
+    let output = get_any(
+        &vec!["TEST_GET_ANY_EXISTS1", "TEST_GET_ANY_EXISTS2"],
+        "not found",
+    );
+    assert_eq!(output, "EXISTS2".to_string());
+}
+
+#[test]
+fn get_any_not_exists() {
+    let output = get_any(
+        &vec!["TEST_GET_ANY_NOT_EXISTS1", "TEST_GET_ANY_NOT_EXISTS2"],
+        "not found",
+    );
+    assert_eq!(output, "not found".to_string());
+}
+
+#[test]
 fn is_or_false() {
     env::set_var("TEST_IS_OR_BOOL_FALSE", "false");
     let output = is_or("TEST_IS_OR_BOOL_FALSE", true);
@@ -255,6 +274,53 @@ fn is_equal_same() {
 fn is_equal_not_same() {
     env::set_var("TEST_IS_EQUAL_NOT_SAME", "1");
     let output = is_equal("TEST_IS_EQUAL_NOT_SAME", "2");
+    assert!(!output);
+}
+
+#[test]
+fn contains_not_exists() {
+    let output = contains("TEST_CONTAINS_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn contains_same() {
+    env::set_var("TEST_CONTAINS_SAME", "VALUE");
+    let output = contains("TEST_CONTAINS_SAME", "VAL");
+    assert!(output);
+}
+
+#[test]
+fn contains_not_same() {
+    env::set_var("TEST_CONTAINS_NOT_SAME", "VALUE");
+    let output = contains("TEST_CONTAINS_NOT_SAME", "val");
+    assert!(!output);
+}
+
+#[test]
+fn contains_ignore_case_not_exists() {
+    let output = contains_ignore_case("TEST_CONTAINS_IGNORE_CASE_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn contains_ignore_case_same() {
+    env::set_var("TEST_CONTAINS_IGNORE_CASE_SAME", "VALUE");
+    let output = contains_ignore_case("TEST_CONTAINS_IGNORE_CASE_SAME", "VAL");
+    assert!(output);
+}
+
+#[test]
+fn contains_ignore_case_same_value_different_case() {
+    env::set_var("TEST_CONTAINS_IGNORE_CASE_SAME_DIFFERENT_CASE", "VALUE");
+    let output = contains_ignore_case("TEST_CONTAINS_IGNORE_CASE_SAME_DIFFERENT_CASE", "val");
+    assert!(output);
+}
+
+#[test]
+fn contains_ignore_case_not_same() {
+    env::set_var("TEST_CONTAINS_IGNORE_CASE_NOT_SAME", "1");
+    let output = contains_ignore_case("TEST_CONTAINS_IGNORE_CASE_NOT_SAME", "2");
     assert!(!output);
 }
 

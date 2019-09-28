@@ -28,4 +28,11 @@ fn get() {
         "STRING_TEST_SET_OPTIONAL_SOME",
         "OPTIONAL VALUE"
     ));
+
+    envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
+
+    let value = envmnt::get_any(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"], "default");
+    assert!(!envmnt::exists("MY_ENV_VAR1"));
+    assert!(envmnt::exists("MY_ENV_VAR2"));
+    assert_eq!(value, "SOME VALUE2");
 }

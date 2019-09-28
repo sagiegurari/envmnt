@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+### v0.7.0
+
+* New **remove_all(&vec)** operation #12
+* New **contains** and **contains_ignore_case** operation #13
+* New **get_any** to return first found environment variable #11
+
 ### v0.6.0 (2019-06-02)
 
 * New vec<string> list get/set operations #10

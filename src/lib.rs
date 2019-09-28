@@ -138,6 +138,13 @@
 //!     for (key, value) in all_vars {
 //!         println!("{}: {}", key, value);
 //!     }
+//!
+//!     envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
+//!
+//!     let value = envmnt::get_any(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"], "default");
+//!     println!("MY_ENV_VAR1 exists: {}", envmnt::exists("MY_ENV_VAR1"));
+//!     println!("MY_ENV_VAR2 exists: {}", envmnt::exists("MY_ENV_VAR2"));
+//!     println!("Found value: {}", value);
 //! }
 //! ```
 //!
@@ -160,6 +167,10 @@
 //!     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 //!     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
 //!     println!("Value Is Same: {}", &same);
+//!     let mut contains = envmnt::contains("MY_ENV_VAR", "_ENV_");
+//!     println!("Value Contained: {}", &contains);
+//!     contains = envmnt::contains_ignore_case("MY_ENV_VAR", "_env_");
+//!     println!("Value Contained (case insensitive): {}", &contains);
 //! }
 //! ```
 //!
@@ -221,6 +232,12 @@
 //!     found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 //!
 //!     println!("All Found: {}", &found);
+//!
+//!     envmnt::remove_all(&vec!["ENV_VAR1", "ENV_VAR2"]);
+//!
+//!     found = envmnt::is_any_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
+//!
+//!     println!("Any Found: {}", &found);
 //!
 //!     env = IndexMap::new();
 //!     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
@@ -361,6 +378,32 @@ pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
     environment::get_remove(key)
 }
 
+/// Removes all provided environment variables.
+///
+/// # Arguments
+///
+/// * `keys` - A list of environment variables to remove
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR1", "SOME VALUE 1");
+///     envmnt::set("MY_ENV_VAR2", "SOME VALUE 2");
+///     assert!(envmnt::is_equal("MY_ENV_VAR1", "SOME VALUE 1"));
+///     assert!(envmnt::is_equal("MY_ENV_VAR2", "SOME VALUE 2"));
+///
+///     envmnt::remove_all(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"]);
+///     assert!(!envmnt::exists("MY_ENV_VAR1"));
+///     assert!(!envmnt::exists("MY_ENV_VAR2"));
+/// }
+/// ```
+pub fn remove_all<K: AsRef<OsStr>>(keys: &Vec<K>) {
+    bulk::remove_all(keys)
+}
+
 /// Returns the environment variable value or if is not defined, the default value will be returned.
 ///
 /// # Arguments
@@ -410,6 +453,31 @@ pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
 /// ```
 pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
     environment::get_or_panic(key)
+}
+
+/// Returns the first environment variable found.
+///
+/// # Arguments
+///
+/// * `keys` - The environment variables to search
+/// * `default_value` - In case the environment variables are not defined, this value will be returned.
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
+///
+///     let value = envmnt::get_any(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"], "default");
+///     assert!(!envmnt::exists("MY_ENV_VAR1"));
+///     assert!(envmnt::exists("MY_ENV_VAR2"));
+///     assert_eq!(value, "SOME VALUE2");
+/// }
+/// ```
+pub fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
+    environment::get_any(keys, default_value)
 }
 
 /// Returns false if environment variable value if falsy.
@@ -613,6 +681,52 @@ pub fn vars() -> Vec<(String, String)> {
 /// ```
 pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
     environment::is_equal(key, value)
+}
+
+/// Returns true if the provided environment variable is defined and contains the provided value.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The value to check
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR", "SOME TEST VALUE");
+///
+///     let contains = envmnt::contains("MY_ENV_VAR", "TEST");
+///     assert!(contains);
+/// }
+/// ```
+pub fn contains<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    environment::contains(key, value)
+}
+
+/// Returns true if the provided environment variable is defined and contains the provided value regardless of the case.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The value to check
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR", "SOME TEST VALUE");
+///
+///     let contains = envmnt::contains_ignore_case("MY_ENV_VAR", "test");
+///     assert!(contains);
+/// }
+/// ```
+pub fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
+    environment::contains_ignore_case(key, value)
 }
 
 /// Sets the provided string vector as an environment variable.

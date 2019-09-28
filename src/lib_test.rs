@@ -42,6 +42,17 @@ fn get_remove_exists() {
 }
 
 #[test]
+fn remove_all_exists() {
+    env::set_var("TEST_LIB_REMOVE_ALL_EXISTS1", "EXISTS1");
+    env::set_var("TEST_LIB_REMOVE_ALL_EXISTS2", "EXISTS2");
+    remove_all(&vec!["TEST_LIB_REMOVE_EXISTS1", "TEST_LIB_REMOVE_EXISTS2"]);
+    let mut output = exists("TEST_LIB_REMOVE_EXISTS1");
+    assert!(!output);
+    output = exists("TEST_LIB_REMOVE_EXISTS2");
+    assert!(!output);
+}
+
+#[test]
 fn get_or_exists() {
     env::set_var("TEST_LIB_GET_OR_EXISTS", "EXISTS");
     let output = get_or("TEST_LIB_GET_OR_EXISTS", "bad");
@@ -72,6 +83,28 @@ fn get_or_panic_exists() {
 #[should_panic]
 fn get_or_panic_not_exists() {
     get_or_panic("TEST_LIB_GET_OR_PANIC_NOT_EXISTS");
+}
+
+#[test]
+fn get_any_exists() {
+    env::set_var("TEST_LIB_GET_ANY_EXISTS2", "EXISTS2");
+    let output = get_any(
+        &vec!["TEST_LIB_GET_ANY_EXISTS1", "TEST_LIB_GET_ANY_EXISTS2"],
+        "not found",
+    );
+    assert_eq!(output, "EXISTS2".to_string());
+}
+
+#[test]
+fn get_any_not_exists() {
+    let output = get_any(
+        &vec![
+            "TEST_LIB_GET_ANY_NOT_EXISTS1",
+            "TEST_LIB_GET_ANY_NOT_EXISTS2",
+        ],
+        "not found",
+    );
+    assert_eq!(output, "not found".to_string());
 }
 
 #[test]
@@ -251,6 +284,53 @@ fn is_equal_same() {
 fn is_equal_not_same() {
     env::set_var("TEST_LIB_IS_EQUAL_NOT_SAME", "1");
     let output = is_equal("TEST_LIB_IS_EQUAL_NOT_SAME", "2");
+    assert!(!output);
+}
+
+#[test]
+fn contains_not_exists() {
+    let output = contains("TEST_LIB_CONTAINS_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn contains_same() {
+    env::set_var("TEST_LIB_CONTAINS_SAME", "VALUE");
+    let output = contains("TEST_LIB_CONTAINS_SAME", "VAL");
+    assert!(output);
+}
+
+#[test]
+fn contains_not_same() {
+    env::set_var("TEST_LIB_CONTAINS_NOT_SAME", "VALUE");
+    let output = contains("TEST_LIB_CONTAINS_NOT_SAME", "val");
+    assert!(!output);
+}
+
+#[test]
+fn contains_ignore_case_not_exists() {
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_NOT_EXISTS", "VALUE");
+    assert!(!output);
+}
+
+#[test]
+fn contains_ignore_case_same() {
+    env::set_var("TEST_LIB_CONTAINS_IGNORE_CASE_SAME", "VALUE");
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_SAME", "VAL");
+    assert!(output);
+}
+
+#[test]
+fn contains_ignore_case_same_value_different_case() {
+    env::set_var("TEST_LIB_CONTAINS_IGNORE_CASE_SAME_DIFFERENT_CASE", "VALUE");
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_SAME_DIFFERENT_CASE", "val");
+    assert!(output);
+}
+
+#[test]
+fn contains_ignore_case_not_same() {
+    env::set_var("TEST_LIB_CONTAINS_IGNORE_CASE_NOT_SAME", "1");
+    let output = contains_ignore_case("TEST_LIB_CONTAINS_IGNORE_CASE_NOT_SAME", "2");
     assert!(!output);
 }
 

@@ -74,6 +74,10 @@ fn main() {
     envmnt::set("MY_ENV_VAR", "SOME VALUE");
     let same = envmnt::is_equal("MY_ENV_VAR", "SOME VALUE");
     println!("Value Is Same: {}", &same);
+    let mut contains = envmnt::contains("MY_ENV_VAR", "_ENV_");
+    println!("Value Contained: {}", &contains);
+    contains = envmnt::contains_ignore_case("MY_ENV_VAR", "_env_");
+    println!("Value Contained (case insensitive): {}", &contains);
 }
 ```
 
@@ -135,6 +139,12 @@ fn main() {
     found = envmnt::is_all_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
 
     println!("All Found: {}", &found);
+
+    envmnt::remove_all(&vec!["ENV_VAR1", "ENV_VAR2"]);
+
+    found = envmnt::is_any_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
+
+    println!("Any Found: {}", &found);
 
     env = IndexMap::new();
     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
