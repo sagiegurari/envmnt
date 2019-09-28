@@ -42,6 +42,17 @@ fn get_remove_exists() {
 }
 
 #[test]
+fn remove_all_exists() {
+    env::set_var("TEST_LIB_REMOVE_ALL_EXISTS1", "EXISTS1");
+    env::set_var("TEST_LIB_REMOVE_ALL_EXISTS2", "EXISTS2");
+    remove_all(&vec!["TEST_LIB_REMOVE_EXISTS1", "TEST_LIB_REMOVE_EXISTS2"]);
+    let mut output = exists("TEST_LIB_REMOVE_EXISTS1");
+    assert!(!output);
+    output = exists("TEST_LIB_REMOVE_EXISTS2");
+    assert!(!output);
+}
+
+#[test]
 fn get_or_exists() {
     env::set_var("TEST_LIB_GET_OR_EXISTS", "EXISTS");
     let output = get_or("TEST_LIB_GET_OR_EXISTS", "bad");

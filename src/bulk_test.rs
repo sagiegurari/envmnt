@@ -3,6 +3,42 @@ use super::*;
 use std::env;
 
 #[test]
+fn remove_all_not_exists() {
+    environment::remove("TEST_REMOVE_ALL_NOT_EXISTS1");
+    environment::remove("TEST_REMOVE_ALL_NOT_EXISTS2");
+    remove_all(&vec!["TEST_REMOVE_NOT_EXISTS1", "TEST_REMOVE_NOT_EXISTS2"]);
+    let mut output = environment::exists("TEST_REMOVE_NOT_EXISTS1");
+    assert!(!output);
+    output = environment::exists("TEST_REMOVE_NOT_EXISTS2");
+    assert!(!output);
+}
+
+#[test]
+fn remove_all_exists() {
+    env::set_var("TEST_REMOVE_ALL_EXISTS1", "EXISTS1");
+    env::set_var("TEST_REMOVE_ALL_EXISTS2", "EXISTS2");
+    remove_all(&vec!["TEST_REMOVE_EXISTS1", "TEST_REMOVE_EXISTS2"]);
+    let mut output = environment::exists("TEST_REMOVE_EXISTS1");
+    assert!(!output);
+    output = environment::exists("TEST_REMOVE_EXISTS2");
+    assert!(!output);
+}
+
+#[test]
+fn remove_all_partial_exists() {
+    env::set_var("TEST_REMOVE_ALL_PARTIAL_EXISTS1", "EXISTS1");
+    environment::remove("TEST_REMOVE_ALL_PARTIAL_EXISTS2");
+    remove_all(&vec![
+        "TEST_REMOVE_PARTIAL_EXISTS1",
+        "TEST_REMOVE_PARTIAL_EXISTS2",
+    ]);
+    let mut output = environment::exists("TEST_REMOVE_PARTIAL_EXISTS1");
+    assert!(!output);
+    output = environment::exists("TEST_REMOVE_PARTIAL_EXISTS2");
+    assert!(!output);
+}
+
+#[test]
 fn set_all_valid() {
     let mut env: IndexMap<String, String> = IndexMap::new();
     env.insert("SET_ALL_VAR1".to_string(), "MY VALUE".to_string());

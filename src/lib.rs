@@ -222,6 +222,12 @@
 //!
 //!     println!("All Found: {}", &found);
 //!
+//!     envmnt::remove_all(&vec!["ENV_VAR1", "ENV_VAR2"]);
+//!
+//!     found = envmnt::is_any_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
+//!
+//!     println!("Any Found: {}", &found);
+//!
 //!     env = IndexMap::new();
 //!     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
 //!     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
@@ -359,6 +365,32 @@ pub fn remove<K: AsRef<OsStr>>(key: K) {
 /// ```
 pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
     environment::get_remove(key)
+}
+
+/// Removes all provided environment variables.
+///
+/// # Arguments
+///
+/// * `keys` - A list of environment variables to remove
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV_VAR1", "SOME VALUE 1");
+///     envmnt::set("MY_ENV_VAR2", "SOME VALUE 2");
+///     assert!(envmnt::is_equal("MY_ENV_VAR1", "SOME VALUE 1"));
+///     assert!(envmnt::is_equal("MY_ENV_VAR2", "SOME VALUE 2"));
+///
+///     envmnt::remove_all(&vec!["MY_ENV_VAR1", "MY_ENV_VAR2"]);
+///     assert!(!envmnt::exists("MY_ENV_VAR1"));
+///     assert!(!envmnt::exists("MY_ENV_VAR2"));
+/// }
+/// ```
+pub fn remove_all<K: AsRef<OsStr>>(keys: &Vec<K>) {
+    bulk::remove_all(keys)
 }
 
 /// Returns the environment variable value or if is not defined, the default value will be returned.

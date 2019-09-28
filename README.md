@@ -136,6 +136,12 @@ fn main() {
 
     println!("All Found: {}", &found);
 
+    envmnt::remove_all(&vec!["ENV_VAR1", "ENV_VAR2"]);
+
+    found = envmnt::is_any_exists(&vec!["ENV_VAR1", "ENV_VAR2"]);
+
+    println!("Any Found: {}", &found);
+
     env = IndexMap::new();
     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());

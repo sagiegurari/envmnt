@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.7.0
+
+* New remove_all(&vec) operation #12
+
 ### v0.6.0 (2019-06-02)
 
 * New vec<string> list get/set operations #10
