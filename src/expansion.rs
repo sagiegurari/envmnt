@@ -7,7 +7,6 @@
 #[path = "./expansion_test.rs"]
 mod expansion_test;
 
-use crate::environment;
 use crate::types::ExpansionType;
 use std::env;
 
@@ -17,6 +16,10 @@ pub(crate) fn get_os_expansion_type() -> ExpansionType {
     } else {
         ExpansionType::Unix
     }
+}
+
+fn should_break_key(value: char) -> bool {
+    value == ' ' || value == '\n' || value == '\t' || value == '\r' || value == '='
 }
 
 pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool) -> String {
@@ -36,12 +39,7 @@ pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool
             } else {
                 value_string.push(next_char);
             }
-        } else if last_char
-            || next_char == ' '
-            || next_char == '\n'
-            || next_char == '\t'
-            || next_char == '\r'
-        {
+        } else if last_char || should_break_key(next_char) {
             if last_char {
                 env_key.push(next_char);
             }
@@ -107,14 +105,23 @@ pub(crate) fn expand_by_wrapper(
                 value_string.push(next_char);
             }
         } else if next_char == suffix {
-            let default_value = if default_to_empty {
-                "".to_string()
-            } else {
-                env_key.clone()
+            match env::var(&env_key) {
+                Ok(env_value) => value_string.push_str(&env_value),
+                _ => {
+                    if !default_to_empty {
+                        value_string.push_str(prefix);
+                        value_string.push_str(&env_key);
+                        value_string.push(suffix);
+                    }
+                }
             };
-            let env_value = environment::get_or(&env_key, &default_value);
 
-            value_string.push_str(&env_value);
+            env_key.clear();
+            found_prefix = false;
+        } else if should_break_key(next_char) {
+            value_string.push_str(&prefix);
+            value_string.push_str(&env_key);
+            value_string.push(next_char);
 
             env_key.clear();
             found_prefix = false;
