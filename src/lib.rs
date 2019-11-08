@@ -297,7 +297,7 @@
 mod lib_test;
 
 mod bulk;
-mod environment;
+pub mod environment;
 mod errors;
 mod file;
 mod util;

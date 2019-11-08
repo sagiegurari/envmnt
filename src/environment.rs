@@ -11,6 +11,7 @@ use crate::util;
 use std::env;
 use std::ffi::OsStr;
 
+/// Get/Set list options
 pub struct ListOptions {
     /// The separator used to merge/split the values
     pub separator: Option<String>,
