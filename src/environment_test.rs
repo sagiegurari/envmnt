@@ -557,3 +557,203 @@ fn get_list_with_options_multiple() {
         vec!["1".to_string(), "2".to_string(), "3".to_string()]
     );
 }
+
+#[test]
+fn expand_unix_prefix_none() {
+    let output = expand("some text here", ExpansionType::UnixPrefix);
+
+    assert_eq!("some text here", output);
+}
+
+#[test]
+fn expand_unix_prefix_with_values() {
+    set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES1", "test1");
+    set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES2", "test2");
+    set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES3", "test3");
+    set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES4", "test4");
+    set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: $TEST_EXPAND_UNIX_PREFIX_WITH_VALUES1
+value2: $TEST_EXPAND_UNIX_PREFIX_WITH_VALUES2
+value3: ${TEST_EXPAND_UNIX_PREFIX_WITH_VALUES3}
+value4: %TEST_EXPAND_UNIX_PREFIX_WITH_VALUES4%
+value5: $TEST_EXPAND_UNIX_PREFIX_WITH_VALUES5"#,
+        ExpansionType::UnixPrefix,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: ${TEST_EXPAND_UNIX_PREFIX_WITH_VALUES3}
+value4: %TEST_EXPAND_UNIX_PREFIX_WITH_VALUES4%
+value5: test5"#,
+        output
+    );
+}
+
+#[test]
+fn expand_unix_brackets_none() {
+    let output = expand("some text here", ExpansionType::UnixBrackets);
+
+    assert_eq!("some text here", output);
+}
+
+#[test]
+fn expand_unix_brackets_with_values() {
+    set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES1", "test1");
+    set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES2", "test2");
+    set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES3", "test3");
+    set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES4", "test4");
+    set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: ${TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES1}
+value2: ${TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES2}
+value3: $TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES3
+value4: %TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES4%
+value5: ${TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES5
+    "#,
+        ExpansionType::UnixBrackets,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: $TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES3
+value4: %TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES4%
+value5: ${TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES5
+    "#,
+        output
+    );
+}
+
+#[test]
+fn expand_unix_with_values() {
+    set("TEST_EXPAND_UNIX_WITH_VALUES1", "test1");
+    set("TEST_EXPAND_UNIX_WITH_VALUES2", "test2");
+    set("TEST_EXPAND_UNIX_WITH_VALUES3", "test3");
+    set("TEST_EXPAND_UNIX_WITH_VALUES4", "test4");
+    set("TEST_EXPAND_UNIX_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: $TEST_EXPAND_UNIX_WITH_VALUES1
+value2: ${TEST_EXPAND_UNIX_WITH_VALUES2}
+value3: ${TEST_EXPAND_UNIX_WITH_VALUES3}
+value4: %TEST_EXPAND_UNIX_WITH_VALUES4%
+value5: $TEST_EXPAND_UNIX_WITH_VALUES5"#,
+        ExpansionType::Unix,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: test3
+value4: %TEST_EXPAND_UNIX_WITH_VALUES4%
+value5: test5"#,
+        output
+    );
+}
+
+#[test]
+fn expand_windows_none() {
+    let output = expand("some text here", ExpansionType::Windows);
+
+    assert_eq!("some text here", output);
+}
+
+#[test]
+fn expand_windows_with_values() {
+    set("TEST_EXPAND_WINDOWS_WITH_VALUES1", "test1");
+    set("TEST_EXPAND_WINDOWS_WITH_VALUES2", "test2");
+    set("TEST_EXPAND_WINDOWS_WITH_VALUES3", "test3");
+    set("TEST_EXPAND_WINDOWS_WITH_VALUES4", "test4");
+    set("TEST_EXPAND_WINDOWS_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: %TEST_EXPAND_WINDOWS_WITH_VALUES1%
+value2: %TEST_EXPAND_WINDOWS_WITH_VALUES2%
+value3: $TEST_EXPAND_WINDOWS_WITH_VALUES3
+value4: ${TEST_EXPAND_WINDOWS_WITH_VALUES4}
+value5: %TEST_EXPAND_WINDOWS_WITH_VALUES5
+    "#,
+        ExpansionType::Windows,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: $TEST_EXPAND_WINDOWS_WITH_VALUES3
+value4: ${TEST_EXPAND_WINDOWS_WITH_VALUES4}
+value5: %TEST_EXPAND_WINDOWS_WITH_VALUES5
+    "#,
+        output
+    );
+}
+
+#[test]
+#[cfg(not(target_os = "windows"))]
+fn expand_os_with_values() {
+    set("TEST_EXPAND_OS_WITH_VALUES1", "test1");
+    set("TEST_EXPAND_OS_WITH_VALUES2", "test2");
+    set("TEST_EXPAND_OS_WITH_VALUES3", "test3");
+    set("TEST_EXPAND_OS_WITH_VALUES4", "test4");
+    set("TEST_EXPAND_OS_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: $TEST_EXPAND_OS_WITH_VALUES1
+value2: ${TEST_EXPAND_OS_WITH_VALUES2}
+value3: ${TEST_EXPAND_OS_WITH_VALUES3}
+value4: %TEST_EXPAND_OS_WITH_VALUES4%
+value5: $TEST_EXPAND_OS_WITH_VALUES5"#,
+        ExpansionType::Unix,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: test3
+value4: %TEST_EXPAND_OS_WITH_VALUES4%
+value5: test5"#,
+        output
+    );
+}
+
+#[test]
+fn expand_all_with_values() {
+    set("TEST_EXPAND_ALL_WITH_VALUES1", "test1");
+    set("TEST_EXPAND_ALL_WITH_VALUES2", "test2");
+    set("TEST_EXPAND_ALL_WITH_VALUES3", "test3");
+    set("TEST_EXPAND_ALL_WITH_VALUES4", "test4");
+    set("TEST_EXPAND_ALL_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: $TEST_EXPAND_ALL_WITH_VALUES1
+value2: ${TEST_EXPAND_ALL_WITH_VALUES2}
+value3: ${TEST_EXPAND_ALL_WITH_VALUES3}
+value4: %TEST_EXPAND_ALL_WITH_VALUES4%
+value5: $TEST_EXPAND_ALL_WITH_VALUES5"#,
+        ExpansionType::All,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: test3
+value4: test4
+value5: test5"#,
+        output
+    );
+}

@@ -113,6 +113,8 @@
 //! ```
 //! extern crate envmnt;
 //!
+//! use envmnt::ExpansionType;
+//!
 //! fn main() {
 //!     if !envmnt::exists("MY_ENV_VAR") {
 //!         envmnt::set("MY_ENV_VAR", "SOME VALUE");
@@ -145,6 +147,9 @@
 //!     println!("MY_ENV_VAR1 exists: {}", envmnt::exists("MY_ENV_VAR1"));
 //!     println!("MY_ENV_VAR2 exists: {}", envmnt::exists("MY_ENV_VAR2"));
 //!     println!("Found value: {}", value);
+//!
+//!     let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", ExpansionType::Unix);
+//!     println!("Expanded: {}", &value);
 //! }
 //! ```
 //!
@@ -308,6 +313,9 @@ use std::ffi::OsStr;
 
 /// Get/Set list options
 pub type ListOptions = environment::ListOptions;
+
+/// Expansion Type - unix/windows style
+pub type ExpansionType = environment::ExpansionType;
 
 /// Returns true environment variable is defined.
 ///
@@ -1060,4 +1068,29 @@ where
 /// ```
 pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
     file::parse_file(file)
+}
+
+/// Expands the provided string value by replacing the environment variables defined in it.
+/// The syntax of the environment variables is based on the type requested.
+///
+/// # Arguments
+///
+/// * `value` - The value to expand
+/// * `expansion_type` - The expanstion type (unix/windows/unix prefix/...)
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// use envmnt::ExpansionType;
+///
+/// fn main() {
+///     envmnt::set("MY_ENV", "my expanded value");
+///     let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", ExpansionType::Unix);
+///     assert_eq!("Env: MY_ENV value is: my expanded value", &value);
+/// }
+/// ```
+pub fn expand(value: &str, expansion_type: ExpansionType) -> String {
+    environment::expand(&value, expansion_type)
 }

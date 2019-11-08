@@ -506,3 +506,32 @@ fn parse_file_valid() {
     assert_eq!(output.get("key2").unwrap(), "value2");
     assert_eq!(output.get("key3").unwrap(), "==value3==");
 }
+
+#[test]
+fn expand_all_with_values() {
+    set("TEST_LIB_EXPAND_ALL_WITH_VALUES1", "test1");
+    set("TEST_LIB_EXPAND_ALL_WITH_VALUES2", "test2");
+    set("TEST_LIB_EXPAND_ALL_WITH_VALUES3", "test3");
+    set("TEST_LIB_EXPAND_ALL_WITH_VALUES4", "test4");
+    set("TEST_LIB_EXPAND_ALL_WITH_VALUES5", "test5");
+
+    let output = expand(
+        r#"
+value1: $TEST_LIB_EXPAND_ALL_WITH_VALUES1
+value2: ${TEST_LIB_EXPAND_ALL_WITH_VALUES2}
+value3: ${TEST_LIB_EXPAND_ALL_WITH_VALUES3}
+value4: %TEST_LIB_EXPAND_ALL_WITH_VALUES4%
+value5: $TEST_LIB_EXPAND_ALL_WITH_VALUES5"#,
+        ExpansionType::All,
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: test3
+value4: test4
+value5: test5"#,
+        output
+    );
+}

@@ -11,7 +11,13 @@ use crate::util;
 use std::env;
 use std::ffi::OsStr;
 
+static UNIX_ENV_SYMBOL: &str = "$";
+static UNIX_ENV_PREFIX: &str = "${";
+static UNIX_ENV_SUFFIX: &str = "}";
+static WINDOWS_ENV_SYMBOL: &str = "%";
+
 /// Get/Set list options
+#[derive(Debug, Clone)]
 pub struct ListOptions {
     /// The separator used to merge/split the values
     pub separator: Option<String>,
@@ -26,6 +32,31 @@ impl ListOptions {
             separator: None,
             ignore_empty: false,
         }
+    }
+}
+
+/// Expansion Type - unix/windows style
+#[derive(Debug, Copy, Clone)]
+pub enum ExpansionType {
+    /// Unix prefix environment style, for example: $MY_ENV
+    UnixPrefix,
+    /// Unix brackets environment style, for example: ${MY_ENV}
+    UnixBrackets,
+    /// All unix supported styles
+    Unix,
+    /// Windows environment style, for example: %MY_ENV%
+    Windows,
+    /// Current OS supported styles (UnixAll/Windows)
+    OS,
+    /// All supported styles for all platforms
+    All,
+}
+
+fn get_os_expansion_type() -> ExpansionType {
+    if cfg!(windows) {
+        ExpansionType::Windows
+    } else {
+        ExpansionType::Unix
     }
 }
 
@@ -210,5 +241,78 @@ pub(crate) fn get_list_with_options<K: AsRef<OsStr>>(
             }
         }
         _ => None,
+    }
+}
+
+pub(crate) fn expand_by_prefix(value: &str, prefix: &str) -> String {
+    let mut value_string = value.to_string();
+
+    match value_string.find(prefix) {
+        Some(_) => {
+            for (existing_key, mut existing_value) in env::vars() {
+                let mut key_pattern = prefix.to_string();
+                key_pattern.push_str(&existing_key);
+
+                let value_length = existing_value.len();
+                let pattern_length = key_pattern.len();
+
+                for suffix in " \t\n".chars() {
+                    key_pattern.push(suffix);
+                    existing_value.push(suffix);
+
+                    value_string = str::replace(&value_string, &key_pattern, &existing_value);
+
+                    key_pattern.remove(pattern_length);
+                    existing_value.remove(value_length);
+                }
+
+                if value_string.ends_with(&key_pattern) {
+                    value_string.truncate(value_string.len() - pattern_length);
+                    value_string.push_str(&existing_value);
+                }
+            }
+
+            value_string
+        }
+        None => value_string,
+    }
+}
+
+pub(crate) fn expand_by_wrapper(value: &str, prefix: &str, suffix: &str) -> String {
+    let mut value_string = value.to_string();
+
+    match value_string.find(prefix) {
+        Some(_) => {
+            for (existing_key, existing_value) in env::vars() {
+                let mut key_pattern = prefix.to_string();
+                key_pattern.push_str(&existing_key);
+                key_pattern.push_str(suffix);
+
+                value_string = str::replace(&value_string, &key_pattern, &existing_value);
+            }
+
+            value_string
+        }
+        None => value_string,
+    }
+}
+
+pub(crate) fn expand(value: &str, expansion_type: ExpansionType) -> String {
+    match expansion_type {
+        ExpansionType::UnixPrefix => expand_by_prefix(&value, UNIX_ENV_SYMBOL),
+        ExpansionType::UnixBrackets => expand_by_wrapper(&value, UNIX_ENV_PREFIX, UNIX_ENV_SUFFIX),
+        ExpansionType::Unix => {
+            let expanded_value = expand(&value, ExpansionType::UnixBrackets);
+            expand(&expanded_value, ExpansionType::UnixPrefix)
+        }
+        ExpansionType::Windows => expand_by_wrapper(&value, WINDOWS_ENV_SYMBOL, WINDOWS_ENV_SYMBOL),
+        ExpansionType::OS => {
+            let os_expansion_type = get_os_expansion_type();
+            expand(&value, os_expansion_type)
+        }
+        ExpansionType::All => {
+            let expanded_value = expand(&value, ExpansionType::Unix);
+            expand(&expanded_value, ExpansionType::Windows)
+        }
     }
 }

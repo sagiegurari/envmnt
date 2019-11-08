@@ -1,14 +1,18 @@
 ## CHANGELOG
 
+### v0.7.1
+
+* New **expand** function #15
+
 ### v0.7.0 (2019-09-28)
 
-* New **remove_all(&vec)** operation #12
-* New **contains** and **contains_ignore_case** operation #13
+* New **remove_all(&vec)** function #12
+* New **contains** and **contains_ignore_case** function #13
 * New **get_any** to return first found environment variable #11
 
 ### v0.6.0 (2019-06-02)
 
-* New vec<string> list get/set operations #10
+* New vec<string> list get/set functions #10
 
 ### v0.4.0 (2019-05-18)
 
@@ -31,7 +35,7 @@
 
 ### v0.2.0 (2019-05-09)
 
-* Added bulk variables exists operations #3
+* Added bulk variables exists functions #3
 * Apis support for OS strings #2
 * Fix documentation #1
 

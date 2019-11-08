@@ -1,5 +1,7 @@
 extern crate envmnt;
 
+use envmnt::ExpansionType;
+
 #[test]
 fn get() {
     let mut exists = envmnt::exists("STRING_TEST_ENV");
@@ -35,4 +37,8 @@ fn get() {
     assert!(!envmnt::exists("MY_ENV_VAR1"));
     assert!(envmnt::exists("MY_ENV_VAR2"));
     assert_eq!(value, "SOME VALUE2");
+
+    envmnt::set("MY_ENV", "my expanded value");
+    let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", ExpansionType::Unix);
+    assert_eq!("Env: MY_ENV value is: my expanded value", &value);
 }
