@@ -9,6 +9,7 @@ mod expansion_test;
 
 use crate::environment;
 use crate::types::ExpansionType;
+use std::env;
 
 pub(crate) fn get_os_expansion_type() -> ExpansionType {
     if cfg!(windows) {
@@ -45,13 +46,15 @@ pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool
                 env_key.push(next_char);
             }
 
-            if environment::exists(&env_key) {
-                let env_value = environment::get_or(&env_key, "");
-                value_string.push_str(&env_value);
-            } else if !default_to_empty {
-                value_string.push(prefix);
-                value_string.push_str(&env_key);
-            }
+            match env::var(&env_key) {
+                Ok(env_value) => value_string.push_str(&env_value),
+                _ => {
+                    if !default_to_empty {
+                        value_string.push(prefix);
+                        value_string.push_str(&env_key);
+                    }
+                }
+            };
 
             if !last_char {
                 value_string.push(next_char);
