@@ -515,6 +515,10 @@ fn expand_all_with_values() {
     set("TEST_LIB_EXPAND_ALL_WITH_VALUES4", "test4");
     set("TEST_LIB_EXPAND_ALL_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.expansion_type = Some(ExpansionType::All);
+    options.default_to_empty = false;
+
     let output = expand(
         r#"
 value1: $TEST_LIB_EXPAND_ALL_WITH_VALUES1
@@ -522,7 +526,7 @@ value2: ${TEST_LIB_EXPAND_ALL_WITH_VALUES2}
 value3: ${TEST_LIB_EXPAND_ALL_WITH_VALUES3}
 value4: %TEST_LIB_EXPAND_ALL_WITH_VALUES4%
 value5: $TEST_LIB_EXPAND_ALL_WITH_VALUES5"#,
-        ExpansionType::All,
+        Some(options),
     );
 
     assert_eq!(
@@ -532,6 +536,38 @@ value2: test2
 value3: test3
 value4: test4
 value5: test5"#,
+        output
+    );
+}
+
+#[test]
+#[cfg(not(target_os = "windows"))]
+fn expand_none_options() {
+    set("TEST_LIB_EXPAND_NONE_OPTIONS1", "test1");
+    set("TEST_LIB_EXPAND_NONE_OPTIONS2", "test2");
+    set("TEST_LIB_EXPAND_NONE_OPTIONS3", "test3");
+    set("TEST_LIB_EXPAND_NONE_OPTIONS4", "test4");
+    set("TEST_LIB_EXPAND_NONE_OPTIONS5", "test5");
+
+    let output = expand(
+        r#"
+value1:$TEST_LIB_EXPAND_NONE_OPTIONS1
+value2:${TEST_LIB_EXPAND_NONE_OPTIONS2}
+value3:${TEST_LIB_EXPAND_NONE_OPTIONS3}
+value4:%TEST_LIB_EXPAND_NONE_OPTIONS4%
+value5:$TEST_LIB_EXPAND_NONE_OPTIONS5
+value6:${TEST_LIB_EXPAND_NONE_OPTIONS6}"#,
+        None,
+    );
+
+    assert_eq!(
+        r#"
+value1:test1
+value2:test2
+value3:test3
+value4:%TEST_LIB_EXPAND_NONE_OPTIONS4%
+value5:test5
+value6:"#,
         output
     );
 }

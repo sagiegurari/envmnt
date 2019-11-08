@@ -1,6 +1,6 @@
 extern crate envmnt;
 
-use envmnt::ExpansionType;
+use envmnt::{ExpandOptions, ExpansionType};
 
 fn main() {
     if !envmnt::exists("MY_ENV_VAR") {
@@ -35,6 +35,8 @@ fn main() {
     println!("MY_ENV_VAR2 exists: {}", envmnt::exists("MY_ENV_VAR2"));
     println!("Found value: {}", value);
 
-    let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", ExpansionType::Unix);
+    let mut options = ExpandOptions::new();
+    options.expansion_type = Some(ExpansionType::Unix);
+    let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", Some(options));
     println!("Expanded: {}", &value);
 }

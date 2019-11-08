@@ -113,7 +113,7 @@
 //! ```
 //! extern crate envmnt;
 //!
-//! use envmnt::ExpansionType;
+//! use envmnt::{ExpandOptions, ExpansionType};
 //!
 //! fn main() {
 //!     if !envmnt::exists("MY_ENV_VAR") {
@@ -148,7 +148,9 @@
 //!     println!("MY_ENV_VAR2 exists: {}", envmnt::exists("MY_ENV_VAR2"));
 //!     println!("Found value: {}", value);
 //!
-//!     let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", ExpansionType::Unix);
+//!     let mut options = ExpandOptions::new();
+//!     options.expansion_type = Some(ExpansionType::Unix);
+//!     let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", Some(options));
 //!     println!("Expanded: {}", &value);
 //! }
 //! ```
@@ -302,9 +304,11 @@
 mod lib_test;
 
 mod bulk;
-pub mod environment;
+mod environment;
 mod errors;
+mod expansion;
 mod file;
+pub mod types;
 mod util;
 
 use crate::errors::EnvmntError;
@@ -312,10 +316,13 @@ use indexmap::IndexMap;
 use std::ffi::OsStr;
 
 /// Get/Set list options
-pub type ListOptions = environment::ListOptions;
+pub type ListOptions = types::ListOptions;
 
 /// Expansion Type - unix/windows style
-pub type ExpansionType = environment::ExpansionType;
+pub type ExpansionType = types::ExpansionType;
+
+/// Expand options
+pub type ExpandOptions = types::ExpandOptions;
 
 /// Returns true environment variable is defined.
 ///
@@ -1083,14 +1090,16 @@ pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
 /// ```
 /// extern crate envmnt;
 ///
-/// use envmnt::ExpansionType;
+/// use envmnt::{ExpandOptions, ExpansionType};
 ///
 /// fn main() {
 ///     envmnt::set("MY_ENV", "my expanded value");
-///     let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", ExpansionType::Unix);
+///     let mut options = ExpandOptions::new();
+///     options.expansion_type = Some(ExpansionType::Unix);
+///     let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", Some(options));
 ///     assert_eq!("Env: MY_ENV value is: my expanded value", &value);
 /// }
 /// ```
-pub fn expand(value: &str, expansion_type: ExpansionType) -> String {
-    environment::expand(&value, expansion_type)
+pub fn expand(value: &str, options: Option<ExpandOptions>) -> String {
+    environment::expand(&value, options)
 }

@@ -560,7 +560,11 @@ fn get_list_with_options_multiple() {
 
 #[test]
 fn expand_unix_prefix_none() {
-    let output = expand("some text here", ExpansionType::UnixPrefix);
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::UnixPrefix);
+
+    let output = expand("some text here", Some(options));
 
     assert_eq!("some text here", output);
 }
@@ -573,6 +577,10 @@ fn expand_unix_prefix_with_values() {
     set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES4", "test4");
     set("TEST_EXPAND_UNIX_PREFIX_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::UnixPrefix);
+
     let output = expand(
         r#"
 value1: $TEST_EXPAND_UNIX_PREFIX_WITH_VALUES1
@@ -580,7 +588,7 @@ value2: $TEST_EXPAND_UNIX_PREFIX_WITH_VALUES2
 value3: ${TEST_EXPAND_UNIX_PREFIX_WITH_VALUES3}
 value4: %TEST_EXPAND_UNIX_PREFIX_WITH_VALUES4%
 value5: $TEST_EXPAND_UNIX_PREFIX_WITH_VALUES5"#,
-        ExpansionType::UnixPrefix,
+        Some(options),
     );
 
     assert_eq!(
@@ -596,7 +604,11 @@ value5: test5"#,
 
 #[test]
 fn expand_unix_brackets_none() {
-    let output = expand("some text here", ExpansionType::UnixBrackets);
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::UnixBrackets);
+
+    let output = expand("some text here", Some(options));
 
     assert_eq!("some text here", output);
 }
@@ -609,6 +621,10 @@ fn expand_unix_brackets_with_values() {
     set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES4", "test4");
     set("TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::UnixBrackets);
+
     let output = expand(
         r#"
 value1: ${TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES1}
@@ -617,7 +633,7 @@ value3: $TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES3
 value4: %TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES4%
 value5: ${TEST_EXPAND_UNIX_BRACKETS_WITH_VALUES5
     "#,
-        ExpansionType::UnixBrackets,
+        Some(options),
     );
 
     assert_eq!(
@@ -640,6 +656,10 @@ fn expand_unix_with_values() {
     set("TEST_EXPAND_UNIX_WITH_VALUES4", "test4");
     set("TEST_EXPAND_UNIX_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::Unix);
+
     let output = expand(
         r#"
 value1: $TEST_EXPAND_UNIX_WITH_VALUES1
@@ -647,7 +667,7 @@ value2: ${TEST_EXPAND_UNIX_WITH_VALUES2}
 value3: ${TEST_EXPAND_UNIX_WITH_VALUES3}
 value4: %TEST_EXPAND_UNIX_WITH_VALUES4%
 value5: $TEST_EXPAND_UNIX_WITH_VALUES5"#,
-        ExpansionType::Unix,
+        Some(options),
     );
 
     assert_eq!(
@@ -663,7 +683,11 @@ value5: test5"#,
 
 #[test]
 fn expand_windows_none() {
-    let output = expand("some text here", ExpansionType::Windows);
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::Windows);
+
+    let output = expand("some text here", Some(options));
 
     assert_eq!("some text here", output);
 }
@@ -676,6 +700,10 @@ fn expand_windows_with_values() {
     set("TEST_EXPAND_WINDOWS_WITH_VALUES4", "test4");
     set("TEST_EXPAND_WINDOWS_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::Windows);
+
     let output = expand(
         r#"
 value1: %TEST_EXPAND_WINDOWS_WITH_VALUES1%
@@ -684,7 +712,7 @@ value3: $TEST_EXPAND_WINDOWS_WITH_VALUES3
 value4: ${TEST_EXPAND_WINDOWS_WITH_VALUES4}
 value5: %TEST_EXPAND_WINDOWS_WITH_VALUES5
     "#,
-        ExpansionType::Windows,
+        Some(options),
     );
 
     assert_eq!(
@@ -708,6 +736,10 @@ fn expand_os_with_values() {
     set("TEST_EXPAND_OS_WITH_VALUES4", "test4");
     set("TEST_EXPAND_OS_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::OS);
+
     let output = expand(
         r#"
 value1: $TEST_EXPAND_OS_WITH_VALUES1
@@ -715,7 +747,7 @@ value2: ${TEST_EXPAND_OS_WITH_VALUES2}
 value3: ${TEST_EXPAND_OS_WITH_VALUES3}
 value4: %TEST_EXPAND_OS_WITH_VALUES4%
 value5: $TEST_EXPAND_OS_WITH_VALUES5"#,
-        ExpansionType::OS,
+        Some(options),
     );
 
     assert_eq!(
@@ -737,6 +769,10 @@ fn expand_all_with_values() {
     set("TEST_EXPAND_ALL_WITH_VALUES4", "test4");
     set("TEST_EXPAND_ALL_WITH_VALUES5", "test5");
 
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+    options.expansion_type = Some(ExpansionType::All);
+
     let output = expand(
         r#"
 value1: $TEST_EXPAND_ALL_WITH_VALUES1
@@ -744,7 +780,7 @@ value2: ${TEST_EXPAND_ALL_WITH_VALUES2}
 value3: ${TEST_EXPAND_ALL_WITH_VALUES3}
 value4: %TEST_EXPAND_ALL_WITH_VALUES4%
 value5: $TEST_EXPAND_ALL_WITH_VALUES5"#,
-        ExpansionType::All,
+        Some(options),
     );
 
     assert_eq!(
@@ -753,6 +789,71 @@ value1: test1
 value2: test2
 value3: test3
 value4: test4
+value5: test5"#,
+        output
+    );
+}
+
+#[test]
+#[cfg(not(target_os = "windows"))]
+fn expand_none_options() {
+    set("TEST_EXPAND_NONE_OPTIONS1", "test1");
+    set("TEST_EXPAND_NONE_OPTIONS2", "test2");
+    set("TEST_EXPAND_NONE_OPTIONS3", "test3");
+    set("TEST_EXPAND_NONE_OPTIONS4", "test4");
+    set("TEST_EXPAND_NONE_OPTIONS5", "test5");
+
+    let output = expand(
+        r#"
+value1:$TEST_EXPAND_NONE_OPTIONS1
+value2:${TEST_EXPAND_NONE_OPTIONS2}
+value3:${TEST_EXPAND_NONE_OPTIONS3}
+value4:%TEST_EXPAND_NONE_OPTIONS4%
+value5:$TEST_EXPAND_NONE_OPTIONS5
+value6:${TEST_EXPAND_NONE_OPTIONS6}"#,
+        None,
+    );
+
+    assert_eq!(
+        r#"
+value1:test1
+value2:test2
+value3:test3
+value4:%TEST_EXPAND_NONE_OPTIONS4%
+value5:test5
+value6:"#,
+        output
+    );
+}
+
+#[test]
+#[cfg(not(target_os = "windows"))]
+fn expand_none_expansion_type() {
+    set("TEST_EXPAND_NONE_EXPANSION_TYPE1", "test1");
+    set("TEST_EXPAND_NONE_EXPANSION_TYPE2", "test2");
+    set("TEST_EXPAND_NONE_EXPANSION_TYPE3", "test3");
+    set("TEST_EXPAND_NONE_EXPANSION_TYPE4", "test4");
+    set("TEST_EXPAND_NONE_EXPANSION_TYPE5", "test5");
+
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = false;
+
+    let output = expand(
+        r#"
+value1: $TEST_EXPAND_NONE_EXPANSION_TYPE1
+value2: ${TEST_EXPAND_NONE_EXPANSION_TYPE2}
+value3: ${TEST_EXPAND_NONE_EXPANSION_TYPE3}
+value4: %TEST_EXPAND_NONE_EXPANSION_TYPE4%
+value5: $TEST_EXPAND_NONE_EXPANSION_TYPE5"#,
+        Some(options),
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: test2
+value3: test3
+value4: %TEST_EXPAND_NONE_EXPANSION_TYPE4%
 value5: test5"#,
         output
     );

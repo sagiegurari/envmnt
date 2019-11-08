@@ -7,58 +7,17 @@
 #[path = "./environment_test.rs"]
 mod environment_test;
 
+use crate::expansion;
+use crate::types::{ExpandOptions, ExpansionType, ListOptions};
 use crate::util;
 use std::env;
 use std::ffi::OsStr;
 
-static UNIX_ENV_SYMBOL: &str = "$";
+static UNIX_ENV_SYMBOL: char = '$';
 static UNIX_ENV_PREFIX: &str = "${";
-static UNIX_ENV_SUFFIX: &str = "}";
-static WINDOWS_ENV_SYMBOL: &str = "%";
-
-/// Get/Set list options
-#[derive(Debug, Clone)]
-pub struct ListOptions {
-    /// The separator used to merge/split the values
-    pub separator: Option<String>,
-    /// if true, empty list will not be set and empty string will be considered as a list with a single empty value
-    pub ignore_empty: bool,
-}
-
-impl ListOptions {
-    /// Creates and returns a new instance.
-    pub fn new() -> ListOptions {
-        ListOptions {
-            separator: None,
-            ignore_empty: false,
-        }
-    }
-}
-
-/// Expansion Type - unix/windows style
-#[derive(Debug, Copy, Clone)]
-pub enum ExpansionType {
-    /// Unix prefix environment style, for example: $MY_ENV
-    UnixPrefix,
-    /// Unix brackets environment style, for example: ${MY_ENV}
-    UnixBrackets,
-    /// All unix supported styles
-    Unix,
-    /// Windows environment style, for example: %MY_ENV%
-    Windows,
-    /// Current OS supported styles (UnixAll/Windows)
-    OS,
-    /// All supported styles for all platforms
-    All,
-}
-
-fn get_os_expansion_type() -> ExpansionType {
-    if cfg!(windows) {
-        ExpansionType::Windows
-    } else {
-        ExpansionType::Unix
-    }
-}
+static UNIX_ENV_SUFFIX: char = '}';
+static WINDOWS_ENV_SYMBOL_STR: &str = "%";
+static WINDOWS_ENV_SYMBOL_CHAR: char = '%';
 
 pub(crate) fn exists<K: AsRef<OsStr>>(key: K) -> bool {
     match env::var(key) {
@@ -244,75 +203,49 @@ pub(crate) fn get_list_with_options<K: AsRef<OsStr>>(
     }
 }
 
-pub(crate) fn expand_by_prefix(value: &str, prefix: &str) -> String {
-    let mut value_string = value.to_string();
+pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
+    let expand_options = match options {
+        Some(value) => value,
+        None => ExpandOptions::new(),
+    };
+    let expansion_type = match expand_options.expansion_type {
+        Some(value) => value,
+        None => ExpansionType::OS,
+    };
 
-    match value_string.find(prefix) {
-        Some(_) => {
-            for (existing_key, mut existing_value) in env::vars() {
-                let mut key_pattern = prefix.to_string();
-                key_pattern.push_str(&existing_key);
-
-                let value_length = existing_value.len();
-                let pattern_length = key_pattern.len();
-
-                for suffix in " \t\n".chars() {
-                    key_pattern.push(suffix);
-                    existing_value.push(suffix);
-
-                    value_string = str::replace(&value_string, &key_pattern, &existing_value);
-
-                    key_pattern.remove(pattern_length);
-                    existing_value.remove(value_length);
-                }
-
-                if value_string.ends_with(&key_pattern) {
-                    value_string.truncate(value_string.len() - pattern_length);
-                    value_string.push_str(&existing_value);
-                }
-            }
-
-            value_string
-        }
-        None => value_string,
-    }
-}
-
-pub(crate) fn expand_by_wrapper(value: &str, prefix: &str, suffix: &str) -> String {
-    let mut value_string = value.to_string();
-
-    match value_string.find(prefix) {
-        Some(_) => {
-            for (existing_key, existing_value) in env::vars() {
-                let mut key_pattern = prefix.to_string();
-                key_pattern.push_str(&existing_key);
-                key_pattern.push_str(suffix);
-
-                value_string = str::replace(&value_string, &key_pattern, &existing_value);
-            }
-
-            value_string
-        }
-        None => value_string,
-    }
-}
-
-pub(crate) fn expand(value: &str, expansion_type: ExpansionType) -> String {
     match expansion_type {
-        ExpansionType::UnixPrefix => expand_by_prefix(&value, UNIX_ENV_SYMBOL),
-        ExpansionType::UnixBrackets => expand_by_wrapper(&value, UNIX_ENV_PREFIX, UNIX_ENV_SUFFIX),
-        ExpansionType::Unix => {
-            let expanded_value = expand(&value, ExpansionType::UnixBrackets);
-            expand(&expanded_value, ExpansionType::UnixPrefix)
+        ExpansionType::UnixPrefix => {
+            expansion::expand_by_prefix(&value, UNIX_ENV_SYMBOL, expand_options.default_to_empty)
         }
-        ExpansionType::Windows => expand_by_wrapper(&value, WINDOWS_ENV_SYMBOL, WINDOWS_ENV_SYMBOL),
+        ExpansionType::UnixBrackets => expansion::expand_by_wrapper(
+            &value,
+            UNIX_ENV_PREFIX,
+            UNIX_ENV_SUFFIX,
+            expand_options.default_to_empty,
+        ),
+        ExpansionType::Unix => {
+            let mut cloned_options =
+                expand_options.clone_with_expansion_type(ExpansionType::UnixBrackets);
+            let expanded_value = expand(&value, Some(cloned_options));
+            cloned_options = expand_options.clone_with_expansion_type(ExpansionType::UnixPrefix);
+            expand(&expanded_value, Some(cloned_options))
+        }
+        ExpansionType::Windows => expansion::expand_by_wrapper(
+            &value,
+            WINDOWS_ENV_SYMBOL_STR,
+            WINDOWS_ENV_SYMBOL_CHAR,
+            expand_options.default_to_empty,
+        ),
         ExpansionType::OS => {
-            let os_expansion_type = get_os_expansion_type();
-            expand(&value, os_expansion_type)
+            let os_expansion_type = expansion::get_os_expansion_type();
+            let cloned_options = expand_options.clone_with_expansion_type(os_expansion_type);
+            expand(&value, Some(cloned_options))
         }
         ExpansionType::All => {
-            let expanded_value = expand(&value, ExpansionType::Unix);
-            expand(&expanded_value, ExpansionType::Windows)
+            let mut cloned_options = expand_options.clone_with_expansion_type(ExpansionType::Unix);
+            let expanded_value = expand(&value, Some(cloned_options));
+            cloned_options = expand_options.clone_with_expansion_type(ExpansionType::Windows);
+            expand(&expanded_value, Some(cloned_options))
         }
     }
 }
