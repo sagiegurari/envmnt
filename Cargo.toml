@@ -1,6 +1,6 @@
 [package]
 name = "envmnt"
-version = "0.7.0"
+version = "0.7.1"
 authors = ["Sagie Gur-Ari <sagiegurari@gmail.com>"]
 description = "Environment variables utility functions."
 license = "Apache-2.0"

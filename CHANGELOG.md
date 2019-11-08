@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.7.1
+### v0.7.1 (2019-11-08)
 
 * New **expand** function #15
 
