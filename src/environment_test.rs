@@ -715,7 +715,7 @@ value2: ${TEST_EXPAND_OS_WITH_VALUES2}
 value3: ${TEST_EXPAND_OS_WITH_VALUES3}
 value4: %TEST_EXPAND_OS_WITH_VALUES4%
 value5: $TEST_EXPAND_OS_WITH_VALUES5"#,
-        ExpansionType::Unix,
+        ExpansionType::OS,
     );
 
     assert_eq!(
