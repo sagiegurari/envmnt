@@ -65,11 +65,6 @@ pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool
         }
     }
 
-    if env_key.len() > 0 {
-        value_string.push(prefix);
-        value_string.push_str(&env_key);
-    }
-
     value_string
 }
 

@@ -286,3 +286,15 @@ value3:${TEST_EXPAND_BY_WRAPPER_NO_SUFFIX3
         output
     );
 }
+
+#[test]
+fn expand_by_wrapper_no_suffix_single() {
+    let output = expand_by_wrapper(
+        "${TEST_EXPAND_BY_WRAPPER_NO_SUFFIX_SINGLE",
+        "${",
+        '}',
+        false,
+    );
+
+    assert_eq!("${TEST_EXPAND_BY_WRAPPER_NO_SUFFIX_SINGLE", output);
+}
