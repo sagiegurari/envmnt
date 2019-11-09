@@ -37,7 +37,7 @@ pub enum ExpansionType {
     Unix,
     /// Windows environment style, for example: %MY_ENV%
     Windows,
-    /// Current OS supported styles (UnixAll/Windows)
+    /// Current OS supported styles (Unix/Windows)
     OS,
     /// All supported styles for all platforms
     All,
