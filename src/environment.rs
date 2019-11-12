@@ -204,6 +204,10 @@ pub(crate) fn get_list_with_options<K: AsRef<OsStr>>(
 }
 
 pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
+    if value.len() == 0 {
+        return value.to_string();
+    }
+
     let expand_options = match options {
         Some(value) => value,
         None => ExpandOptions::new(),

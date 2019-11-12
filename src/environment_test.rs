@@ -559,6 +559,13 @@ fn get_list_with_options_multiple() {
 }
 
 #[test]
+fn expand_empty_string() {
+    let output = expand("", None);
+
+    assert_eq!(output.len(), 0);
+}
+
+#[test]
 fn expand_unix_prefix_none() {
     let mut options = ExpandOptions::new();
     options.default_to_empty = false;

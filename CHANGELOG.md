@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.7.4 (2019-11-12)
+
+* Imporve **expand** performance.
+
 ### v0.7.3 (2019-11-08)
 
 * New **expand** function #15
