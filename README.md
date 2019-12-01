@@ -1,6 +1,6 @@
 # envmnt
 
-[![crates.io](https://img.shields.io/crates/v/envmnt.svg)](https://crates.io/crates/envmnt) [![Build Status](https://travis-ci.org/sagiegurari/envmnt?branch=master&svg=true)](http://travis-ci.org/sagiegurari/envmnt) [![Build status](https://codecov.io/gh/sagiegurari/envmnt/branch/master/graph/badge.svg)](https://ci.appveyor.com/project/sagiegurari/envmnt) [![codecov](https://codecov.io/gh/sagiegurari/envmnt/branch/master/graph/badge.svg)](https://codecov.io/gh/sagiegurari/envmnt)<br>
+[![crates.io](https://img.shields.io/crates/v/envmnt.svg)](https://crates.io/crates/envmnt) [![Build Status](https://travis-ci.org/sagiegurari/envmnt.svg?branch=master)](http://travis-ci.org/sagiegurari/envmnt) [![Build status](https://codecov.io/gh/sagiegurari/envmnt/branch/master/graph/badge.svg)](https://ci.appveyor.com/project/sagiegurari/envmnt) [![codecov](https://codecov.io/gh/sagiegurari/envmnt/branch/master/graph/badge.svg)](https://codecov.io/gh/sagiegurari/envmnt)<br>
 [![license](https://img.shields.io/crates/l/envmnt.svg)](https://github.com/sagiegurari/envmnt/blob/master/LICENSE) [![Libraries.io for GitHub](https://img.shields.io/librariesio/github/sagiegurari/envmnt.svg)](https://libraries.io/cargo/envmnt) [![Documentation](https://docs.rs/envmnt/badge.svg)](https://docs.rs/crate/envmnt/) [![downloads](https://img.shields.io/crates/d/envmnt.svg)](https://crates.io/crates/envmnt)<br>
 [![Built with cargo-make](https://sagiegurari.github.io/cargo-make/assets/badges/cargo-make.svg)](https://sagiegurari.github.io/cargo-make)
 
