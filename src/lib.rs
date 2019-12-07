@@ -494,13 +494,13 @@ pub fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
     environment::get_any(keys, default_value)
 }
 
-/// Returns false if environment variable value if falsy.
+/// Returns false if environment variable value if falsy.<br>
+/// Any other value is returned as true.<br>
 /// The value is falsy if it is one of the following:
 /// * Empty string
 /// * "false" (case insensitive)
 /// * "no" (case insensitive)
 /// * "0"
-/// Any other value is returned as true.
 ///
 /// # Arguments
 ///
@@ -530,6 +530,7 @@ pub fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
 /// * "false" (case insensitive)
 /// * "no" (case insensitive)
 /// * "0"
+/// <br>
 /// Any other value is returned as true.
 /// This is same as calling is_or("varname", false)
 ///
