@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.7.5 (2020-01-03)
+
+* New **set_or_remove** function
+
 ### v0.7.4 (2019-11-12)
 
 * Imporve **expand** performance.

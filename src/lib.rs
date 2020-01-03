@@ -629,6 +629,38 @@ pub fn set_optional<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Option<V>)
     environment::set_optional(key, value)
 }
 
+/// Sets the environment variable if the provided option contains a value.
+/// If no value was provided, the environment variable will be removed.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+/// * `value` - The optional value to set, none to remove
+///
+/// # Example
+///
+/// ```
+/// extern crate envmnt;
+///
+/// fn main() {
+///     let mut output = envmnt::set_or_remove("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
+///
+///     assert!(output);
+///     assert!(envmnt::is_equal(
+///         "MY_ENV_VAR",
+///         "OPTIONAL VALUE"
+///     ));
+///
+///     output = envmnt::set_or_remove::<&str, &str>("MY_ENV_VAR", &None);
+///
+///     assert!(!output);
+///     assert!(!envmnt::exists("MY_ENV_VAR"));
+/// }
+/// ```
+pub fn set_or_remove<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Option<V>) -> bool {
+    environment::set_or_remove(key, value)
+}
+
 /// Sets the environment variable value and returns the previous value.
 ///
 /// # Arguments

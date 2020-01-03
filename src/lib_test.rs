@@ -241,6 +241,29 @@ fn set_optional_some() {
 }
 
 #[test]
+fn set_or_remove_none() {
+    let output = set_or_remove::<&str, &str>("TEST_LIB_SET_OR_REMOVE_NONE", &None);
+
+    assert!(!output);
+}
+
+#[test]
+fn set_or_remove_some() {
+    let mut output = set_or_remove("TEST_LIB_SET_OR_REMOVE_SOME", &Some("OPTIONAL VALUE"));
+
+    assert!(output);
+    assert_eq!(
+        env::var("TEST_LIB_SET_OR_REMOVE_SOME").unwrap(),
+        "OPTIONAL VALUE".to_string()
+    );
+
+    output = set_or_remove::<&str, &str>("TEST_LIB_SET_OR_REMOVE_SOME", &None);
+
+    assert!(!output);
+    assert!(!exists("TEST_LIB_SET_OR_REMOVE_SOME"));
+}
+
+#[test]
 fn get_set_exists() {
     env::set_var("TEST_LIB_GET_SET_EXISTS", "OLD");
     let output = get_set("TEST_LIB_GET_SET_EXISTS", "NEW");

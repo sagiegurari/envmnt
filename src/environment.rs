@@ -99,6 +99,19 @@ pub(crate) fn set_optional<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Opt
     }
 }
 
+pub(crate) fn set_or_remove<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Option<V>) -> bool {
+    match value {
+        Some(ref value_ref) => {
+            set(key, value_ref);
+            true
+        }
+        None => {
+            remove(key);
+            false
+        }
+    }
+}
+
 pub(crate) fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<String> {
     let pre_value = if exists(&key) {
         Some(get_or(&key, ""))
