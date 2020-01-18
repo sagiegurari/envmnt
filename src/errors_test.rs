@@ -42,7 +42,7 @@ fn description_file_not_found() {
         kind: ErrorKind::FileNotFound("test"),
     };
 
-    assert_eq!(error.description(), "test");
+    assert_eq!(error.to_string(), "test");
 }
 
 #[test]
@@ -51,7 +51,7 @@ fn description_file_open() {
         kind: ErrorKind::FileOpen("test"),
     };
 
-    assert_eq!(error.description(), "test");
+    assert_eq!(error.to_string(), "test");
 }
 
 #[test]

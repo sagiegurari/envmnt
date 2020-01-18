@@ -7,7 +7,6 @@
 #[path = "./errors_test.rs"]
 mod errors_test;
 
-use std::error::Error;
 use std::fmt;
 use std::fmt::Display;
 
@@ -25,16 +24,6 @@ pub enum ErrorKind {
 pub struct EnvmntError {
     /// Holds the error information
     pub kind: ErrorKind,
-}
-
-impl Error for EnvmntError {
-    /// A short description of the error.
-    fn description(&self) -> &str {
-        match self.kind {
-            ErrorKind::FileNotFound(description) => description,
-            ErrorKind::FileOpen(description) => description,
-        }
-    }
 }
 
 impl Display for EnvmntError {

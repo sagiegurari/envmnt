@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.8.0 (2020-01-18)
+
+* Rust upgrade
+
 ### v0.7.5 (2020-01-03)
 
 * New **set_or_remove** function
