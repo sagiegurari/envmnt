@@ -11,7 +11,7 @@
 * [Installation](#installation)
 * [API Documentation](https://sagiegurari.github.io/envmnt/)
 * [Contributing](.github/CONTRIBUTING.md)
-* [Release History](https://github.com/sagiegurari/envmnt/blob/master/CHANGELOG.md)
+* [Release History](CHANGELOG.md)
 * [License](#license)
 
 <a name="overview"></a>
@@ -215,7 +215,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 <a name="history"></a>
 ## Release History
 
-See [Changelog](https://github.com/sagiegurari/envmnt/blob/master/CHANGELOG.md)
+See [Changelog](CHANGELOG.md)
 
 <a name="license"></a>
 ## License
