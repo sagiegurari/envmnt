@@ -36,21 +36,6 @@
 <span id="36">36</span>
 <span id="37">37</span>
 <span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # errors</span>
 <span class="doccomment">//!</span>
@@ -61,19 +46,18 @@
 <span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;./errors_test.rs&quot;</span>]</span>
 <span class="kw">mod</span> <span class="ident">errors_test</span>;
 
+<span class="kw">use</span> <span class="ident">fsio</span>::<span class="ident">error</span>::<span class="ident">FsIOError</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span>;
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="doccomment">/// Holds the error information</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorKind</span> {
     <span class="doccomment">/// File not found error</span>
-    <span class="ident">FileNotFound</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>),
-    <span class="doccomment">/// File open error</span>
-    <span class="ident">FileOpen</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>),
+    <span class="ident">ReadFile</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>, <span class="ident">FsIOError</span>),
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="doccomment">/// Error struct</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EnvmntError</span> {
     <span class="doccomment">/// Holds the error information</span>
@@ -82,26 +66,12 @@
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EnvmntError</span> {
     <span class="doccomment">/// Formats the value using the given formatter.</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">format</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">kind</span> {
-            <span class="ident">ErrorKind</span>::<span class="ident">FileNotFound</span>(<span class="kw-2">ref</span> <span class="ident">file</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">file</span>.<span class="ident">fmt</span>(<span class="ident">format</span>),
-            <span class="ident">ErrorKind</span>::<span class="ident">FileOpen</span>(<span class="kw-2">ref</span> <span class="ident">file</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">file</span>.<span class="ident">fmt</span>(<span class="ident">format</span>),
-        }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">EnvmntError</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_file_not_found</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">kind</span> {
-            <span class="ident">ErrorKind</span>::<span class="ident">FileNotFound</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_file_open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">kind</span> {
-            <span class="ident">ErrorKind</span>::<span class="ident">FileOpen</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">ErrorKind</span>::<span class="ident">ReadFile</span>(<span class="kw-2">ref</span> <span class="ident">message</span>, <span class="kw-2">ref</span> <span class="ident">cause</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">formatter</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">message</span>)<span class="question-mark">?</span>;
+                <span class="ident">cause</span>.<span class="ident">fmt</span>(<span class="ident">formatter</span>)
+            }
         }
     }
 }
