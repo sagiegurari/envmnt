@@ -1,6 +1,7 @@
 use super::*;
 
 use crate::environment;
+use fsio::error::ErrorInfo;
 
 #[test]
 fn load_file_valid() {
@@ -18,10 +19,6 @@ fn load_file_not_found() {
     let output = load_file("./src/test/bad.env");
 
     assert!(output.is_err());
-
-    let error = output.err().unwrap();
-
-    assert!(error.is_file_not_found());
 }
 
 #[test]
@@ -57,10 +54,6 @@ fn evaluate_and_load_file_not_found() {
     let output = evaluate_and_load_file("./src/test/bad.env", empty_evaluate_fn);
 
     assert!(output.is_err());
-
-    let error = output.err().unwrap();
-
-    assert!(error.is_file_not_found());
 }
 
 #[test]
@@ -78,17 +71,17 @@ fn parse_file_not_found() {
     let output = parse_file("./src/test/bad.env");
 
     assert!(output.is_err());
-
-    let error = output.err().unwrap();
-
-    assert!(error.is_file_not_found());
 }
 
 #[test]
-fn create_file_open_error_valid() {
-    let error = create_file_open_error();
+fn create_read_file_error_valid() {
+    let error = create_read_file_error(FsIOError {
+        info: ErrorInfo::PathAlreadyExists("test".to_string()),
+    });
 
-    assert!(error.is_file_open());
+    let error_string = error.to_string();
+    assert!(error_string.contains("Unable to read file."));
+    assert!(error_string.contains("test"));
 }
 
 #[test]

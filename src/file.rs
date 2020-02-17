@@ -9,10 +9,9 @@ mod file_test;
 
 use crate::bulk;
 use crate::errors::{EnvmntError, ErrorKind};
+use fsio::error::FsIOError;
+use fsio::file::read_text_file;
 use indexmap::IndexMap;
-use std::fs::File;
-use std::io::Read;
-use std::path::Path;
 
 pub(crate) fn empty_evaluate_fn(value: String) -> String {
     value
@@ -37,30 +36,19 @@ where
 }
 
 pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
-    let file_path = Path::new(&file).to_path_buf();
+    match read_text_file(file) {
+        Ok(env_content) => {
+            let env = parse_env_content(&env_content);
 
-    if file_path.exists() {
-        match File::open(&file_path) {
-            Ok(mut file) => {
-                let mut env_content = String::new();
-                file.read_to_string(&mut env_content).unwrap();
-
-                let env = parse_env_content(&env_content);
-
-                Ok(env)
-            }
-            Err(_) => Err(create_file_open_error()),
+            Ok(env)
         }
-    } else {
-        Err(EnvmntError {
-            kind: ErrorKind::FileNotFound("File Not Found."),
-        })
+        Err(error) => Err(create_read_file_error(error)),
     }
 }
 
-fn create_file_open_error() -> EnvmntError {
+fn create_read_file_error(error: FsIOError) -> EnvmntError {
     EnvmntError {
-        kind: ErrorKind::FileOpen("Unable To Open File."),
+        kind: ErrorKind::ReadFile("Unable to read file.", error),
     }
 }
 

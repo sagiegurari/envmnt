@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.8.1 (2020-02-17)
+
+* Use fsio crate for file system apis.
+
 ### v0.8.0 (2020-01-18)
 
 * Rust upgrade

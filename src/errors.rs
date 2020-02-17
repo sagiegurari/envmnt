@@ -7,19 +7,18 @@
 #[path = "./errors_test.rs"]
 mod errors_test;
 
+use fsio::error::FsIOError;
 use std::fmt;
 use std::fmt::Display;
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug)]
 /// Holds the error information
 pub enum ErrorKind {
     /// File not found error
-    FileNotFound(&'static str),
-    /// File open error
-    FileOpen(&'static str),
+    ReadFile(&'static str, FsIOError),
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug)]
 /// Error struct
 pub struct EnvmntError {
     /// Holds the error information
@@ -28,26 +27,12 @@ pub struct EnvmntError {
 
 impl Display for EnvmntError {
     /// Formats the value using the given formatter.
-    fn fmt(&self, format: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         match self.kind {
-            ErrorKind::FileNotFound(ref file) => file.fmt(format),
-            ErrorKind::FileOpen(ref file) => file.fmt(format),
-        }
-    }
-}
-
-impl EnvmntError {
-    pub fn is_file_not_found(&self) -> bool {
-        match self.kind {
-            ErrorKind::FileNotFound(_) => true,
-            _ => false,
-        }
-    }
-
-    pub fn is_file_open(&self) -> bool {
-        match self.kind {
-            ErrorKind::FileOpen(_) => true,
-            _ => false,
+            ErrorKind::ReadFile(ref message, ref cause) => {
+                writeln!(formatter, "{}", message)?;
+                cause.fmt(formatter)
+            }
         }
     }
 }
