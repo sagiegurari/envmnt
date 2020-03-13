@@ -1,5 +1,4 @@
-extern crate envmnt;
-
+use envmnt;
 use envmnt::{ExpandOptions, ExpansionType};
 
 #[test]

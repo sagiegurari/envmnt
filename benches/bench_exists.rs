@@ -1,7 +1,7 @@
 #![feature(test)]
-extern crate envmnt;
 extern crate test;
 
+use envmnt;
 use test::Bencher;
 
 #[bench]

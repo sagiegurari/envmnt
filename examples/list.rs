@@ -1,4 +1,4 @@
-extern crate envmnt;
+use envmnt;
 
 fn main() {
     envmnt::set_list(

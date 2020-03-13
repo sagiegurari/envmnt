@@ -1,4 +1,4 @@
-extern crate envmnt;
+use envmnt;
 
 fn main() {
     let mut output = envmnt::load_file("./src/test/var.env");

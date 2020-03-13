@@ -1,6 +1,4 @@
-extern crate envmnt;
-extern crate indexmap;
-
+use envmnt;
 use indexmap::IndexMap;
 
 #[test]

@@ -25,8 +25,6 @@ Simply include the library and invoke the various utility functions.
 **Get/Set/Remove environment variables**
 
 ```rust
-extern crate envmnt;
-
 use envmnt::{ExpandOptions, ExpansionType};
 
 fn main() {
@@ -72,8 +70,6 @@ fn main() {
 **Get/Set boolean environment variables and other comparisons**
 
 ```rust
-extern crate envmnt;
-
 fn main() {
     envmnt::set_bool("FLAG_VAR", true);
     let mut flag_value = envmnt::is_or("FLAG_VAR", false);
@@ -98,8 +94,6 @@ fn main() {
 **Get/Set list environment variables**
 
 ```rust
-extern crate envmnt;
-
 fn main() {
     envmnt::set_list(
         "LIST_TEST_ENV",
@@ -131,9 +125,6 @@ fn main() {
 **Bulk Operations**
 
 ```rust
-extern crate envmnt;
-extern crate indexmap;
-
 use indexmap::IndexMap;
 
 fn main() {
@@ -180,8 +171,6 @@ fn main() {
 **File Operations**
 
 ```rust
-extern crate envmnt;
-
 fn main() {
     let mut output = envmnt::load_file("./src/test/var.env");
     assert!(output.is_ok());

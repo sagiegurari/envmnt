@@ -111,8 +111,6 @@
 //! ## Get/Set/Remove environment variables
 //!
 //! ```
-//! extern crate envmnt;
-//!
 //! use envmnt::{ExpandOptions, ExpansionType};
 //!
 //! fn main() {
@@ -158,8 +156,6 @@
 //! ## Get/Set boolean environment variables and other comparisons
 //!
 //! ```
-//! extern crate envmnt;
-//!
 //! fn main() {
 //!     envmnt::set_bool("FLAG_VAR", true);
 //!     let mut flag_value = envmnt::is_or("FLAG_VAR", false);
@@ -184,8 +180,6 @@
 //! ## Get/Set list environment variables
 //!
 //! ```
-//! extern crate envmnt;
-//!
 //! fn main() {
 //!     envmnt::set_list(
 //!         "LIST_TEST_ENV",
@@ -217,9 +211,6 @@
 //! ## Bulk Operations
 //!
 //! ```
-//! extern crate envmnt;
-//! extern crate indexmap;
-//!
 //! use indexmap::IndexMap;
 //!
 //! fn main() {
@@ -266,8 +257,6 @@
 //! ## File Operations
 //!
 //! ```
-//! extern crate envmnt;
-//!
 //! fn main() {
 //!     let mut output = envmnt::load_file("./src/test/var.env");
 //!     assert!(output.is_ok());
@@ -303,6 +292,9 @@
 #[path = "./lib_test.rs"]
 mod lib_test;
 
+#[cfg(doctest)]
+doc_comment::doctest!("../README.md");
+
 mod bulk;
 mod environment;
 mod errors;
@@ -333,8 +325,6 @@ pub type ExpandOptions = types::ExpandOptions;
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     if !envmnt::exists("MY_ENV_VAR") {
 ///         envmnt::set("MY_ENV_VAR", "SOME VALUE");
@@ -355,8 +345,6 @@ pub fn exists<K: AsRef<OsStr>>(key: K) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
@@ -378,8 +366,6 @@ pub fn remove<K: AsRef<OsStr>>(key: K) {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
@@ -402,8 +388,6 @@ pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR1", "SOME VALUE 1");
 ///     envmnt::set("MY_ENV_VAR2", "SOME VALUE 2");
@@ -429,8 +413,6 @@ pub fn remove_all<K: AsRef<OsStr>>(keys: &Vec<K>) {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
@@ -456,8 +438,6 @@ pub fn get_or<K: AsRef<OsStr>>(key: K, default_value: &str) -> String {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
@@ -480,8 +460,6 @@ pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR2", "SOME VALUE2");
 ///
@@ -511,8 +489,6 @@ pub fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set_bool("FLAG_VAR", true);
 ///     assert!(envmnt::is_equal("FLAG_VAR", "true"));
@@ -542,8 +518,6 @@ pub fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set_bool("FLAG_VAR", true);
 ///     assert!(envmnt::is_equal("FLAG_VAR", "true"));
@@ -566,8 +540,6 @@ pub fn is<K: AsRef<OsStr>>(key: K) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
@@ -590,8 +562,6 @@ pub fn set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set_bool("FLAG_VAR", true);
 ///     assert!(envmnt::is_equal("FLAG_VAR", "true"));
@@ -614,8 +584,6 @@ pub fn set_bool<K: AsRef<OsStr>>(key: K, value: bool) {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let output = envmnt::set_optional("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
 ///
@@ -641,8 +609,6 @@ pub fn set_optional<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Option<V>)
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let mut output = envmnt::set_or_remove("MY_ENV_VAR", &Some("OPTIONAL VALUE"));
 ///
@@ -672,8 +638,6 @@ pub fn set_or_remove<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: &Option<V>
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///     assert!(envmnt::is_equal("MY_ENV_VAR", "SOME VALUE"));
@@ -694,8 +658,6 @@ pub fn get_set<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) -> Option<Str
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let all_vars = envmnt::vars();
 ///
@@ -718,8 +680,6 @@ pub fn vars() -> Vec<(String, String)> {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME VALUE");
 ///
@@ -741,8 +701,6 @@ pub fn is_equal<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME TEST VALUE");
 ///
@@ -764,8 +722,6 @@ pub fn contains<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("MY_ENV_VAR", "SOME TEST VALUE");
 ///
@@ -787,8 +743,6 @@ pub fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set_list(
 ///         "LIST_TEST_ENV",
@@ -815,8 +769,6 @@ pub fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set_list(
 ///         "LIST_TEST_ENV",
@@ -845,8 +797,6 @@ pub fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let mut options = envmnt::ListOptions::new();
 ///     options.separator = Some(",".to_string());
@@ -877,8 +827,6 @@ pub fn set_list_with_options<K: AsRef<OsStr>>(key: K, values: &Vec<String>, opti
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let mut options = envmnt::ListOptions::new();
 ///     options.separator = Some(",".to_string());
@@ -911,9 +859,6 @@ pub fn get_list_with_options<K: AsRef<OsStr>>(
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-/// extern crate indexmap;
-///
 /// use indexmap::IndexMap;
 ///
 /// fn main() {
@@ -943,9 +888,6 @@ pub fn set_all(env: &IndexMap<String, String>) {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-/// extern crate indexmap;
-///
 /// use indexmap::IndexMap;
 ///
 /// fn main() {
@@ -983,8 +925,6 @@ where
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("ENV_VAR1", "SOME VALUE");
 ///     envmnt::remove("ENV_VAR2");
@@ -1010,8 +950,6 @@ pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     envmnt::set("ENV_VAR1", "SOME VALUE");
 ///     envmnt::set("ENV_VAR2", "SOME VALUE");
@@ -1046,8 +984,6 @@ pub fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let output = envmnt::load_file("./src/test/var.env");
 ///
@@ -1068,8 +1004,6 @@ pub fn load_file(file: &str) -> Result<(), EnvmntError> {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let eval_env = |value: String| {
 ///         let mut buffer = String::from("PREFIX-");
@@ -1098,8 +1032,6 @@ where
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// fn main() {
 ///     let env = envmnt::parse_file("./src/test/var.env").unwrap();
 ///
@@ -1121,8 +1053,6 @@ pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
 /// # Example
 ///
 /// ```
-/// extern crate envmnt;
-///
 /// use envmnt::{ExpandOptions, ExpansionType};
 ///
 /// fn main() {
