@@ -38,34 +38,34 @@ fn get_remove_not_exists() {
 fn get_remove_exists() {
     env::set_var("TEST_GET_REMOVE_EXISTS", "OLD");
     let output = get_remove("TEST_GET_REMOVE_EXISTS");
-    assert_eq!(output.unwrap(), "OLD".to_string());
+    assert_eq!(output.unwrap(), "OLD");
 }
 
 #[test]
 fn get_or_exists() {
     env::set_var("TEST_GET_OR_EXISTS", "EXISTS");
     let output = get_or("TEST_GET_OR_EXISTS", "bad");
-    assert_eq!(output, "EXISTS".to_string());
+    assert_eq!(output, "EXISTS");
 }
 
 #[test]
 fn get_or_not_exists() {
     let output = get_or("TEST_GET_OR_NOT_EXISTS", "good");
-    assert_eq!(output, "good".to_string());
+    assert_eq!(output, "good");
 }
 
 #[test]
 fn get_or_empty() {
     env::set_var("TEST_GET_OR_EMPTY", "");
     let output = get_or("TEST_GET_OR_EMPTY", "bad");
-    assert_eq!(output, "".to_string());
+    assert_eq!(output, "");
 }
 
 #[test]
 fn get_or_panic_exists() {
     env::set_var("TEST_GET_OR_PANIC_EXISTS", "EXISTS");
     let output = get_or_panic("TEST_GET_OR_PANIC_EXISTS");
-    assert_eq!(output, "EXISTS".to_string());
+    assert_eq!(output, "EXISTS");
 }
 
 #[test]
@@ -78,7 +78,7 @@ fn get_or_panic_not_exists() {
 fn get_or_panic_empty() {
     env::set_var("TEST_GET_OR_PANIC_EMPTY", "");
     let output = get_or_panic("TEST_GET_OR_PANIC_EMPTY");
-    assert_eq!(output, "".to_string());
+    assert_eq!(output, "");
 }
 
 #[test]
@@ -88,7 +88,7 @@ fn get_any_exists() {
         &vec!["TEST_GET_ANY_EXISTS1", "TEST_GET_ANY_EXISTS2"],
         "not found",
     );
-    assert_eq!(output, "EXISTS2".to_string());
+    assert_eq!(output, "EXISTS2");
 }
 
 #[test]
@@ -97,7 +97,7 @@ fn get_any_not_exists() {
         &vec!["TEST_GET_ANY_NOT_EXISTS1", "TEST_GET_ANY_NOT_EXISTS2"],
         "not found",
     );
-    assert_eq!(output, "not found".to_string());
+    assert_eq!(output, "not found");
 }
 
 #[test]
@@ -191,22 +191,41 @@ fn is_undefined() {
 #[test]
 fn set_value() {
     set("TEST_SET_VALUE", "SIMPLE");
-    assert_eq!(env::var("TEST_SET_VALUE").unwrap(), "SIMPLE".to_string());
+    assert_eq!(env::var("TEST_SET_VALUE").unwrap(), "SIMPLE");
+}
+
+#[test]
+fn set_value_multi_line() {
+    set(
+        "TEST_SET_VALUE_MULTI_LINE",
+        r#"
+line 1
+line 2
+"#,
+    );
+    assert_eq!(
+        env::var("TEST_SET_VALUE_MULTI_LINE").unwrap(),
+        "\nline 1\nline 2\n"
+    );
+    assert_eq!(
+        env::var("TEST_SET_VALUE_MULTI_LINE").unwrap(),
+        r#"
+line 1
+line 2
+"#
+    );
 }
 
 #[test]
 fn set_bool_false() {
     set_bool("TEST_SET_BOOL_FALSE", false);
-    assert_eq!(
-        env::var("TEST_SET_BOOL_FALSE").unwrap(),
-        "false".to_string()
-    );
+    assert_eq!(env::var("TEST_SET_BOOL_FALSE").unwrap(), "false");
 }
 
 #[test]
 fn set_bool_true() {
     set_bool("TEST_SET_BOOL_TRUE", true);
-    assert_eq!(env::var("TEST_SET_BOOL_TRUE").unwrap(), "true".to_string());
+    assert_eq!(env::var("TEST_SET_BOOL_TRUE").unwrap(), "true");
 }
 
 #[test]
@@ -223,7 +242,7 @@ fn set_optional_some() {
     assert!(output);
     assert_eq!(
         env::var("TEST_SET_OPTIONAL_SOME").unwrap(),
-        "OPTIONAL VALUE".to_string()
+        "OPTIONAL VALUE"
     );
 }
 
@@ -241,7 +260,7 @@ fn set_or_remove_some() {
     assert!(output);
     assert_eq!(
         env::var("TEST_SET_OR_REMOVE_SOME").unwrap(),
-        "OPTIONAL VALUE".to_string()
+        "OPTIONAL VALUE"
     );
 
     output = set_or_remove::<&str, &str>("TEST_SET_OR_REMOVE_SOME", &None);
@@ -254,18 +273,15 @@ fn set_or_remove_some() {
 fn get_set_exists() {
     env::set_var("TEST_GET_SET_EXISTS", "OLD");
     let output = get_set("TEST_GET_SET_EXISTS", "NEW");
-    assert_eq!(output.unwrap(), "OLD".to_string());
-    assert_eq!(env::var("TEST_GET_SET_EXISTS").unwrap(), "NEW".to_string());
+    assert_eq!(output.unwrap(), "OLD");
+    assert_eq!(env::var("TEST_GET_SET_EXISTS").unwrap(), "NEW");
 }
 
 #[test]
 fn get_set_not_exists() {
     let output = get_set("TEST_GET_SET_NOT_EXISTS", "NEW");
     assert!(output.is_none());
-    assert_eq!(
-        env::var("TEST_GET_SET_NOT_EXISTS").unwrap(),
-        "NEW".to_string()
-    );
+    assert_eq!(env::var("TEST_GET_SET_NOT_EXISTS").unwrap(), "NEW");
 }
 
 #[test]
@@ -402,7 +418,7 @@ fn get_list_single() {
 
     let output = get_list("TEST_GET_LIST_SINGLE").unwrap();
     assert_eq!(output.len(), 1);
-    assert_eq!(output, vec!["1".to_string()]);
+    assert_eq!(output, vec!["1"]);
 }
 
 #[test]
@@ -414,10 +430,7 @@ fn get_list_multiple() {
 
     let output = get_list("TEST_GET_LIST_MULTIPLE").unwrap();
     assert_eq!(output.len(), 3);
-    assert_eq!(
-        output,
-        vec!["1".to_string(), "2".to_string(), "3".to_string()]
-    );
+    assert_eq!(output, vec!["1", "2", "3"]);
 }
 
 #[test]
@@ -524,7 +537,7 @@ fn get_list_with_options_single_empty_ignore() {
     let output =
         get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_SINGLE_EMPTY_IGNORE", &options).unwrap();
     assert_eq!(output.len(), 1);
-    assert_eq!(output, vec!["".to_string()]);
+    assert_eq!(output, vec![""]);
 }
 
 #[test]
@@ -559,7 +572,7 @@ fn get_list_with_options_single() {
 
     let output = get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_SINGLE", &options).unwrap();
     assert_eq!(output.len(), 1);
-    assert_eq!(output, vec!["1".to_string()]);
+    assert_eq!(output, vec!["1"]);
 }
 
 #[test]
@@ -575,10 +588,7 @@ fn get_list_with_options_multiple() {
 
     let output = get_list_with_options("TEST_GET_LIST_WITH_OPTIONS_MULTIPLE", &options).unwrap();
     assert_eq!(output.len(), 3);
-    assert_eq!(
-        output,
-        vec!["1".to_string(), "2".to_string(), "3".to_string()]
-    );
+    assert_eq!(output, vec!["1", "2", "3"]);
 }
 
 #[test]
