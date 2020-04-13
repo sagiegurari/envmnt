@@ -8,7 +8,7 @@
 mod types_test;
 
 /// Get/Set list options
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct ListOptions {
     /// The separator used to merge/split the values
     pub separator: Option<String>,
@@ -19,10 +19,7 @@ pub struct ListOptions {
 impl ListOptions {
     /// Creates and returns a new instance.
     pub fn new() -> ListOptions {
-        ListOptions {
-            separator: None,
-            ignore_empty: false,
-        }
+        Default::default()
     }
 }
 
