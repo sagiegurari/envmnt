@@ -835,6 +835,37 @@ value5: test5"#,
 }
 
 #[test]
+fn expand_with_values_and_embedded_defaults() {
+    set("TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS1", "test1");
+    set("TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS4", "test4");
+    set("TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS5", "test5");
+
+    let mut options = ExpandOptions::new();
+    options.default_to_empty = true;
+    options.expansion_type = Some(ExpansionType::UnixBracketsWithDefaults);
+
+    let output = expand(
+        r#"
+value1: ${TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS1}
+value2: ${TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS2:}none
+value3: ${TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS3:default 3 value}
+value4: ${TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS4}
+value5: $TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS5"#,
+        Some(options),
+    );
+
+    assert_eq!(
+        r#"
+value1: test1
+value2: none
+value3: default 3 value
+value4: test4
+value5: $TEST_EXPAND_WITH_VALUES_AND_EMBEDDED_DEFAULTS5"#,
+        output
+    );
+}
+
+#[test]
 #[cfg(not(target_os = "windows"))]
 fn expand_none_options() {
     set("TEST_EXPAND_NONE_OPTIONS1", "test1");

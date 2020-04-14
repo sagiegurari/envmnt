@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.8.2
+### v0.8.2 (2020-04-14)
 
 * New expansion type: UnixBracketsWithDefaults which supports expansion with embedded default #19
 
