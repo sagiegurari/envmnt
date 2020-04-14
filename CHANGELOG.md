@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.8.2
+
+* New expansion type: UnixBracketsWithDefaults which supports expansion with embedded default #19
+
 ### v0.8.1 (2020-02-17)
 
 * Use fsio crate for file system apis.

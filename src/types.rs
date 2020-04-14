@@ -36,8 +36,10 @@ pub enum ExpansionType {
     Windows,
     /// Current OS supported styles (Unix/Windows)
     OS,
-    /// All supported styles for all platforms
+    /// All supported styles for all platforms (not including custom types such as UnixBracketsWithDefaults
     All,
+    /// Unix brackets like format with default value support ${key:default}
+    UnixBracketsWithDefaults,
 }
 
 /// Expand options
@@ -45,7 +47,8 @@ pub enum ExpansionType {
 pub struct ExpandOptions {
     /// The expansion type (unix/windows/...)
     pub expansion_type: Option<ExpansionType>,
-    /// if true (default), empty variables will be replaced with empty text, false to keep original variable untouched
+    /// If true (default), empty variables will be replaced with empty text, false to keep original variable untouched.
+    /// This is ignored in case of expansion type: UnixBracketsWithDefaults and a default is provided.
     pub default_to_empty: bool,
 }
 

@@ -18,8 +18,12 @@ pub(crate) fn get_os_expansion_type() -> ExpansionType {
     }
 }
 
-fn should_break_key(value: char) -> bool {
-    value == ' ' || value == '\n' || value == '\t' || value == '\r' || value == '='
+fn should_break_key(value: char, reading_key: bool) -> bool {
+    (reading_key && value == ' ')
+        || value == '\n'
+        || value == '\t'
+        || value == '\r'
+        || (reading_key && value == '=')
 }
 
 pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool) -> String {
@@ -39,7 +43,7 @@ pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool
             } else {
                 value_string.push(next_char);
             }
-        } else if last_char || should_break_key(next_char) {
+        } else if last_char || should_break_key(next_char, true) {
             if last_char {
                 env_key.push(next_char);
             }
@@ -73,6 +77,7 @@ pub(crate) fn expand_by_wrapper(
     prefix: &str,
     suffix: char,
     default_to_empty: bool,
+    search_default: bool,
 ) -> String {
     let mut value_string = String::new();
 
@@ -82,6 +87,8 @@ pub(crate) fn expand_by_wrapper(
 
     let mut found_prefix = false;
     let mut env_key = String::new();
+    let mut reading_default = false;
+    let mut default_value = String::new();
     for next_char in value.chars() {
         if !found_prefix {
             if next_char == prefix_chars[prefix_index] {
@@ -99,11 +106,15 @@ pub(crate) fn expand_by_wrapper(
                 }
                 value_string.push(next_char);
             }
+        } else if search_default && !reading_default && next_char == ':' {
+            reading_default = true;
         } else if next_char == suffix {
             match env::var(&env_key) {
                 Ok(env_value) => value_string.push_str(&env_value),
                 _ => {
-                    if !default_to_empty {
+                    if reading_default {
+                        value_string.push_str(&default_value);
+                    } else if !default_to_empty {
                         value_string.push_str(prefix);
                         value_string.push_str(&env_key);
                         value_string.push(suffix);
@@ -113,13 +124,27 @@ pub(crate) fn expand_by_wrapper(
 
             env_key.clear();
             found_prefix = false;
-        } else if should_break_key(next_char) {
+            if search_default {
+                reading_default = false;
+                default_value.clear();
+            }
+        } else if should_break_key(next_char, !reading_default) {
             value_string.push_str(&prefix);
             value_string.push_str(&env_key);
+            if reading_default {
+                value_string.push(':');
+                value_string.push_str(&default_value);
+            }
             value_string.push(next_char);
 
             env_key.clear();
             found_prefix = false;
+            if search_default {
+                reading_default = false;
+                default_value.clear();
+            }
+        } else if reading_default {
+            default_value.push(next_char);
         } else {
             env_key.push(next_char);
         }
@@ -128,6 +153,10 @@ pub(crate) fn expand_by_wrapper(
     if env_key.len() > 0 {
         value_string.push_str(&prefix);
         value_string.push_str(&env_key);
+        if reading_default {
+            value_string.push(':');
+            value_string.push_str(&default_value);
+        }
     }
 
     value_string

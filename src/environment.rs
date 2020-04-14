@@ -239,6 +239,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
             UNIX_ENV_PREFIX,
             UNIX_ENV_SUFFIX,
             expand_options.default_to_empty,
+            false,
         ),
         ExpansionType::Unix => {
             let mut cloned_options =
@@ -252,6 +253,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
             WINDOWS_ENV_SYMBOL_STR,
             WINDOWS_ENV_SYMBOL_CHAR,
             expand_options.default_to_empty,
+            false,
         ),
         ExpansionType::OS => {
             let os_expansion_type = expansion::get_os_expansion_type();
@@ -264,5 +266,12 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
             cloned_options = expand_options.clone_with_expansion_type(ExpansionType::Windows);
             expand(&expanded_value, Some(cloned_options))
         }
+        ExpansionType::UnixBracketsWithDefaults => expansion::expand_by_wrapper(
+            &value,
+            UNIX_ENV_PREFIX,
+            UNIX_ENV_SUFFIX,
+            expand_options.default_to_empty,
+            true,
+        ),
     }
 }

@@ -36,6 +36,12 @@ fn main() {
 
     let mut options = ExpandOptions::new();
     options.expansion_type = Some(ExpansionType::Unix);
-    let value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", Some(options));
+    let mut value = envmnt::expand("Env: MY_ENV value is: ${MY_ENV}", Some(options));
+    println!("Expanded: {}", &value);
+    options.expansion_type = Some(ExpansionType::UnixBracketsWithDefaults);
+    value = envmnt::expand(
+        "Env: MY_ENV_NOT_FOUND value is: ${MY_ENV_NOT_FOUND:default value}",
+        Some(options),
+    );
     println!("Expanded: {}", &value);
 }
