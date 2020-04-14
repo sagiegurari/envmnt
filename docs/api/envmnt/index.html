@@ -1,10 +1,8 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `envmnt` crate."><meta name="keywords" content="rust, rustlang, rust-lang, envmnt"><title>envmnt - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../envmnt/index.html'><div class='logo-container'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate envmnt</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all envmnt's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'envmnt', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/envmnt/lib.rs.html#1-1138' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>envmnt</a></span></h1><div class='docblock'><h1 id="envmnt" class="section-header"><a href="#envmnt">envmnt</a></h1>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `envmnt` crate."><meta name="keywords" content="rust, rustlang, rust-lang, envmnt"><title>envmnt - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../envmnt/index.html'><div class='logo-container'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate envmnt</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all envmnt's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'envmnt', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/envmnt/lib.rs.html#1-1078' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>envmnt</a></span></h1><div class='docblock'><h1 id="envmnt" class="section-header"><a href="#envmnt">envmnt</a></h1>
 <p>Environment variables utility functions.</p>
 <p>This library has many helper functions to access/modify/check environment variables.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1><h2 id="getsetremove-environment-variables" class="section-header"><a href="#getsetremove-environment-variables">Get/Set/Remove environment variables</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">envmnt</span>;
-
 <span class="kw">use</span> <span class="ident">envmnt</span>::{<span class="ident">ExpandOptions</span>, <span class="ident">ExpansionType</span>};
 
 <span class="kw">fn</span> <span class="ident">main</span>() {
@@ -42,13 +40,17 @@
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">options</span> <span class="op">=</span> <span class="ident">ExpandOptions</span>::<span class="ident">new</span>();
     <span class="ident">options</span>.<span class="ident">expansion_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">ExpansionType</span>::<span class="ident">Unix</span>);
-    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">expand</span>(<span class="string">&quot;Env: MY_ENV value is: ${MY_ENV}&quot;</span>, <span class="prelude-val">Some</span>(<span class="ident">options</span>));
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">expand</span>(<span class="string">&quot;Env: MY_ENV value is: ${MY_ENV}&quot;</span>, <span class="prelude-val">Some</span>(<span class="ident">options</span>));
+    <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Expanded: {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">value</span>);
+    <span class="ident">options</span>.<span class="ident">expansion_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">ExpansionType</span>::<span class="ident">UnixBracketsWithDefaults</span>);
+    <span class="ident">value</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">expand</span>(
+        <span class="string">&quot;Env: MY_ENV_NOT_FOUND value is: ${MY_ENV_NOT_FOUND:default value}&quot;</span>,
+        <span class="prelude-val">Some</span>(<span class="ident">options</span>),
+    );
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Expanded: {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">value</span>);
 }</pre></div>
 <h2 id="getset-boolean-environment-variables-and-other-comparisons" class="section-header"><a href="#getset-boolean-environment-variables-and-other-comparisons">Get/Set boolean environment variables and other comparisons</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">envmnt</span>;
-
 <span class="kw">fn</span> <span class="ident">main</span>() {
     <span class="ident">envmnt</span>::<span class="ident">set_bool</span>(<span class="string">&quot;FLAG_VAR&quot;</span>, <span class="bool-val">true</span>);
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">flag_value</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">is_or</span>(<span class="string">&quot;FLAG_VAR&quot;</span>, <span class="bool-val">false</span>);
@@ -70,8 +72,6 @@
 }</pre></div>
 <h2 id="getset-list-environment-variables" class="section-header"><a href="#getset-list-environment-variables">Get/Set list environment variables</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">envmnt</span>;
-
 <span class="kw">fn</span> <span class="ident">main</span>() {
     <span class="ident">envmnt</span>::<span class="ident">set_list</span>(
         <span class="string">&quot;LIST_TEST_ENV&quot;</span>,
@@ -100,9 +100,6 @@
 }</pre></div>
 <h2 id="bulk-operations" class="section-header"><a href="#bulk-operations">Bulk Operations</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">envmnt</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">indexmap</span>;
-
 <span class="kw">use</span> <span class="ident">indexmap</span>::<span class="ident">IndexMap</span>;
 
 <span class="kw">fn</span> <span class="ident">main</span>() {
@@ -146,8 +143,6 @@
 }</pre></div>
 <h2 id="file-operations" class="section-header"><a href="#file-operations">File Operations</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">envmnt</span>;
-
 <span class="kw">fn</span> <span class="ident">main</span>() {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">load_file</span>(<span class="string">&quot;./src/test/var.env&quot;</span>);
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">output</span>.<span class="ident">is_ok</span>());

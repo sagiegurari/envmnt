@@ -5,8 +5,6 @@
 </ul>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">envmnt</span>;
-
 <span class="kw">fn</span> <span class="ident">main</span>() {
     <span class="kw">if</span> <span class="op">!</span><span class="ident">envmnt</span>::<span class="ident">exists</span>(<span class="string">&quot;MY_ENV_VAR&quot;</span>) {
         <span class="ident">envmnt</span>::<span class="ident">set</span>(<span class="string">&quot;MY_ENV_VAR&quot;</span>, <span class="string">&quot;SOME VALUE&quot;</span>);
