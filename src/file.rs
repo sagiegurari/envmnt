@@ -65,7 +65,17 @@ fn parse_env_content(env_content: &str) -> IndexMap<String, String> {
 
             if env_part.len() == 2 {
                 let key = env_part[0].trim().to_string();
-                let value = env_part[1].trim().to_string();
+                let mut value = env_part[1].trim().to_string();
+
+                value = value
+                    .replace("\\\"", "\"")
+                    .replace("\\n", "\n")
+                    .replace("\\r", "\r");
+
+                if value.starts_with('"') && value.ends_with('"') {
+                    value.remove(0);
+                    value.pop();
+                }
 
                 env.insert(key, value);
             }

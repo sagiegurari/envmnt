@@ -12,6 +12,11 @@ fn load_file_valid() {
     assert_eq!(environment::get_or_panic("load1"), "value1");
     assert_eq!(environment::get_or_panic("load2"), "value2");
     assert_eq!(environment::get_or_panic("load3"), "==value3==");
+    assert_eq!(environment::get_or_panic("load4"), "value4");
+    assert_eq!(environment::get_or_panic("load5"), "value5");
+    assert_eq!(environment::get_or_panic("load6"), "==value\"6\"==");
+    assert_eq!(environment::get_or_panic("load7"), "value\"7\n");
+    assert_eq!(environment::get_or_panic("load8"), "value\r\"8");
 }
 
 #[test]
