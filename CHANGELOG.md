@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.8.3 (2020-06-18)
+
+* Double quotes value support with backslashes-escaped for env files #22 (thanks @joseluisq)
+
 ### v0.8.2 (2020-04-14)
 
 * New expansion type: UnixBracketsWithDefaults which supports expansion with embedded default #19
