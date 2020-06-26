@@ -24,6 +24,7 @@ Simply include the library and invoke the various utility functions.
 
 **Get/Set/Remove environment variables**
 
+<!--{ "examples/modify.rs" | lines: 2 | code: rust }-->
 ```rust
 use envmnt::{ExpandOptions, ExpansionType};
 
@@ -72,9 +73,11 @@ fn main() {
     println!("Expanded: {}", &value);
 }
 ```
+<!--{ end }-->
 
 **Get/Set boolean environment variables and other comparisons**
 
+<!--{ "examples/boolean.rs" | lines: 3 | code: rust }-->
 ```rust
 fn main() {
     envmnt::set_bool("FLAG_VAR", true);
@@ -96,9 +99,11 @@ fn main() {
     println!("Value Contained (case insensitive): {}", &contains);
 }
 ```
+<!--{ end }-->
 
 **Get/Set list environment variables**
 
+<!--{ "examples/list.rs" | lines: 3 | code: rust }-->
 ```rust
 fn main() {
     envmnt::set_list(
@@ -127,9 +132,11 @@ fn main() {
     println!("Same: {}", same);
 }
 ```
+<!--{ end }-->
 
 **Bulk Operations**
 
+<!--{ "examples/bulk.rs" | lines: 2 | code: rust }-->
 ```rust
 use indexmap::IndexMap;
 
@@ -173,9 +180,11 @@ fn main() {
     println!("Value Is: {}", &value);
 }
 ```
+<!--{ end }-->
 
 **File Operations**
 
+<!--{ "examples/file.rs" | lines: 3 | code: rust }-->
 ```rust
 fn main() {
     let mut output = envmnt::load_file("./src/test/var.env");
@@ -191,6 +200,7 @@ fn main() {
     assert!(output.is_ok());
 }
 ```
+<!--{ end }-->
 
 <a name="installation"></a>
 ## Installation
