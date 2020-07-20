@@ -206,12 +206,22 @@
 //!     // all numeric data types: u8/i8/u16/i16/u32/i32/u64/i64/u128/i128/f32/f64/isize/usize
 //!     // are supported by specific set/get functions.
 //!     envmnt::set_u8("U8_TEST_ENV", 50);
-//!     let value_u8 = envmnt::get_u8("U8_TEST_ENV", 5);
+//!     let mut value_u8 = envmnt::get_u8("U8_TEST_ENV", 5);
 //!     println!("u8 value: {}", value_u8);
 //!
 //!     envmnt::set_isize("ISIZE_TEST_ENV", -50);
-//!     let value_isize = envmnt::get_isize("ISIZE_TEST_ENV", 5);
+//!     let mut value_isize = envmnt::get_isize("ISIZE_TEST_ENV", 5);
 //!     println!("isize value: {}", value_isize);
+//!
+//!     // increment/decrement values
+//!     value_isize = envmnt::increment("U8_TEST_ENV");
+//!     assert_eq!(value_isize, 51);
+//!     value_u8 = envmnt::get_u8("U8_TEST_ENV", 5);
+//!     assert_eq!(value_u8, 51);
+//!     value_isize = envmnt::decrement("U8_TEST_ENV");
+//!     assert_eq!(value_isize, 50);
+//!     value_u8 = envmnt::get_u8("U8_TEST_ENV", 5);
+//!     assert_eq!(value_u8, 50);
 //! }
 //! ```
 //!
@@ -1166,3 +1176,45 @@ generate_set_numeric!(set_f32, f32);
 generate_set_numeric!(set_f64, f64);
 generate_set_numeric!(set_isize, isize);
 generate_set_numeric!(set_usize, usize);
+
+/// Increments and returns the new value stored by the given environment variable key.
+/// In case the variable does not exist, it will increment to 1.
+/// The updated value will be returned.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+///
+/// # Example
+///
+/// ```
+/// fn main() {
+///     envmnt::set_u8("ENV_VAR", 5);
+///     let value = envmnt::increment("ENV_VAR");
+///     assert_eq!(value, 6);
+/// }
+/// ```
+pub fn increment<K: AsRef<OsStr>>(key: K) -> isize {
+    numeric::increment(key)
+}
+
+/// Decrements and returns the new value stored by the given environment variable key.
+/// In case the variable does not exist, it will decrement to -1.
+/// The updated value will be returned.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+///
+/// # Example
+///
+/// ```
+/// fn main() {
+///     envmnt::set_u8("ENV_VAR", 5);
+///     let value = envmnt::decrement("ENV_VAR");
+///     assert_eq!(value, 4);
+/// }
+/// ```
+pub fn decrement<K: AsRef<OsStr>>(key: K) -> isize {
+    numeric::decrement(key)
+}

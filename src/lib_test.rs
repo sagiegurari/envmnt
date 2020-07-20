@@ -739,3 +739,17 @@ fn set_number_valid() {
     let output_isize = get_isize("TEST_LIB_SET_NUMBER_VALID", 5);
     assert_eq!(output_isize, 15);
 }
+
+#[test]
+fn increment_valid() {
+    set_u8("TEST_LIB_INCREMENT_VALID", 50);
+    let value = increment("TEST_LIB_INCREMENT_VALID");
+    assert_eq!(value, 51);
+}
+
+#[test]
+fn decrement_valid() {
+    set_u8("TEST_LIB_DECREMENT_VALID", 50);
+    let value = decrement("TEST_LIB_DECREMENT_VALID");
+    assert_eq!(value, 49);
+}

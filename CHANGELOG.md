@@ -3,6 +3,7 @@
 ### v0.8.4
 
 * Set/Get functions for numeric values #23
+* New increment/decrement functions #24
 
 ### v0.8.3 (2020-06-18)
 

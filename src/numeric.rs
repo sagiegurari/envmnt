@@ -62,3 +62,19 @@ generate_set_numeric!(set_f32, f32);
 generate_set_numeric!(set_f64, f64);
 generate_set_numeric!(set_isize, isize);
 generate_set_numeric!(set_usize, usize);
+
+pub(crate) fn increment<K: AsRef<OsStr>>(key: K) -> isize {
+    let mut value = get_isize(&key, 0);
+    value = value + 1;
+    set_isize(&key, value);
+
+    value
+}
+
+pub(crate) fn decrement<K: AsRef<OsStr>>(key: K) -> isize {
+    let mut value = get_isize(&key, 0);
+    value = value - 1;
+    set_isize(&key, value);
+
+    value
+}

@@ -145,3 +145,43 @@ fn set_number_valid() {
     let output_isize = get_isize("TEST_SET_NUMBER_VALID", 5);
     assert_eq!(output_isize, 15);
 }
+
+#[test]
+fn increment_undefined() {
+    let value = increment("TEST_INCREMENT_UNDEFINED");
+    assert_eq!(value, 1);
+}
+
+#[test]
+fn increment_invalid() {
+    environment::set("TEST_INCREMENT_INVALID", "abc");
+    let value = increment("TEST_INCREMENT_INVALID");
+    assert_eq!(value, 1);
+}
+
+#[test]
+fn increment_valid() {
+    set_u8("TEST_INCREMENT_VALID", 50);
+    let value = increment("TEST_INCREMENT_VALID");
+    assert_eq!(value, 51);
+}
+
+#[test]
+fn decrement_undefined() {
+    let value = decrement("TEST_DECREMENT_UNDEFINED");
+    assert_eq!(value, -1);
+}
+
+#[test]
+fn decrement_invalid() {
+    environment::set("TEST_DECREMENT_INVALID", "abc");
+    let value = decrement("TEST_DECREMENT_INVALID");
+    assert_eq!(value, -1);
+}
+
+#[test]
+fn decrement_valid() {
+    set_u8("TEST_DECREMENT_VALID", 50);
+    let value = decrement("TEST_DECREMENT_VALID");
+    assert_eq!(value, 49);
+}
