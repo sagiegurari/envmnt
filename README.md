@@ -237,7 +237,7 @@ In order to use this library, just add it as a dependency:
 
 ```ini
 [dependencies]
-envmnt = "^0.8.3"
+envmnt = "^0.8.4"
 ```
 
 ## API Documentation

@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.8.4
+### v0.8.4 (2020-07-21)
 
 * Set/Get functions for numeric values #23
 * New increment/decrement functions #24
