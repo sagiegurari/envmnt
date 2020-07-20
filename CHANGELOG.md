@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.8.4
+
+* Set/Get functions for numeric values #23
+
 ### v0.8.3 (2020-06-18)
 
 * Double quotes value support with backslashes-escaped for env files #22 (thanks @joseluisq)

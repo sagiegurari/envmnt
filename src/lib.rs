@@ -199,6 +199,22 @@
 //! }
 //! ```
 //!
+//! ## Get/Set numeric environment variables
+//!
+//! ```
+//! fn main() {
+//!     // all numeric data types: u8/i8/u16/i16/u32/i32/u64/i64/u128/i128/f32/f64/isize/usize
+//!     // are supported by specific set/get functions.
+//!     envmnt::set_u8("U8_TEST_ENV", 50);
+//!     let value_u8 = envmnt::get_u8("U8_TEST_ENV", 5);
+//!     println!("u8 value: {}", value_u8);
+//!
+//!     envmnt::set_isize("ISIZE_TEST_ENV", -50);
+//!     let value_isize = envmnt::get_isize("ISIZE_TEST_ENV", 5);
+//!     println!("isize value: {}", value_isize);
+//! }
+//! ```
+//!
 //! ## Get/Set list environment variables
 //!
 //! ```
@@ -322,6 +338,7 @@ mod environment;
 mod errors;
 mod expansion;
 mod file;
+mod numeric;
 pub mod types;
 mod util;
 
@@ -1088,3 +1105,64 @@ pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
 pub fn expand(value: &str, options: Option<ExpandOptions>) -> String {
     environment::expand(&value, options)
 }
+
+macro_rules! generate_get_numeric {
+    ($fn_name:ident, $type:ty) => {
+        /// Returns the environment variable value or a default value
+        /// in case the variable is not defined or cannot be parsed.
+        ///
+        /// # Arguments
+        ///
+        /// * `key` - The environment variable name
+        /// * `default_value` - Returned if the variable does not exist or cannot be parsed
+        ///
+        pub fn $fn_name<K: AsRef<OsStr>>(key: K, default_value: $type) -> $type {
+            numeric::$fn_name(key, default_value)
+        }
+    };
+}
+
+generate_get_numeric!(get_u8, u8);
+generate_get_numeric!(get_i8, i8);
+generate_get_numeric!(get_i16, i16);
+generate_get_numeric!(get_u16, u16);
+generate_get_numeric!(get_i32, i32);
+generate_get_numeric!(get_u32, u32);
+generate_get_numeric!(get_i64, i64);
+generate_get_numeric!(get_u64, u64);
+generate_get_numeric!(get_i128, i128);
+generate_get_numeric!(get_u128, u128);
+generate_get_numeric!(get_f32, f32);
+generate_get_numeric!(get_f64, f64);
+generate_get_numeric!(get_isize, isize);
+generate_get_numeric!(get_usize, usize);
+
+macro_rules! generate_set_numeric {
+    ($fn_name:ident, $type:ty) => {
+        /// Sets the environment variable value.
+        ///
+        /// # Arguments
+        ///
+        /// * `key` - The environment variable name
+        /// * `value` - The new variable value
+        ///
+        pub fn $fn_name<K: AsRef<OsStr>>(key: K, value: $type) {
+            numeric::$fn_name(key, value)
+        }
+    };
+}
+
+generate_set_numeric!(set_u8, u8);
+generate_set_numeric!(set_i8, i8);
+generate_set_numeric!(set_i16, i16);
+generate_set_numeric!(set_u16, u16);
+generate_set_numeric!(set_i32, i32);
+generate_set_numeric!(set_u32, u32);
+generate_set_numeric!(set_i64, i64);
+generate_set_numeric!(set_u64, u64);
+generate_set_numeric!(set_i128, i128);
+generate_set_numeric!(set_u128, u128);
+generate_set_numeric!(set_f32, f32);
+generate_set_numeric!(set_f64, f64);
+generate_set_numeric!(set_isize, isize);
+generate_set_numeric!(set_usize, usize);
