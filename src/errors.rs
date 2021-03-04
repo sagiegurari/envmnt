@@ -16,7 +16,7 @@ use std::error::Error;
 pub type EnvmntResult<T> = Result<T, EnvmntError>;
 
 #[derive(Debug)]
-/// Error struct
+/// Enumeration of possible errors emitted in this library
 pub enum EnvmntError {
     /// File not found error
     ReadFile(&'static str, FsIOError),
