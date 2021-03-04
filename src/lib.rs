@@ -1238,7 +1238,6 @@ pub fn decrement<K: AsRef<OsStr>>(key: K) -> isize {
 
 mod generic;
 
-
 /// Returns the parsed environment variable value.
 ///
 /// # Arguments
@@ -1259,9 +1258,8 @@ pub fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
           T: FromStr + FromStr<Err=E>,
           E: Display
 {
-    generic::_get_parse(key)
+    generic::get_parse(key)
 }
-
 
 /// Returns the parsed environment variable value or if is not defined, the default value will be returned.
 ///
@@ -1288,5 +1286,5 @@ pub fn get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
           T: FromStr + FromStr<Err=E>,
           E: Display
 {
-    generic::_get_parse_or(key, default)
+    generic::get_parse_or(key, default)
 }

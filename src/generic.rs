@@ -2,6 +2,11 @@
 //!
 //! Environment variable getter over any type T as long as it implements `std::str::FromStr`.
 //!
+
+#[cfg(test)]
+#[path = "./generic_tests.rs"]
+mod generic_tests;
+
 use crate::errors::ErrorKind;
 use crate::errors::EnvmntError;
 
@@ -11,8 +16,7 @@ use std::env::VarError;
 use std::fmt::Display;
 use std::str::FromStr;
 
-
-pub(crate) fn _get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
+pub(crate) fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
     where K: AsRef<OsStr>,
           T: FromStr + FromStr<Err=E>,
           E: Display
@@ -55,12 +59,12 @@ pub(crate) fn _get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
     }
 }
 
-pub(crate) fn _get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
+pub(crate) fn get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
     where K: AsRef<OsStr>,
           T: FromStr + FromStr<Err=E>,
           E: Display
 {
-    let result = _get_parse(key);
+    let result = get_parse(key);
 
     if let Err(EnvmntError {kind: ErrorKind::Missing(_)}) = result {
         Ok(default)
