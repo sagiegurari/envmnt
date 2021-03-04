@@ -240,6 +240,26 @@
 //! }
 //! ```
 //!
+//! ## Get and parse any type T that implements FromStr
+//!
+//! ```
+//! fn main() {
+//!     envmnt::set("ENV_VAR", "123");
+//!
+//!     let value: i16 = envmnt::get_parse("ENV_VAR").unwrap();
+//!     assert_eq!(value, 123);
+//!
+//!     let value: String = envmnt::get_parse("ENV_VAR").unwrap();
+//!     assert_eq!(value, "123");
+//!
+//!     let value: i32 = envmnt::get_parse_or("ENV_VAR", 123).unwrap();
+//!     assert_eq!(value, 123);
+//!
+//!     let value: i64 = envmnt::get_parse_or("ENV_UNDEFINED", 321).unwrap();
+//!     assert_eq!(value, 321);
+//! }
+//! ```
+//!
 //! ## Get/Set list environment variables
 //!
 //! ```
