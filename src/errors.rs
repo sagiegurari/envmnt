@@ -10,6 +10,7 @@ mod errors_test;
 use fsio::error::FsIOError;
 use std::fmt;
 use std::fmt::Display;
+use std::error::Error;
 
 /// Envmt Library Result
 pub type EnvmntResult<T> = Result<T, EnvmntError>;
@@ -35,6 +36,21 @@ impl Display for EnvmntError {
             }
             Self::Missing(ref msg) => writeln!(formatter, "{}", msg),
             Self::InvalidType(ref msg) => writeln!(formatter, "{}", msg),
+        }
+    }
+}
+
+impl Error for EnvmntError
+{
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self
+        {
+            // FsIOError does not properly implement std::error::Error, no chaining possible
+            Self::ReadFile(_, _) => None,
+
+            Self::Missing(_) => None,
+
+            Self::InvalidType(_) => None,
         }
     }
 }
