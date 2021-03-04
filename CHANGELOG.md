@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.8.5
+
+* New get_parse and get_parse_or functions #27 (thanks @lweberk)
+
 ### v0.8.4 (2020-07-21)
 
 * Set/Get functions for numeric values #23

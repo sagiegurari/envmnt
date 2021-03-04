@@ -40,13 +40,9 @@ impl Display for EnvmntError {
                 cause.fmt(formatter)
             }
 
-            ErrorKind::Missing(ref msg) => {
-                writeln!(formatter, "{}", msg)
-            }
+            ErrorKind::Missing(ref msg) => writeln!(formatter, "{}", msg),
 
-            ErrorKind::InvalidType(ref msg) => {
-                writeln!(formatter, "{}", msg)
-            }
+            ErrorKind::InvalidType(ref msg) => writeln!(formatter, "{}", msg),
         }
     }
 }

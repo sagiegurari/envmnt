@@ -383,6 +383,7 @@ mod environment;
 mod errors;
 mod expansion;
 mod file;
+mod generic;
 mod numeric;
 pub mod types;
 mod util;
@@ -1256,8 +1257,6 @@ pub fn decrement<K: AsRef<OsStr>>(key: K) -> isize {
     numeric::decrement(key)
 }
 
-mod generic;
-
 /// Returns the parsed environment variable value.
 ///
 /// # Arguments
@@ -1274,9 +1273,10 @@ mod generic;
 /// }
 /// ```
 pub fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
-    where K: AsRef<OsStr>,
-          T: FromStr + FromStr<Err=E>,
-          E: Display
+where
+    K: AsRef<OsStr>,
+    T: FromStr + FromStr<Err = E>,
+    E: Display,
 {
     generic::get_parse(key)
 }
@@ -1302,9 +1302,10 @@ pub fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
 /// }
 /// ```
 pub fn get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
-    where K: AsRef<OsStr>,
-          T: FromStr + FromStr<Err=E>,
-          E: Display
+where
+    K: AsRef<OsStr>,
+    T: FromStr + FromStr<Err = E>,
+    E: Display,
 {
     generic::get_parse_or(key, default)
 }

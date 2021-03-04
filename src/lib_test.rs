@@ -753,3 +753,89 @@ fn decrement_valid() {
     let value = decrement("TEST_LIB_DECREMENT_VALID");
     assert_eq!(value, 49);
 }
+
+#[test]
+fn get_parse_valid() {
+    env::set_var("TEST_LIB_GET_PARSE_BOOL_VALID", "true");
+    env::set_var("TEST_LIB_GET_PARSE_CHAR_VALID", "A");
+    env::set_var("TEST_LIB_GET_PARSE_INUMBER_VALID", "-123");
+    env::set_var("TEST_LIB_GET_PARSE_UNUMBER_VALID", "123");
+
+    let output_bool: Result<bool, EnvmntError> = get_parse("TEST_LIB_GET_PARSE_BOOL_VALID");
+    assert!(if let Ok(true) = output_bool {
+        true
+    } else {
+        false
+    });
+
+    let output_char: Result<char, EnvmntError> = get_parse("TEST_LIB_GET_PARSE_CHAR_VALID");
+    assert!(if let Ok('A') = output_char {
+        true
+    } else {
+        false
+    });
+
+    let output_i8: Result<i8, EnvmntError> = get_parse("TEST_LIB_GET_PARSE_INUMBER_VALID");
+    assert!(if let Ok(-123) = output_i8 {
+        true
+    } else {
+        false
+    });
+}
+
+#[test]
+fn get_parse_or_defined() {
+    set_bool("TEST_LIB_GET_PARSE_OR_BOOL_DEFINED", true);
+    set("TEST_LIB_GET_PARSE_OR_CHAR_DEFINED", "A");
+    set("TEST_LIB_GET_PARSE_OR_I8_DEFINED", "-123");
+
+    let output_bool: Result<bool, EnvmntError> =
+        get_parse_or("TEST_LIB_GET_PARSE_OR_BOOL_DEFINED", false);
+    assert!(if let Ok(true) = output_bool {
+        true
+    } else {
+        false
+    });
+
+    let output_char: Result<char, EnvmntError> =
+        get_parse_or("TEST_LIB_GET_PARSE_OR_CHAR_DEFINED", 'B');
+    assert!(if let Ok('A') = output_char {
+        true
+    } else {
+        false
+    });
+
+    let output_i8: Result<i8, EnvmntError> = get_parse_or("TEST_LIB_GET_PARSE_OR_I8_DEFINED", -23);
+    assert!(if let Ok(-123) = output_i8 {
+        true
+    } else {
+        false
+    });
+}
+
+#[test]
+fn get_parse_or_undefined() {
+    let output_bool: Result<bool, EnvmntError> =
+        get_parse_or("TEST_LIB_GET_PARSE_OR_BOOL_UNDEFINED", true);
+    assert!(if let Ok(true) = output_bool {
+        true
+    } else {
+        false
+    });
+
+    let output_char: Result<char, EnvmntError> =
+        get_parse_or("TEST_LIB_GET_PARSE_OR_CHAR_UNDEFINED", 'A');
+    assert!(if let Ok('A') = output_char {
+        true
+    } else {
+        false
+    });
+
+    let output_i8: Result<i8, EnvmntError> =
+        get_parse_or("TEST_LIB_GET_PARSE_OR_I8_UNDEFINED", -123);
+    assert!(if let Ok(-123) = output_i8 {
+        true
+    } else {
+        false
+    });
+}
