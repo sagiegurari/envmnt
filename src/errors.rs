@@ -16,6 +16,12 @@ use std::fmt::Display;
 pub enum ErrorKind {
     /// File not found error
     ReadFile(&'static str, FsIOError),
+
+    /// Environment variable not found
+    Missing(String),
+
+    /// Environment variable has not a compatible type
+    InvalidType(String),
 }
 
 #[derive(Debug)]
@@ -32,6 +38,14 @@ impl Display for EnvmntError {
             ErrorKind::ReadFile(ref message, ref cause) => {
                 writeln!(formatter, "{}", message)?;
                 cause.fmt(formatter)
+            }
+
+            ErrorKind::Missing(ref msg) => {
+                writeln!(formatter, "{}", msg)
+            }
+
+            ErrorKind::InvalidType(ref msg) => {
+                writeln!(formatter, "{}", msg)
             }
         }
     }

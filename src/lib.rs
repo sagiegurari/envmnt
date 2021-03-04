@@ -240,6 +240,26 @@
 //! }
 //! ```
 //!
+//! ## Get and parse any type T that implements FromStr
+//!
+//! ```
+//! fn main() {
+//!     envmnt::set("ENV_VAR", "123");
+//!
+//!     let value: i16 = envmnt::get_parse("ENV_VAR").unwrap();
+//!     assert_eq!(value, 123);
+//!
+//!     let value: String = envmnt::get_parse("ENV_VAR").unwrap();
+//!     assert_eq!(value, "123");
+//!
+//!     let value: i32 = envmnt::get_parse_or("ENV_VAR", 123).unwrap();
+//!     assert_eq!(value, 123);
+//!
+//!     let value: i64 = envmnt::get_parse_or("ENV_UNDEFINED", 321).unwrap();
+//!     assert_eq!(value, 321);
+//! }
+//! ```
+//!
 //! ## Get/Set list environment variables
 //!
 //! ```
@@ -370,6 +390,8 @@ mod util;
 use crate::errors::EnvmntError;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
+use std::fmt::Display;
+use std::str::FromStr;
 
 /// Get/Set list options
 pub type ListOptions = types::ListOptions;
@@ -1232,4 +1254,57 @@ pub fn increment<K: AsRef<OsStr>>(key: K) -> isize {
 /// ```
 pub fn decrement<K: AsRef<OsStr>>(key: K) -> isize {
     numeric::decrement(key)
+}
+
+mod generic;
+
+/// Returns the parsed environment variable value.
+///
+/// # Arguments
+///
+/// * `key` - The environment variable name
+///
+/// # Example
+///
+/// ```
+/// fn main() {
+///     envmnt::set("ENV_VAR", "123");
+///     let value: i32 = envmnt::get_parse("ENV_VAR").unwrap();
+///     assert_eq!(value, 123);
+/// }
+/// ```
+pub fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
+    where K: AsRef<OsStr>,
+          T: FromStr + FromStr<Err=E>,
+          E: Display
+{
+    generic::get_parse(key)
+}
+
+/// Returns the parsed environment variable value or if is not defined, the default value will be returned.
+///
+/// # Arguments
+///
+/// * `key`     - The environment variable name
+/// * `default` - The default value to use in case env var is not set
+///
+/// # Example
+///
+/// ```
+/// fn main() {
+///     envmnt::set("ENV_VAR", "123");
+///
+///     let value: i32 = envmnt::get_parse_or("ENV_VAR", 321).unwrap();
+///     assert_eq!(value, 123);
+///
+///     let value: i32 = envmnt::get_parse_or("ENV_MISSING_VAR", 321).unwrap();
+///     assert_eq!(value, 321);
+/// }
+/// ```
+pub fn get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
+    where K: AsRef<OsStr>,
+          T: FromStr + FromStr<Err=E>,
+          E: Display
+{
+    generic::get_parse_or(key, default)
 }
