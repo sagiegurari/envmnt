@@ -1129,6 +1129,30 @@ pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
     file::parse_file(file)
 }
 
+/// Parses the provided content as a map of key/value.
+/// The content should be in the form of an env file format.
+///
+/// # Arguments
+///
+/// * `env_content` - The string to parse in env file format
+///
+/// # Example
+///
+/// ```
+/// fn main() {
+///     let env = envmnt::parse_env_file_content(r#"
+///     ENV_VAR1=1
+///     # some comment
+///     ENV_VAR2=2
+///     "#);
+///
+///     println!("Parsed Env: {:?}", &env);
+/// }
+/// ```
+pub fn parse_env_file_content(env_content: &str) -> IndexMap<String, String> {
+    file::parse_env_file_content(env_content)
+}
+
 /// Expands the provided string value by replacing the environment variables defined in it.
 /// The syntax of the environment variables is based on the type requested.
 ///

@@ -532,6 +532,24 @@ fn parse_file_valid() {
 }
 
 #[test]
+fn parse_env_file_content_valid() {
+    let content = r#"
+        # test comment line
+        key1=value1
+        key2 = value2
+        key3 = ==value3==
+
+        # another comment line
+    "#;
+    let output = parse_env_file_content(&content);
+
+    assert!(output.len() == 3);
+    assert_eq!(output.get("key1").unwrap(), "value1");
+    assert_eq!(output.get("key2").unwrap(), "value2");
+    assert_eq!(output.get("key3").unwrap(), "==value3==");
+}
+
+#[test]
 fn expand_all_with_values() {
     set("TEST_LIB_EXPAND_ALL_WITH_VALUES1", "test1");
     set("TEST_LIB_EXPAND_ALL_WITH_VALUES2", "test2");

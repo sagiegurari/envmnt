@@ -3,6 +3,7 @@
 ### v0.8.5
 
 * New get_parse and get_parse_or functions #27 (thanks @lweberk)
+* New parse_env_file_content function
 
 ### v0.8.4 (2020-07-21)
 

@@ -38,7 +38,7 @@ where
 pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
     match read_text_file(file) {
         Ok(env_content) => {
-            let env = parse_env_content(&env_content);
+            let env = parse_env_file_content(&env_content);
 
             Ok(env)
         }
@@ -52,7 +52,7 @@ fn create_read_file_error(error: FsIOError) -> EnvmntError {
     }
 }
 
-fn parse_env_content(env_content: &str) -> IndexMap<String, String> {
+pub(crate) fn parse_env_file_content(env_content: &str) -> IndexMap<String, String> {
     let mut env: IndexMap<String, String> = IndexMap::new();
 
     let lines: Vec<&str> = env_content.split('\n').collect();

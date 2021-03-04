@@ -99,26 +99,26 @@ fn create_read_file_error_valid() {
 }
 
 #[test]
-fn parse_env_content_empty() {
-    let output = parse_env_content("");
+fn parse_env_file_content_empty() {
+    let output = parse_env_file_content("");
 
     assert!(output.len() == 0);
 }
 
 #[test]
-fn parse_env_content_comment_strings() {
+fn parse_env_file_content_comment_strings() {
     let content = r#"
         # test comment line
 
         # another comment line
     "#;
-    let output = parse_env_content(&content);
+    let output = parse_env_file_content(&content);
 
     assert!(output.len() == 0);
 }
 
 #[test]
-fn parse_env_content_valid() {
+fn parse_env_file_content_valid() {
     let content = r#"
         # test comment line
         key1=value1
@@ -127,7 +127,7 @@ fn parse_env_content_valid() {
 
         # another comment line
     "#;
-    let output = parse_env_content(&content);
+    let output = parse_env_file_content(&content);
 
     assert!(output.len() == 3);
     assert_eq!(output.get("key1").unwrap(), "value1");
