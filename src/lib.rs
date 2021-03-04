@@ -388,8 +388,11 @@ mod numeric;
 pub mod types;
 mod util;
 
-use crate::errors::EnvmntError;
+pub use crate::errors::EnvmntError;
+pub use crate::errors::EnvmntResult;
+
 use indexmap::IndexMap;
+
 use std::ffi::OsStr;
 use std::fmt::Display;
 use std::str::FromStr;
@@ -1077,7 +1080,7 @@ pub fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
 ///     assert!(output.is_ok());
 /// }
 /// ```
-pub fn load_file(file: &str) -> Result<(), EnvmntError> {
+pub fn load_file(file: &str) -> EnvmntResult<()> {
     file::load_file(file)
 }
 
@@ -1103,7 +1106,7 @@ pub fn load_file(file: &str) -> Result<(), EnvmntError> {
 ///     assert!(output.is_ok());
 /// }
 /// ```
-pub fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> Result<(), EnvmntError>
+pub fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> EnvmntResult<()>
 where
     F: Fn(String) -> String,
 {
@@ -1125,7 +1128,7 @@ where
 ///     println!("Parsed Env: {:?}", &env);
 /// }
 /// ```
-pub fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
+pub fn parse_file(file: &str) -> EnvmntResult<IndexMap<String, String>> {
     file::parse_file(file)
 }
 
@@ -1296,7 +1299,7 @@ pub fn decrement<K: AsRef<OsStr>>(key: K) -> isize {
 ///     assert_eq!(value, 123);
 /// }
 /// ```
-pub fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
+pub fn get_parse<K, T, E>(key: K) -> EnvmntResult<T>
 where
     K: AsRef<OsStr>,
     T: FromStr + FromStr<Err = E>,
@@ -1325,7 +1328,7 @@ where
 ///     assert_eq!(value, 321);
 /// }
 /// ```
-pub fn get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
+pub fn get_parse_or<K, T, E>(key: K, default: T) -> EnvmntResult<T>
 where
     K: AsRef<OsStr>,
     T: FromStr + FromStr<Err = E>,
