@@ -7,6 +7,11 @@
 #[path = "./types_test.rs"]
 mod types_test;
 
+use crate::errors::EnvmntError;
+
+/// Envmt Library Result
+pub type EnvmntResult<T> = Result<T, EnvmntError>;
+
 /// Get/Set list options
 #[derive(Debug, Clone, Default)]
 pub struct ListOptions {

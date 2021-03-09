@@ -25,170 +25,119 @@ use std::path::PathBuf;
 fn get_parse_undefined() {
     let output_socketaddr: Result<SocketAddr, EnvmntError> =
         get_parse("TEST_GET_PARSE_SOCKETADDR_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_socketaddr
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_socketaddr {
         true
     } else {
         false
     });
 
     let output_bool: Result<bool, EnvmntError> = get_parse("TEST_GET_PARSE_BOOL_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_bool
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_bool {
         true
     } else {
         false
     });
 
     let output_char: Result<char, EnvmntError> = get_parse("TEST_GET_PARSE_CHAR_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_char
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_char {
         true
     } else {
         false
     });
 
     let output_f32: Result<f32, EnvmntError> = get_parse("TEST_GET_PARSE_F32_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_f32
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_f32 {
         true
     } else {
         false
     });
 
     let output_f64: Result<f64, EnvmntError> = get_parse("TEST_GET_PARSE_F64_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_f64
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_f64 {
         true
     } else {
         false
     });
 
     let output_i8: Result<i8, EnvmntError> = get_parse("TEST_GET_PARSE_I8_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_i8
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_i8 {
         true
     } else {
         false
     });
 
     let output_i16: Result<i16, EnvmntError> = get_parse("TEST_GET_PARSE_I16_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_i16
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_i16 {
         true
     } else {
         false
     });
 
     let output_i32: Result<i32, EnvmntError> = get_parse("TEST_GET_PARSE_I32_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_i32
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_i32 {
         true
     } else {
         false
     });
 
     let output_i64: Result<i64, EnvmntError> = get_parse("TEST_GET_PARSE_I64_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_i64
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_i64 {
         true
     } else {
         false
     });
 
     let output_i128: Result<i128, EnvmntError> = get_parse("TEST_GET_PARSE_I128_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_i128
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_i128 {
         true
     } else {
         false
     });
 
     let output_isize: Result<isize, EnvmntError> = get_parse("TEST_GET_PARSE_ISIZE_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_isize
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_isize {
         true
     } else {
         false
     });
 
     let output_u8: Result<u8, EnvmntError> = get_parse("TEST_GET_PARSE_U8_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_u8
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_u8 {
         true
     } else {
         false
     });
 
     let output_u16: Result<u16, EnvmntError> = get_parse("TEST_GET_PARSE_U16_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_u16
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_u16 {
         true
     } else {
         false
     });
 
     let output_u32: Result<u32, EnvmntError> = get_parse("TEST_GET_PARSE_U32_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_u32
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_u32 {
         true
     } else {
         false
     });
 
     let output_u64: Result<u64, EnvmntError> = get_parse("TEST_GET_PARSE_U64_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_u64
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_u64 {
         true
     } else {
         false
     });
 
     let output_u128: Result<u128, EnvmntError> = get_parse("TEST_GET_PARSE_U128_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_u128
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_u128 {
         true
     } else {
         false
     });
 
     let output_usize: Result<usize, EnvmntError> = get_parse("TEST_GET_PARSE_USIZE_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_usize
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_usize {
         true
     } else {
         false
@@ -196,10 +145,7 @@ fn get_parse_undefined() {
 
     let output_osstring: Result<OsString, EnvmntError> =
         get_parse("TEST_GET_PARSE_OSSTRING_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_osstring
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_osstring {
         true
     } else {
         false
@@ -207,10 +153,7 @@ fn get_parse_undefined() {
 
     let output_ipv4addr: Result<Ipv4Addr, EnvmntError> =
         get_parse("TEST_GET_PARSE_IPV4ADDR_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_ipv4addr
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_ipv4addr {
         true
     } else {
         false
@@ -218,10 +161,7 @@ fn get_parse_undefined() {
 
     let output_ipv6addr: Result<Ipv6Addr, EnvmntError> =
         get_parse("TEST_GET_PARSE_IPV6ADDR_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_ipv6addr
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_ipv6addr {
         true
     } else {
         false
@@ -229,10 +169,7 @@ fn get_parse_undefined() {
 
     let output_socketaddrv4: Result<SocketAddrV4, EnvmntError> =
         get_parse("TEST_GET_PARSE_SOCKETADDRV4_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_socketaddrv4
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_socketaddrv4 {
         true
     } else {
         false
@@ -240,10 +177,7 @@ fn get_parse_undefined() {
 
     let output_socketaddrv6: Result<SocketAddrV6, EnvmntError> =
         get_parse("TEST_GET_PARSE_SOCKETADDRV6_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_socketaddrv6
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_socketaddrv6 {
         true
     } else {
         false
@@ -251,10 +185,7 @@ fn get_parse_undefined() {
 
     let output_nonzeroi8: Result<NonZeroI8, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROI8_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzeroi8
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzeroi8 {
         true
     } else {
         false
@@ -262,10 +193,7 @@ fn get_parse_undefined() {
 
     let output_nonzeroi16: Result<NonZeroI16, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROI16_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzeroi16
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzeroi16 {
         true
     } else {
         false
@@ -273,10 +201,7 @@ fn get_parse_undefined() {
 
     let output_nonzeroi32: Result<NonZeroI32, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROI32_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzeroi32
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzeroi32 {
         true
     } else {
         false
@@ -284,10 +209,7 @@ fn get_parse_undefined() {
 
     let output_nonzeroi64: Result<NonZeroI64, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROI64_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzeroi64
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzeroi64 {
         true
     } else {
         false
@@ -295,10 +217,7 @@ fn get_parse_undefined() {
 
     let output_nonzeroi128: Result<NonZeroI128, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROI128_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzeroi128
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzeroi128 {
         true
     } else {
         false
@@ -306,10 +225,7 @@ fn get_parse_undefined() {
 
     let output_nonzeroisize: Result<NonZeroIsize, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROISIZE_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzeroisize
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzeroisize {
         true
     } else {
         false
@@ -317,10 +233,7 @@ fn get_parse_undefined() {
 
     let output_nonzerou8: Result<NonZeroU8, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROU8_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzerou8
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzerou8 {
         true
     } else {
         false
@@ -328,10 +241,7 @@ fn get_parse_undefined() {
 
     let output_nonzerou16: Result<NonZeroU16, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROU16_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzerou16
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzerou16 {
         true
     } else {
         false
@@ -339,10 +249,7 @@ fn get_parse_undefined() {
 
     let output_nonzerou32: Result<NonZeroU32, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROU32_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzerou32
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzerou32 {
         true
     } else {
         false
@@ -350,10 +257,7 @@ fn get_parse_undefined() {
 
     let output_nonzerou64: Result<NonZeroU64, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROU64_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzerou64
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzerou64 {
         true
     } else {
         false
@@ -361,10 +265,7 @@ fn get_parse_undefined() {
 
     let output_nonzerou128: Result<NonZeroU128, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROU128_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzerou128
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzerou128 {
         true
     } else {
         false
@@ -372,10 +273,7 @@ fn get_parse_undefined() {
 
     let output_nonzerousize: Result<NonZeroUsize, EnvmntError> =
         get_parse("TEST_GET_PARSE_NONZEROUSIZE_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_nonzerousize
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_nonzerousize {
         true
     } else {
         false
@@ -383,20 +281,14 @@ fn get_parse_undefined() {
 
     let output_pathbuf: Result<PathBuf, EnvmntError> =
         get_parse("TEST_GET_PARSE_PATHBUF_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_pathbuf
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_pathbuf {
         true
     } else {
         false
     });
 
     let output_string: Result<String, EnvmntError> = get_parse("TEST_GET_PARSE_STRING_UNDEFINED");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = output_string
-    {
+    assert!(if let Err(EnvmntError::Missing(_)) = output_string {
         true
     } else {
         false
@@ -511,140 +403,98 @@ fn get_parse_invalid() {
     env::set_var("TEST_GET_PARSE_NUMBER_INVALID", "abc");
 
     let output_bool: Result<bool, EnvmntError> = get_parse("TEST_GET_PARSE_BOOL_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_bool
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_bool {
         true
     } else {
         false
     });
 
     let output_char: Result<char, EnvmntError> = get_parse("TEST_GET_PARSE_CHAR_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_char
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_char {
         true
     } else {
         false
     });
 
     let output_i8: Result<i8, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_i8
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_i8 {
         true
     } else {
         false
     });
 
     let output_i16: Result<i16, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_i16
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_i16 {
         true
     } else {
         false
     });
 
     let output_i32: Result<i32, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_i32
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_i32 {
         true
     } else {
         false
     });
 
     let output_i64: Result<i64, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_i64
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_i64 {
         true
     } else {
         false
     });
 
     let output_i128: Result<i128, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_i128
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_i128 {
         true
     } else {
         false
     });
 
     let output_isize: Result<isize, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_isize
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_isize {
         true
     } else {
         false
     });
 
     let output_u8: Result<u8, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_u8
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_u8 {
         true
     } else {
         false
     });
 
     let output_u16: Result<u16, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_u16
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_u16 {
         true
     } else {
         false
     });
 
     let output_u32: Result<u32, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_u32
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_u32 {
         true
     } else {
         false
     });
 
     let output_u64: Result<u64, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_u64
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_u64 {
         true
     } else {
         false
     });
 
     let output_u128: Result<u128, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_u128
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_u128 {
         true
     } else {
         false
     });
 
     let output_usize: Result<usize, EnvmntError> = get_parse("TEST_GET_PARSE_NUMBER_INVALID");
-    assert!(if let Err(EnvmntError {
-        kind: ErrorKind::InvalidType(_),
-    }) = output_usize
-    {
+    assert!(if let Err(EnvmntError::InvalidType(_)) = output_usize {
         true
     } else {
         false

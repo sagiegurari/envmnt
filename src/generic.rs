@@ -8,7 +8,7 @@
 mod generic_tests;
 
 use crate::errors::EnvmntError;
-use crate::errors::ErrorKind;
+
 use std::env::var;
 use std::env::VarError;
 use std::ffi::OsStr;
@@ -22,28 +22,25 @@ where
     E: Display,
 {
     match var(&key) {
-        Ok(valstr) => valstr.parse::<T>().map_err(|e| EnvmntError {
-            kind: ErrorKind::InvalidType(format!(
-                "Environment variable {} is of incompatible type {}. Failed to parse with: {}",
-                key.as_ref().to_string_lossy(),
-                stringify!(T),
-                e
+        Ok(valstr) => valstr.parse::<T>().map_err(|e| EnvmntError::InvalidType(format!(
+            "Environment variable {} is of incompatible type {}. Failed to parse with: {}",
+            key.as_ref().to_string_lossy(),
+            stringify!(T),
+            e
             )),
-        }),
+        ),
 
-        Err(VarError::NotPresent) => Err(EnvmntError {
-            kind: ErrorKind::Missing(format!(
+        Err(VarError::NotPresent) => Err(EnvmntError::Missing(format!(
                 "Environment variable '{}' is not set",
                 key.as_ref().to_string_lossy()
             )),
-        }),
+        ),
 
-        Err(VarError::NotUnicode(osstr)) => Err(EnvmntError {
-            kind: ErrorKind::InvalidType(format!(
+        Err(VarError::NotUnicode(osstr)) => Err(EnvmntError::InvalidType(format!(
                 "Environment variable is not valid unicode: {:#?}",
                 osstr
             )),
-        }),
+        ),
     }
 }
 
@@ -55,10 +52,7 @@ where
 {
     let result = get_parse(key);
 
-    if let Err(EnvmntError {
-        kind: ErrorKind::Missing(_),
-    }) = result
-    {
+    if let Err(EnvmntError::Missing(_)) = result {
         Ok(default)
     } else {
         result
