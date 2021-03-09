@@ -9,9 +9,11 @@ mod file_test;
 
 use crate::bulk;
 use crate::errors::EnvmntError;
-use crate::errors::EnvmntResult;
+use crate::types::EnvmntResult;
+
 use fsio::error::FsIOError;
 use fsio::file::read_text_file;
+
 use indexmap::IndexMap;
 
 pub(crate) fn empty_evaluate_fn(value: String) -> String {

@@ -1,7 +1,7 @@
 use super::*;
 
 use crate::environment;
-use fsio::error::ErrorInfo;
+use fsio::error::FsIOError;
 
 #[test]
 fn load_file_valid() {
@@ -89,9 +89,7 @@ fn parse_file_not_found() {
 
 #[test]
 fn create_read_file_error_valid() {
-    let error = create_read_file_error(FsIOError {
-        info: ErrorInfo::PathAlreadyExists("test".to_string()),
-    });
+    let error = create_read_file_error(FsIOError::PathAlreadyExists("test".to_string()));
 
     let error_string = error.to_string();
     assert!(error_string.contains("Unable to read file."));

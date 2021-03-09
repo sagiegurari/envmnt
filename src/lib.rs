@@ -380,7 +380,7 @@ doc_comment::doctest!("../README.md");
 
 mod bulk;
 mod environment;
-mod errors;
+pub mod errors;
 mod expansion;
 mod file;
 mod generic;
@@ -388,8 +388,8 @@ mod numeric;
 pub mod types;
 mod util;
 
-pub use crate::errors::EnvmntError;
-pub use crate::errors::EnvmntResult;
+// pub use crate::errors::EnvmntError;
+use crate::types::EnvmntResult;
 
 use indexmap::IndexMap;
 

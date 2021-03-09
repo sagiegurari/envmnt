@@ -3,6 +3,8 @@ use doc_comment as _;
 use rusty_hook as _;
 use std::env;
 
+use errors::EnvmntError;
+
 #[test]
 fn exists_false() {
     let output = exists("TEST_LIB_EXISTS_FALSE");

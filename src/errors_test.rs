@@ -1,13 +1,11 @@
 use super::*;
-use fsio::error::ErrorInfo;
+use fsio::error::FsIOError;
 
 #[test]
 fn format_file_open() {
     let error = EnvmntError::ReadFile(
         "Unable to read file.",
-        FsIOError {
-            info: ErrorInfo::PathAlreadyExists("test".to_string()),
-        },
+        FsIOError::PathAlreadyExists("test".to_string()),
     );
 
     let error_string = error.to_string();

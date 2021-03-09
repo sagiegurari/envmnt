@@ -1,6 +1,6 @@
 //! # errors
 //!
-//! Common library errors.
+//! Error interface of the library.
 //!
 
 #[cfg(test)]
@@ -11,9 +11,6 @@ use fsio::error::FsIOError;
 use std::fmt;
 use std::fmt::Display;
 use std::error::Error;
-
-/// Envmt Library Result
-pub type EnvmntResult<T> = Result<T, EnvmntError>;
 
 #[derive(Debug)]
 /// Enumeration of possible errors emitted in this library
@@ -46,7 +43,7 @@ impl Error for EnvmntError
         match self
         {
             // FsIOError does not properly implement std::error::Error, no chaining possible
-            Self::ReadFile(_, _) => None,
+            Self::ReadFile(_, other) => Some(other),
 
             Self::Missing(_) => None,
 

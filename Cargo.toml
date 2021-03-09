@@ -24,7 +24,7 @@ include = [
 ]
 
 [dependencies]
-fsio = "^0.1"
+fsio = "^0.2"
 indexmap = "^1.0"
 
 [dev-dependencies]
