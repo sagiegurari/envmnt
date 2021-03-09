@@ -388,7 +388,6 @@ mod numeric;
 pub mod types;
 mod util;
 
-// pub use crate::errors::EnvmntError;
 use crate::types::EnvmntResult;
 
 use indexmap::IndexMap;
