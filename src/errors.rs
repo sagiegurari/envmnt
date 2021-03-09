@@ -8,9 +8,9 @@
 mod errors_test;
 
 use fsio::error::FsIOError;
+use std::error::Error;
 use std::fmt;
 use std::fmt::Display;
-use std::error::Error;
 
 #[derive(Debug)]
 /// Enumeration of possible errors emitted in this library
@@ -37,16 +37,11 @@ impl Display for EnvmntError {
     }
 }
 
-impl Error for EnvmntError
-{
+impl Error for EnvmntError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match self
-        {
-            // FsIOError does not properly implement std::error::Error, no chaining possible
-            Self::ReadFile(_, other) => Some(other),
-
+        match self {
+            Self::ReadFile(_, error) => Some(error),
             Self::Missing(_) => None,
-
             Self::InvalidType(_) => None,
         }
     }

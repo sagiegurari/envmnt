@@ -389,9 +389,7 @@ pub mod types;
 mod util;
 
 use crate::types::EnvmntResult;
-
 use indexmap::IndexMap;
-
 use std::ffi::OsStr;
 use std::fmt::Display;
 use std::str::FromStr;

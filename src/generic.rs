@@ -8,43 +8,42 @@
 mod generic_tests;
 
 use crate::errors::EnvmntError;
-
+use crate::types::EnvmntResult;
 use std::env::var;
 use std::env::VarError;
 use std::ffi::OsStr;
 use std::fmt::Display;
 use std::str::FromStr;
 
-pub(crate) fn get_parse<K, T, E>(key: K) -> Result<T, EnvmntError>
+pub(crate) fn get_parse<K, T, E>(key: K) -> EnvmntResult<T>
 where
     K: AsRef<OsStr>,
     T: FromStr + FromStr<Err = E>,
     E: Display,
 {
     match var(&key) {
-        Ok(valstr) => valstr.parse::<T>().map_err(|e| EnvmntError::InvalidType(format!(
-            "Environment variable {} is of incompatible type {}. Failed to parse with: {}",
-            key.as_ref().to_string_lossy(),
-            stringify!(T),
-            e
-            )),
-        ),
+        Ok(valstr) => valstr.parse::<T>().map_err(|error| {
+            EnvmntError::InvalidType(format!(
+                "Environment variable {} is of incompatible type {}. Failed to parse with: {}",
+                key.as_ref().to_string_lossy(),
+                stringify!(T),
+                error
+            ))
+        }),
 
         Err(VarError::NotPresent) => Err(EnvmntError::Missing(format!(
-                "Environment variable '{}' is not set",
-                key.as_ref().to_string_lossy()
-            )),
-        ),
+            "Environment variable '{}' is not set",
+            key.as_ref().to_string_lossy()
+        ))),
 
         Err(VarError::NotUnicode(osstr)) => Err(EnvmntError::InvalidType(format!(
-                "Environment variable is not valid unicode: {:#?}",
-                osstr
-            )),
-        ),
+            "Environment variable is not valid unicode: {:#?}",
+            osstr
+        ))),
     }
 }
 
-pub(crate) fn get_parse_or<K, T, E>(key: K, default: T) -> Result<T, EnvmntError>
+pub(crate) fn get_parse_or<K, T, E>(key: K, default: T) -> EnvmntResult<T>
 where
     K: AsRef<OsStr>,
     T: FromStr + FromStr<Err = E>,
