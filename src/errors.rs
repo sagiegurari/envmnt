@@ -1,6 +1,6 @@
 //! # errors
 //!
-//! Common library errors.
+//! Error interface of the library.
 //!
 
 #[cfg(test)]
@@ -8,31 +8,41 @@
 mod errors_test;
 
 use fsio::error::FsIOError;
+use std::error::Error;
 use std::fmt;
 use std::fmt::Display;
 
 #[derive(Debug)]
-/// Holds the error information
-pub enum ErrorKind {
+/// Enumeration of possible errors emitted in this library
+pub enum EnvmntError {
     /// File not found error
     ReadFile(&'static str, FsIOError),
-}
-
-#[derive(Debug)]
-/// Error struct
-pub struct EnvmntError {
-    /// Holds the error information
-    pub kind: ErrorKind,
+    /// Environment variable not found
+    Missing(String),
+    /// Environment variable has not a compatible type
+    InvalidType(String),
 }
 
 impl Display for EnvmntError {
     /// Formats the value using the given formatter.
     fn fmt(&self, formatter: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        match self.kind {
-            ErrorKind::ReadFile(ref message, ref cause) => {
+        match self {
+            Self::ReadFile(ref message, ref cause) => {
                 writeln!(formatter, "{}", message)?;
                 cause.fmt(formatter)
             }
+            Self::Missing(ref msg) => writeln!(formatter, "{}", msg),
+            Self::InvalidType(ref msg) => writeln!(formatter, "{}", msg),
+        }
+    }
+}
+
+impl Error for EnvmntError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            Self::ReadFile(_, error) => Some(error),
+            Self::Missing(_) => None,
+            Self::InvalidType(_) => None,
         }
     }
 }

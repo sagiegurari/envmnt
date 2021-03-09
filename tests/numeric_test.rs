@@ -5,9 +5,13 @@ fn numeric() {
     envmnt::set_u8("U8_TEST_ENV", 50);
     let mut value_u8 = envmnt::get_u8("U8_TEST_ENV", 5);
     assert_eq!(value_u8, 50);
+    value_u8 = envmnt::get_parse_or("U8_TEST_ENV", 5).unwrap();
+    assert_eq!(value_u8, 50);
 
     envmnt::set_isize("ISIZE_TEST_ENV", -50);
     let mut value_isize = envmnt::get_isize("ISIZE_TEST_ENV", 5);
+    assert_eq!(value_isize, -50);
+    value_isize = envmnt::get_parse("ISIZE_TEST_ENV").unwrap();
     assert_eq!(value_isize, -50);
 
     // increment/decrement values

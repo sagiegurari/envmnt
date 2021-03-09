@@ -8,7 +8,8 @@
 mod file_test;
 
 use crate::bulk;
-use crate::errors::{EnvmntError, ErrorKind};
+use crate::errors::EnvmntError;
+use crate::types::EnvmntResult;
 use fsio::error::FsIOError;
 use fsio::file::read_text_file;
 use indexmap::IndexMap;
@@ -17,11 +18,11 @@ pub(crate) fn empty_evaluate_fn(value: String) -> String {
     value
 }
 
-pub(crate) fn load_file(file: &str) -> Result<(), EnvmntError> {
+pub(crate) fn load_file(file: &str) -> EnvmntResult<()> {
     evaluate_and_load_file(file, empty_evaluate_fn)
 }
 
-pub(crate) fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> Result<(), EnvmntError>
+pub(crate) fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> EnvmntResult<()>
 where
     F: Fn(String) -> String,
 {
@@ -35,10 +36,10 @@ where
     }
 }
 
-pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntError> {
+pub(crate) fn parse_file(file: &str) -> EnvmntResult<IndexMap<String, String>> {
     match read_text_file(file) {
         Ok(env_content) => {
-            let env = parse_env_content(&env_content);
+            let env = parse_env_file_content(&env_content);
 
             Ok(env)
         }
@@ -47,12 +48,10 @@ pub(crate) fn parse_file(file: &str) -> Result<IndexMap<String, String>, EnvmntE
 }
 
 fn create_read_file_error(error: FsIOError) -> EnvmntError {
-    EnvmntError {
-        kind: ErrorKind::ReadFile("Unable to read file.", error),
-    }
+    EnvmntError::ReadFile("Unable to read file.", error)
 }
 
-fn parse_env_content(env_content: &str) -> IndexMap<String, String> {
+pub(crate) fn parse_env_file_content(env_content: &str) -> IndexMap<String, String> {
     let mut env: IndexMap<String, String> = IndexMap::new();
 
     let lines: Vec<&str> = env_content.split('\n').collect();
