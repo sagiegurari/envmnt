@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.9.0
+### v0.9.0 (2021-03-09)
 
 * New get_parse and get_parse_or functions #27 (thanks @lweberk)
 * New parse_env_file_content function

@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../envmnt/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../envmnt/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1218,6 +1221,121 @@
 <span id="1218">1218</span>
 <span id="1219">1219</span>
 <span id="1220">1220</span>
+<span id="1221">1221</span>
+<span id="1222">1222</span>
+<span id="1223">1223</span>
+<span id="1224">1224</span>
+<span id="1225">1225</span>
+<span id="1226">1226</span>
+<span id="1227">1227</span>
+<span id="1228">1228</span>
+<span id="1229">1229</span>
+<span id="1230">1230</span>
+<span id="1231">1231</span>
+<span id="1232">1232</span>
+<span id="1233">1233</span>
+<span id="1234">1234</span>
+<span id="1235">1235</span>
+<span id="1236">1236</span>
+<span id="1237">1237</span>
+<span id="1238">1238</span>
+<span id="1239">1239</span>
+<span id="1240">1240</span>
+<span id="1241">1241</span>
+<span id="1242">1242</span>
+<span id="1243">1243</span>
+<span id="1244">1244</span>
+<span id="1245">1245</span>
+<span id="1246">1246</span>
+<span id="1247">1247</span>
+<span id="1248">1248</span>
+<span id="1249">1249</span>
+<span id="1250">1250</span>
+<span id="1251">1251</span>
+<span id="1252">1252</span>
+<span id="1253">1253</span>
+<span id="1254">1254</span>
+<span id="1255">1255</span>
+<span id="1256">1256</span>
+<span id="1257">1257</span>
+<span id="1258">1258</span>
+<span id="1259">1259</span>
+<span id="1260">1260</span>
+<span id="1261">1261</span>
+<span id="1262">1262</span>
+<span id="1263">1263</span>
+<span id="1264">1264</span>
+<span id="1265">1265</span>
+<span id="1266">1266</span>
+<span id="1267">1267</span>
+<span id="1268">1268</span>
+<span id="1269">1269</span>
+<span id="1270">1270</span>
+<span id="1271">1271</span>
+<span id="1272">1272</span>
+<span id="1273">1273</span>
+<span id="1274">1274</span>
+<span id="1275">1275</span>
+<span id="1276">1276</span>
+<span id="1277">1277</span>
+<span id="1278">1278</span>
+<span id="1279">1279</span>
+<span id="1280">1280</span>
+<span id="1281">1281</span>
+<span id="1282">1282</span>
+<span id="1283">1283</span>
+<span id="1284">1284</span>
+<span id="1285">1285</span>
+<span id="1286">1286</span>
+<span id="1287">1287</span>
+<span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
+<span id="1291">1291</span>
+<span id="1292">1292</span>
+<span id="1293">1293</span>
+<span id="1294">1294</span>
+<span id="1295">1295</span>
+<span id="1296">1296</span>
+<span id="1297">1297</span>
+<span id="1298">1298</span>
+<span id="1299">1299</span>
+<span id="1300">1300</span>
+<span id="1301">1301</span>
+<span id="1302">1302</span>
+<span id="1303">1303</span>
+<span id="1304">1304</span>
+<span id="1305">1305</span>
+<span id="1306">1306</span>
+<span id="1307">1307</span>
+<span id="1308">1308</span>
+<span id="1309">1309</span>
+<span id="1310">1310</span>
+<span id="1311">1311</span>
+<span id="1312">1312</span>
+<span id="1313">1313</span>
+<span id="1314">1314</span>
+<span id="1315">1315</span>
+<span id="1316">1316</span>
+<span id="1317">1317</span>
+<span id="1318">1318</span>
+<span id="1319">1319</span>
+<span id="1320">1320</span>
+<span id="1321">1321</span>
+<span id="1322">1322</span>
+<span id="1323">1323</span>
+<span id="1324">1324</span>
+<span id="1325">1325</span>
+<span id="1326">1326</span>
+<span id="1327">1327</span>
+<span id="1328">1328</span>
+<span id="1329">1329</span>
+<span id="1330">1330</span>
+<span id="1331">1331</span>
+<span id="1332">1332</span>
+<span id="1333">1333</span>
+<span id="1334">1334</span>
+<span id="1335">1335</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">deny</span>(
     <span class="ident">absolute_paths_not_starting_with_crate</span>,
@@ -1227,18 +1345,23 @@
     <span class="ident">array_into_iter</span>,
     <span class="ident">asm_sub_register</span>,
     <span class="ident">bindings_with_variant_name</span>,
+    <span class="ident">broken_intra_doc_links</span>,
     <span class="ident">cenum_impl_drop_cast</span>,
     <span class="ident">clashing_extern_declarations</span>,
     <span class="ident">coherence_leak_check</span>,
     <span class="ident">conflicting_repr_hints</span>,
     <span class="ident">confusable_idents</span>,
     <span class="ident">const_err</span>,
+    <span class="ident">const_evaluatable_unchecked</span>,
+    <span class="ident">const_item_mutation</span>,
     <span class="ident">dead_code</span>,
     <span class="ident">deprecated</span>,
     <span class="ident">deprecated_in_future</span>,
+    <span class="ident">drop_bounds</span>,
     <span class="ident">ellipsis_inclusive_range_patterns</span>,
     <span class="ident">explicit_outlives_requirements</span>,
     <span class="ident">exported_private_dependencies</span>,
+    <span class="ident">function_item_references</span>,
     <span class="ident">ill_formed_attribute_input</span>,
     <span class="ident">illegal_floating_point_literal_pattern</span>,
     <span class="ident">improper_ctypes</span>,
@@ -1247,7 +1370,7 @@
     <span class="ident">incomplete_include</span>,
     <span class="ident">indirect_structural_match</span>,
     <span class="ident">inline_no_sanitize</span>,
-    <span class="ident">invalid_codeblock_attribute</span>,
+    <span class="ident">invalid_codeblock_attributes</span>,
     <span class="ident">invalid_type_param_default</span>,
     <span class="ident">invalid_value</span>,
     <span class="ident">irrefutable_let_patterns</span>,
@@ -1255,6 +1378,7 @@
     <span class="ident">late_bound_lifetime_arguments</span>,
     <span class="ident">macro_expanded_macro_exports_accessed_by_absolute_paths</span>,
     <span class="ident">meta_variable_misuse</span>,
+    <span class="ident">missing_abi</span>,
     <span class="ident">missing_copy_implementations</span>,
     <span class="ident">missing_crate_level_docs</span>,
     <span class="ident">missing_docs</span>,
@@ -1265,23 +1389,29 @@
     <span class="ident">no_mangle_const_items</span>,
     <span class="ident">no_mangle_generic_items</span>,
     <span class="ident">non_ascii_idents</span>,
+    <span class="ident">non_autolinks</span>,
     <span class="ident">non_camel_case_types</span>,
     <span class="ident">non_shorthand_field_patterns</span>,
     <span class="ident">non_snake_case</span>,
     <span class="ident">non_upper_case_globals</span>,
+    <span class="ident">nontrivial_structural_match</span>,
     <span class="ident">order_dependent_trait_objects</span>,
     <span class="ident">overflowing_literals</span>,
-    <span class="ident">overlapping_patterns</span>,
+    <span class="ident">overlapping_range_endpoints</span>,
+    <span class="ident">panic_fmt</span>,
     <span class="ident">path_statements</span>,
     <span class="ident">patterns_in_fns_without_body</span>,
+    <span class="ident">pointer_structural_match</span>,
     <span class="ident">private_doc_tests</span>,
     <span class="ident">private_in_public</span>,
+    <span class="ident">private_intra_doc_links</span>,
     <span class="ident">proc_macro_derive_resolution_fallback</span>,
     <span class="ident">pub_use_of_private_extern_crate</span>,
     <span class="ident">redundant_semicolons</span>,
     <span class="ident">safe_packed_borrows</span>,
     <span class="ident">soft_unstable</span>,
     <span class="ident">stable_features</span>,
+    <span class="ident">temporary_cstring_as_ptr</span>,
     <span class="ident">trivial_bounds</span>,
     <span class="ident">trivial_casts</span>,
     <span class="ident">trivial_numeric_casts</span>,
@@ -1291,6 +1421,7 @@
     <span class="ident">uncommon_codepoints</span>,
     <span class="ident">unconditional_panic</span>,
     <span class="ident">unconditional_recursion</span>,
+    <span class="ident">uninhabited_static</span>,
     <span class="ident">unknown_crate_types</span>,
     <span class="ident">unnameable_test_items</span>,
     <span class="ident">unreachable_code</span>,
@@ -1299,6 +1430,7 @@
     <span class="ident">unsafe_code</span>,
     <span class="ident">unstable_features</span>,
     <span class="ident">unstable_name_collisions</span>,
+    <span class="ident">unsupported_naked_functions</span>,
     <span class="ident">unused_allocation</span>,
     <span class="ident">unused_assignments</span>,
     <span class="ident">unused_attributes</span>,
@@ -1319,6 +1451,7 @@
     <span class="ident">unused_qualifications</span>,
     <span class="ident">unused_unsafe</span>,
     <span class="ident">unused_variables</span>,
+    <span class="ident">useless_deprecated</span>,
     <span class="ident">where_clauses_object_safety</span>,
     <span class="ident">while_true</span>
 )]</span>
@@ -1327,7 +1460,7 @@
     <span class="ident">bare_trait_objects</span>,
     <span class="ident">box_pointers</span>,
     <span class="ident">elided_lifetimes_in_paths</span>,
-    <span class="ident">intra_doc_link_resolution_failure</span>,
+    <span class="ident">invalid_html_tags</span>,
     <span class="ident">missing_doc_code_examples</span>,
     <span class="ident">missing_debug_implementations</span>,
     <span class="ident">single_use_lifetimes</span>,
@@ -1443,6 +1576,26 @@
 <span class="doccomment">//!     assert_eq!(value_isize, 50);</span>
 <span class="doccomment">//!     value_u8 = envmnt::get_u8(&quot;U8_TEST_ENV&quot;, 5);</span>
 <span class="doccomment">//!     assert_eq!(value_u8, 50);</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Get and parse any type T that implements FromStr</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! fn main() {</span>
+<span class="doccomment">//!     envmnt::set(&quot;ENV_VAR&quot;, &quot;123&quot;);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let value: i16 = envmnt::get_parse(&quot;ENV_VAR&quot;).unwrap();</span>
+<span class="doccomment">//!     assert_eq!(value, 123);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let value: String = envmnt::get_parse(&quot;ENV_VAR&quot;).unwrap();</span>
+<span class="doccomment">//!     assert_eq!(value, &quot;123&quot;);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let value: i32 = envmnt::get_parse_or(&quot;ENV_VAR&quot;, 123).unwrap();</span>
+<span class="doccomment">//!     assert_eq!(value, 123);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let value: i64 = envmnt::get_parse_or(&quot;ENV_UNDEFINED&quot;, 321).unwrap();</span>
+<span class="doccomment">//!     assert_eq!(value, 321);</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -1566,16 +1719,19 @@
 
 <span class="kw">mod</span> <span class="ident">bulk</span>;
 <span class="kw">mod</span> <span class="ident">environment</span>;
-<span class="kw">mod</span> <span class="ident">errors</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">errors</span>;
 <span class="kw">mod</span> <span class="ident">expansion</span>;
 <span class="kw">mod</span> <span class="ident">file</span>;
+<span class="kw">mod</span> <span class="ident">generic</span>;
 <span class="kw">mod</span> <span class="ident">numeric</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">types</span>;
 <span class="kw">mod</span> <span class="ident">util</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">errors</span>::<span class="ident">EnvmntError</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::<span class="ident">EnvmntResult</span>;
 <span class="kw">use</span> <span class="ident">indexmap</span>::<span class="ident">IndexMap</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>::<span class="ident">FromStr</span>;
 
 <span class="doccomment">/// Get/Set list options</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ListOptions</span> <span class="op">=</span> <span class="ident">types</span>::<span class="ident">ListOptions</span>;
@@ -2260,7 +2416,7 @@
 <span class="doccomment">///     assert!(output.is_ok());</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">EnvmntError</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="ident">file</span>::<span class="ident">load_file</span>(<span class="ident">file</span>)
 }
 
@@ -2286,7 +2442,7 @@
 <span class="doccomment">///     assert!(output.is_ok());</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">evaluate_and_load_file</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">evaluate</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">EnvmntError</span><span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">evaluate_and_load_file</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">evaluate</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span>,
 {
@@ -2308,8 +2464,32 @@
 <span class="doccomment">///     println!(&quot;Parsed Env: {:?}&quot;, &amp;env);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">EnvmntError</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="ident">file</span>::<span class="ident">parse_file</span>(<span class="ident">file</span>)
+}
+
+<span class="doccomment">/// Parses the provided content as a map of key/value.</span>
+<span class="doccomment">/// The content should be in the form of an env file format.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Arguments</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// * `env_content` - The string to parse in env file format</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// fn main() {</span>
+<span class="doccomment">///     let env = envmnt::parse_env_file_content(r#&quot;</span>
+<span class="doccomment">///     ENV_VAR1=1</span>
+<span class="doccomment">///     # some comment</span>
+<span class="doccomment">///     ENV_VAR2=2</span>
+<span class="doccomment">///     &quot;#);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///     println!(&quot;Parsed Env: {:?}&quot;, &amp;env);</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_env_file_content</span>(<span class="ident">env_content</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="ident">file</span>::<span class="ident">parse_env_file_content</span>(<span class="ident">env_content</span>)
 }
 
 <span class="doccomment">/// Expands the provided string value by replacing the environment variables defined in it.</span>
@@ -2438,6 +2618,59 @@
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrement</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">isize</span> {
     <span class="ident">numeric</span>::<span class="ident">decrement</span>(<span class="ident">key</span>)
+}
+
+<span class="doccomment">/// Returns the parsed environment variable value.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Arguments</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// * `key` - The environment variable name</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// fn main() {</span>
+<span class="doccomment">///     envmnt::set(&quot;ENV_VAR&quot;, &quot;123&quot;);</span>
+<span class="doccomment">///     let value: i32 = envmnt::get_parse(&quot;ENV_VAR&quot;).unwrap();</span>
+<span class="doccomment">///     assert_eq!(value, 123);</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parse</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>,
+    <span class="ident">T</span>: <span class="ident">FromStr</span> <span class="op">+</span> <span class="ident">FromStr</span><span class="op">&lt;</span><span class="prelude-val">Err</span> <span class="op">=</span> <span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="ident">E</span>: <span class="ident">Display</span>,
+{
+    <span class="ident">generic</span>::<span class="ident">get_parse</span>(<span class="ident">key</span>)
+}
+
+<span class="doccomment">/// Returns the parsed environment variable value or if is not defined, the default value will be returned.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Arguments</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// * `key`     - The environment variable name</span>
+<span class="doccomment">/// * `default` - The default value to use in case env var is not set</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// fn main() {</span>
+<span class="doccomment">///     envmnt::set(&quot;ENV_VAR&quot;, &quot;123&quot;);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///     let value: i32 = envmnt::get_parse_or(&quot;ENV_VAR&quot;, 321).unwrap();</span>
+<span class="doccomment">///     assert_eq!(value, 123);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///     let value: i32 = envmnt::get_parse_or(&quot;ENV_MISSING_VAR&quot;, 321).unwrap();</span>
+<span class="doccomment">///     assert_eq!(value, 321);</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parse_or</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>,
+    <span class="ident">T</span>: <span class="ident">FromStr</span> <span class="op">+</span> <span class="ident">FromStr</span><span class="op">&lt;</span><span class="prelude-val">Err</span> <span class="op">=</span> <span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="ident">E</span>: <span class="ident">Display</span>,
+{
+    <span class="ident">generic</span>::<span class="ident">get_parse_or</span>(<span class="ident">key</span>, <span class="ident">default</span>)
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "envmnt";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

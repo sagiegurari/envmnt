@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `envmnt` crate."><meta name="keywords" content="rust, rustlang, rust-lang, envmnt"><title>envmnt - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../envmnt/index.html'><div class='logo-container'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate envmnt</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all envmnt's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'envmnt', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/envmnt/lib.rs.html#1-1220' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>envmnt</a></span></h1><div class='docblock'><h1 id="envmnt" class="section-header"><a href="#envmnt">envmnt</a></h1>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `envmnt` crate."><meta name="keywords" content="rust, rustlang, rust-lang, envmnt"><title>envmnt - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../envmnt/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate envmnt</p><div class="block version"><p>Version 0.9.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all envmnt's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><script>window.sidebarCurrent = {name: "envmnt", ty: "mod", relpath: "../"};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/envmnt/lib.rs.html#1-1335" title="goto source code">[src]</a></span><span class="in-band">Crate <a class="mod" href="">envmnt</a></span></h1><div class="docblock"><h1 id="envmnt" class="section-header"><a href="#envmnt">envmnt</a></h1>
 <p>Environment variables utility functions.</p>
 <p>This library has many helper functions to access/modify/check environment variables.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1><h2 id="getsetremove-environment-variables" class="section-header"><a href="#getsetremove-environment-variables">Get/Set/Remove environment variables</a></h2>
@@ -92,6 +95,23 @@
     <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value_isize</span>, <span class="number">50</span>);
     <span class="ident">value_u8</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">get_u8</span>(<span class="string">&quot;U8_TEST_ENV&quot;</span>, <span class="number">5</span>);
     <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value_u8</span>, <span class="number">50</span>);
+}</pre></div>
+<h2 id="get-and-parse-any-type-t-that-implements-fromstr" class="section-header"><a href="#get-and-parse-any-type-t-that-implements-fromstr">Get and parse any type T that implements FromStr</a></h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="ident">envmnt</span>::<span class="ident">set</span>(<span class="string">&quot;ENV_VAR&quot;</span>, <span class="string">&quot;123&quot;</span>);
+
+    <span class="kw">let</span> <span class="ident">value</span>: <span class="ident">i16</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">get_parse</span>(<span class="string">&quot;ENV_VAR&quot;</span>).<span class="ident">unwrap</span>();
+    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>, <span class="number">123</span>);
+
+    <span class="kw">let</span> <span class="ident">value</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">get_parse</span>(<span class="string">&quot;ENV_VAR&quot;</span>).<span class="ident">unwrap</span>();
+    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>, <span class="string">&quot;123&quot;</span>);
+
+    <span class="kw">let</span> <span class="ident">value</span>: <span class="ident">i32</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">get_parse_or</span>(<span class="string">&quot;ENV_VAR&quot;</span>, <span class="number">123</span>).<span class="ident">unwrap</span>();
+    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>, <span class="number">123</span>);
+
+    <span class="kw">let</span> <span class="ident">value</span>: <span class="ident">i64</span> <span class="op">=</span> <span class="ident">envmnt</span>::<span class="ident">get_parse_or</span>(<span class="string">&quot;ENV_UNDEFINED&quot;</span>, <span class="number">321</span>).<span class="ident">unwrap</span>();
+    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>, <span class="number">321</span>);
 }</pre></div>
 <h2 id="getset-list-environment-variables" class="section-header"><a href="#getset-list-environment-variables">Get/Set list environment variables</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -189,95 +209,100 @@ envmnt = &quot;*&quot;
 <h1 id="license" class="section-header"><a href="#license">License</a></h1>
 <p>Developed by Sagie Gur-Ari and licensed under the
 <a href="https://github.com/sagiegurari/envmnt/blob/master/LICENSE">Apache 2</a> open source license.</p>
-</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
-<table><tr class='module-item'><td><a class="mod" href="types/index.html" title='envmnt::types mod'>types</a></td><td class='docblock-short'><p>types</p>
-</td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table><tr class='module-item'><td><a class="fn" href="fn.contains.html" title='envmnt::contains fn'>contains</a></td><td class='docblock-short'><p>Returns true if the provided environment variable is defined and contains the provided value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.contains_ignore_case.html" title='envmnt::contains_ignore_case fn'>contains_ignore_case</a></td><td class='docblock-short'><p>Returns true if the provided environment variable is defined and contains the provided value regardless of the case.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.decrement.html" title='envmnt::decrement fn'>decrement</a></td><td class='docblock-short'><p>Decrements and returns the new value stored by the given environment variable key.
+</div><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
+<table><tr class="module-item"><td><a class="mod" href="errors/index.html" title="envmnt::errors mod">errors</a></td><td class="docblock-short"><p>errors</p>
+</td></tr><tr class="module-item"><td><a class="mod" href="types/index.html" title="envmnt::types mod">types</a></td><td class="docblock-short"><p>types</p>
+</td></tr></table><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
+<table><tr class="module-item"><td><a class="fn" href="fn.contains.html" title="envmnt::contains fn">contains</a></td><td class="docblock-short"><p>Returns true if the provided environment variable is defined and contains the provided value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.contains_ignore_case.html" title="envmnt::contains_ignore_case fn">contains_ignore_case</a></td><td class="docblock-short"><p>Returns true if the provided environment variable is defined and contains the provided value regardless of the case.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.decrement.html" title="envmnt::decrement fn">decrement</a></td><td class="docblock-short"><p>Decrements and returns the new value stored by the given environment variable key.
 In case the variable does not exist, it will decrement to -1.
 The updated value will be returned.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.evaluate_and_load_file.html" title='envmnt::evaluate_and_load_file fn'>evaluate_and_load_file</a></td><td class='docblock-short'><p>Parses the provided env file and loads all environment variables.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.evaluate_and_set_all.html" title='envmnt::evaluate_and_set_all fn'>evaluate_and_set_all</a></td><td class='docblock-short'><p>Sets all the provided env key/value pairs.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.exists.html" title='envmnt::exists fn'>exists</a></td><td class='docblock-short'><p>Returns true environment variable is defined.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.expand.html" title='envmnt::expand fn'>expand</a></td><td class='docblock-short'><p>Expands the provided string value by replacing the environment variables defined in it.
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.evaluate_and_load_file.html" title="envmnt::evaluate_and_load_file fn">evaluate_and_load_file</a></td><td class="docblock-short"><p>Parses the provided env file and loads all environment variables.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.evaluate_and_set_all.html" title="envmnt::evaluate_and_set_all fn">evaluate_and_set_all</a></td><td class="docblock-short"><p>Sets all the provided env key/value pairs.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.exists.html" title="envmnt::exists fn">exists</a></td><td class="docblock-short"><p>Returns true environment variable is defined.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.expand.html" title="envmnt::expand fn">expand</a></td><td class="docblock-short"><p>Expands the provided string value by replacing the environment variables defined in it.
 The syntax of the environment variables is based on the type requested.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_any.html" title='envmnt::get_any fn'>get_any</a></td><td class='docblock-short'><p>Returns the first environment variable found.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_f32.html" title='envmnt::get_f32 fn'>get_f32</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_any.html" title="envmnt::get_any fn">get_any</a></td><td class="docblock-short"><p>Returns the first environment variable found.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_f32.html" title="envmnt::get_f32 fn">get_f32</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_f64.html" title='envmnt::get_f64 fn'>get_f64</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_f64.html" title="envmnt::get_f64 fn">get_f64</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_i8.html" title='envmnt::get_i8 fn'>get_i8</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_i8.html" title="envmnt::get_i8 fn">get_i8</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_i16.html" title='envmnt::get_i16 fn'>get_i16</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_i16.html" title="envmnt::get_i16 fn">get_i16</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_i32.html" title='envmnt::get_i32 fn'>get_i32</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_i32.html" title="envmnt::get_i32 fn">get_i32</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_i64.html" title='envmnt::get_i64 fn'>get_i64</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_i64.html" title="envmnt::get_i64 fn">get_i64</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_i128.html" title='envmnt::get_i128 fn'>get_i128</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_i128.html" title="envmnt::get_i128 fn">get_i128</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_isize.html" title='envmnt::get_isize fn'>get_isize</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_isize.html" title="envmnt::get_isize fn">get_isize</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_list.html" title='envmnt::get_list fn'>get_list</a></td><td class='docblock-short'><p>Returns the requested environment variable as a string vector.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_list_with_options.html" title='envmnt::get_list_with_options fn'>get_list_with_options</a></td><td class='docblock-short'><p>Returns the requested environment variable as a string vector.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_or.html" title='envmnt::get_or fn'>get_or</a></td><td class='docblock-short'><p>Returns the environment variable value or if is not defined, the default value will be returned.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_or_panic.html" title='envmnt::get_or_panic fn'>get_or_panic</a></td><td class='docblock-short'><p>Returns the environment variable value.
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_list.html" title="envmnt::get_list fn">get_list</a></td><td class="docblock-short"><p>Returns the requested environment variable as a string vector.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_list_with_options.html" title="envmnt::get_list_with_options fn">get_list_with_options</a></td><td class="docblock-short"><p>Returns the requested environment variable as a string vector.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_or.html" title="envmnt::get_or fn">get_or</a></td><td class="docblock-short"><p>Returns the environment variable value or if is not defined, the default value will be returned.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_or_panic.html" title="envmnt::get_or_panic fn">get_or_panic</a></td><td class="docblock-short"><p>Returns the environment variable value.
 If the variable is not defined, this function will panic.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_remove.html" title='envmnt::get_remove fn'>get_remove</a></td><td class='docblock-short'><p>Removes the provided environment variable and returns its previous value (if any).</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_set.html" title='envmnt::get_set fn'>get_set</a></td><td class='docblock-short'><p>Sets the environment variable value and returns the previous value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_u8.html" title='envmnt::get_u8 fn'>get_u8</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_parse.html" title="envmnt::get_parse fn">get_parse</a></td><td class="docblock-short"><p>Returns the parsed environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_parse_or.html" title="envmnt::get_parse_or fn">get_parse_or</a></td><td class="docblock-short"><p>Returns the parsed environment variable value or if is not defined, the default value will be returned.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_remove.html" title="envmnt::get_remove fn">get_remove</a></td><td class="docblock-short"><p>Removes the provided environment variable and returns its previous value (if any).</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_set.html" title="envmnt::get_set fn">get_set</a></td><td class="docblock-short"><p>Sets the environment variable value and returns the previous value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_u8.html" title="envmnt::get_u8 fn">get_u8</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_u16.html" title='envmnt::get_u16 fn'>get_u16</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_u16.html" title="envmnt::get_u16 fn">get_u16</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_u32.html" title='envmnt::get_u32 fn'>get_u32</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_u32.html" title="envmnt::get_u32 fn">get_u32</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_u64.html" title='envmnt::get_u64 fn'>get_u64</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_u64.html" title="envmnt::get_u64 fn">get_u64</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_u128.html" title='envmnt::get_u128 fn'>get_u128</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_u128.html" title="envmnt::get_u128 fn">get_u128</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.get_usize.html" title='envmnt::get_usize fn'>get_usize</a></td><td class='docblock-short'><p>Returns the environment variable value or a default value
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.get_usize.html" title="envmnt::get_usize fn">get_usize</a></td><td class="docblock-short"><p>Returns the environment variable value or a default value
 in case the variable is not defined or cannot be parsed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.increment.html" title='envmnt::increment fn'>increment</a></td><td class='docblock-short'><p>Increments and returns the new value stored by the given environment variable key.
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.increment.html" title="envmnt::increment fn">increment</a></td><td class="docblock-short"><p>Increments and returns the new value stored by the given environment variable key.
 In case the variable does not exist, it will increment to 1.
 The updated value will be returned.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.is.html" title='envmnt::is fn'>is</a></td><td class='docblock-short'><p>Returns false if environment variable value if falsy.
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.is.html" title="envmnt::is fn">is</a></td><td class="docblock-short"><p>Returns false if environment variable value if falsy.
 The value is falsy if it is one of the following:</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.is_all_exists.html" title='envmnt::is_all_exists fn'>is_all_exists</a></td><td class='docblock-short'><p>Returns true if all of environment variables are defined.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.is_any_exists.html" title='envmnt::is_any_exists fn'>is_any_exists</a></td><td class='docblock-short'><p>Returns true if any of environment variables is defined.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.is_equal.html" title='envmnt::is_equal fn'>is_equal</a></td><td class='docblock-short'><p>Returns true if the provided environment variable is defined and equals the provided value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.is_or.html" title='envmnt::is_or fn'>is_or</a></td><td class='docblock-short'><p>Returns false if environment variable value if falsy.<br>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.is_all_exists.html" title="envmnt::is_all_exists fn">is_all_exists</a></td><td class="docblock-short"><p>Returns true if all of environment variables are defined.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.is_any_exists.html" title="envmnt::is_any_exists fn">is_any_exists</a></td><td class="docblock-short"><p>Returns true if any of environment variables is defined.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.is_equal.html" title="envmnt::is_equal fn">is_equal</a></td><td class="docblock-short"><p>Returns true if the provided environment variable is defined and equals the provided value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.is_or.html" title="envmnt::is_or fn">is_or</a></td><td class="docblock-short"><p>Returns false if environment variable value if falsy.<br>
 Any other value is returned as true.<br>
 The value is falsy if it is one of the following:</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.load_file.html" title='envmnt::load_file fn'>load_file</a></td><td class='docblock-short'><p>Parses the provided env file and loads all environment variables.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.parse_file.html" title='envmnt::parse_file fn'>parse_file</a></td><td class='docblock-short'><p>Parses the provided env file and returns its content as a map of key/value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.remove.html" title='envmnt::remove fn'>remove</a></td><td class='docblock-short'><p>Removes the provided environment variable.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.remove_all.html" title='envmnt::remove_all fn'>remove_all</a></td><td class='docblock-short'><p>Removes all provided environment variables.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set.html" title='envmnt::set fn'>set</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_all.html" title='envmnt::set_all fn'>set_all</a></td><td class='docblock-short'><p>Sets all the provided env key/value pairs.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_bool.html" title='envmnt::set_bool fn'>set_bool</a></td><td class='docblock-short'><p>Sets the environment variable with a true/false value as string.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_f32.html" title='envmnt::set_f32 fn'>set_f32</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_f64.html" title='envmnt::set_f64 fn'>set_f64</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_i8.html" title='envmnt::set_i8 fn'>set_i8</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_i16.html" title='envmnt::set_i16 fn'>set_i16</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_i32.html" title='envmnt::set_i32 fn'>set_i32</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_i64.html" title='envmnt::set_i64 fn'>set_i64</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_i128.html" title='envmnt::set_i128 fn'>set_i128</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_isize.html" title='envmnt::set_isize fn'>set_isize</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_list.html" title='envmnt::set_list fn'>set_list</a></td><td class='docblock-short'><p>Sets the provided string vector as an environment variable.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_list_with_options.html" title='envmnt::set_list_with_options fn'>set_list_with_options</a></td><td class='docblock-short'><p>Sets the provided string vector as an environment variable.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_optional.html" title='envmnt::set_optional fn'>set_optional</a></td><td class='docblock-short'><p>Sets the environment variable if the provided option contains a value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_or_remove.html" title='envmnt::set_or_remove fn'>set_or_remove</a></td><td class='docblock-short'><p>Sets the environment variable if the provided option contains a value.
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.load_file.html" title="envmnt::load_file fn">load_file</a></td><td class="docblock-short"><p>Parses the provided env file and loads all environment variables.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_env_file_content.html" title="envmnt::parse_env_file_content fn">parse_env_file_content</a></td><td class="docblock-short"><p>Parses the provided content as a map of key/value.
+The content should be in the form of an env file format.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_file.html" title="envmnt::parse_file fn">parse_file</a></td><td class="docblock-short"><p>Parses the provided env file and returns its content as a map of key/value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.remove.html" title="envmnt::remove fn">remove</a></td><td class="docblock-short"><p>Removes the provided environment variable.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.remove_all.html" title="envmnt::remove_all fn">remove_all</a></td><td class="docblock-short"><p>Removes all provided environment variables.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set.html" title="envmnt::set fn">set</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_all.html" title="envmnt::set_all fn">set_all</a></td><td class="docblock-short"><p>Sets all the provided env key/value pairs.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_bool.html" title="envmnt::set_bool fn">set_bool</a></td><td class="docblock-short"><p>Sets the environment variable with a true/false value as string.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_f32.html" title="envmnt::set_f32 fn">set_f32</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_f64.html" title="envmnt::set_f64 fn">set_f64</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_i8.html" title="envmnt::set_i8 fn">set_i8</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_i16.html" title="envmnt::set_i16 fn">set_i16</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_i32.html" title="envmnt::set_i32 fn">set_i32</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_i64.html" title="envmnt::set_i64 fn">set_i64</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_i128.html" title="envmnt::set_i128 fn">set_i128</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_isize.html" title="envmnt::set_isize fn">set_isize</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_list.html" title="envmnt::set_list fn">set_list</a></td><td class="docblock-short"><p>Sets the provided string vector as an environment variable.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_list_with_options.html" title="envmnt::set_list_with_options fn">set_list_with_options</a></td><td class="docblock-short"><p>Sets the provided string vector as an environment variable.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_optional.html" title="envmnt::set_optional fn">set_optional</a></td><td class="docblock-short"><p>Sets the environment variable if the provided option contains a value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_or_remove.html" title="envmnt::set_or_remove fn">set_or_remove</a></td><td class="docblock-short"><p>Sets the environment variable if the provided option contains a value.
 If no value was provided, the environment variable will be removed.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_u8.html" title='envmnt::set_u8 fn'>set_u8</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_u16.html" title='envmnt::set_u16 fn'>set_u16</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_u32.html" title='envmnt::set_u32 fn'>set_u32</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_u64.html" title='envmnt::set_u64 fn'>set_u64</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_u128.html" title='envmnt::set_u128 fn'>set_u128</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.set_usize.html" title='envmnt::set_usize fn'>set_usize</a></td><td class='docblock-short'><p>Sets the environment variable value.</p>
-</td></tr><tr class='module-item'><td><a class="fn" href="fn.vars.html" title='envmnt::vars fn'>vars</a></td><td class='docblock-short'><p>Returns all environment variables as a vector.</p>
-</td></tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
-<table><tr class='module-item'><td><a class="type" href="type.ExpandOptions.html" title='envmnt::ExpandOptions type'>ExpandOptions</a></td><td class='docblock-short'><p>Expand options</p>
-</td></tr><tr class='module-item'><td><a class="type" href="type.ExpansionType.html" title='envmnt::ExpansionType type'>ExpansionType</a></td><td class='docblock-short'><p>Expansion Type - unix/windows style</p>
-</td></tr><tr class='module-item'><td><a class="type" href="type.ListOptions.html" title='envmnt::ListOptions type'>ListOptions</a></td><td class='docblock-short'><p>Get/Set list options</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_u8.html" title="envmnt::set_u8 fn">set_u8</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_u16.html" title="envmnt::set_u16 fn">set_u16</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_u32.html" title="envmnt::set_u32 fn">set_u32</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_u64.html" title="envmnt::set_u64 fn">set_u64</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_u128.html" title="envmnt::set_u128 fn">set_u128</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.set_usize.html" title="envmnt::set_usize fn">set_usize</a></td><td class="docblock-short"><p>Sets the environment variable value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.vars.html" title="envmnt::vars fn">vars</a></td><td class="docblock-short"><p>Returns all environment variables as a vector.</p>
+</td></tr></table><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
+<table><tr class="module-item"><td><a class="type" href="type.ExpandOptions.html" title="envmnt::ExpandOptions type">ExpandOptions</a></td><td class="docblock-short"><p>Expand options</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.ExpansionType.html" title="envmnt::ExpansionType type">ExpansionType</a></td><td class="docblock-short"><p>Expansion Type - unix/windows style</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.ListOptions.html" title="envmnt::ListOptions type">ListOptions</a></td><td class="docblock-short"><p>Get/Set list options</p>
 </td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "envmnt";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
