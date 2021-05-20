@@ -1,7 +1,6 @@
 use super::*;
 use doc_comment as _;
 use errors::EnvmntError;
-use rusty_hook as _;
 use std::env;
 
 #[test]
