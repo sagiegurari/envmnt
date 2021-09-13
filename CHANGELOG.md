@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.9.1 (2021-09-13)
+
+* Update dependencies
+
 ### v0.9.0 (2021-03-09)
 
 * New get_parse and get_parse_or functions #27 (thanks @lweberk)

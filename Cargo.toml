@@ -1,6 +1,6 @@
 [package]
 name = "envmnt"
-version = "0.9.0"
+version = "0.9.1"
 authors = ["Sagie Gur-Ari <sagiegurari@gmail.com>"]
 description = "Environment variables utility functions."
 license = "Apache-2.0"
@@ -24,7 +24,7 @@ include = [
 ]
 
 [dependencies]
-fsio = "^0.2"
+fsio = "^0.3"
 indexmap = "^1"
 
 [dev-dependencies]

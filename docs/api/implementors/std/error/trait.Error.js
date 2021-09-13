@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["envmnt"] = [{"text":"impl Error for EnvmntError","synthetic":false,"types":[]}];
+implementors["envmnt"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/std/error/trait.Error.html\" title=\"trait std::error::Error\">Error</a> for <a class=\"enum\" href=\"envmnt/errors/enum.EnvmntError.html\" title=\"enum envmnt::errors::EnvmntError\">EnvmntError</a>","synthetic":false,"types":["envmnt::errors::EnvmntError"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
