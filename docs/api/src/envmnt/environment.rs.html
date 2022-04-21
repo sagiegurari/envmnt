@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;environment.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>environment.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../envmnt/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;environment.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>environment.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../envmnt/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../envmnt/index.html"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -275,8 +278,7 @@
 <span id="275">275</span>
 <span id="276">276</span>
 <span id="277">277</span>
-</pre><pre class="rust">
-<span class="doccomment">//! # environment</span>
+</pre><pre class="rust"><code><span class="doccomment">//! # environment</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Environment variables direct access functions.</span>
 <span class="doccomment">//!</span>
@@ -285,9 +287,9 @@
 <span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;./environment_test.rs&quot;</span>]</span>
 <span class="kw">mod</span> <span class="ident">environment_test</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::expansion</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::types</span>::{<span class="ident">ExpandOptions</span>, <span class="ident">ExpansionType</span>, <span class="ident">ListOptions</span>};
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::expansion</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::types</span>::{<span class="ident">ExpandOptions</span>, <span class="ident">ExpansionType</span>, <span class="ident">ListOptions</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util</span>;
 <span class="kw">use</span> <span class="ident">std::env</span>;
 <span class="kw">use</span> <span class="ident">std::ffi::OsStr</span>;
 
@@ -297,10 +299,10 @@
 <span class="kw">static</span> <span class="ident">WINDOWS_ENV_SYMBOL_STR</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;%&quot;</span>;
 <span class="kw">static</span> <span class="ident">WINDOWS_ENV_SYMBOL_CHAR</span>: <span class="ident">char</span> <span class="op">=</span> <span class="string">&#39;%&#39;</span>;
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">env::var</span>(<span class="ident">key</span>) {
-        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="bool-val">true</span>,
+        <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,
     }
 }
 
@@ -308,7 +310,7 @@
     <span class="ident">env::remove_var</span>(<span class="ident">key</span>)
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">pre_value</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">exists</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
         <span class="prelude-val">Some</span>(<span class="ident">get_or</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="string">&quot;&quot;</span>))
     } <span class="kw">else</span> {
@@ -320,18 +322,18 @@
     <span class="ident">pre_value</span>
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">match</span> <span class="ident">env::var</span>(<span class="ident">key</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>.<span class="ident">to_string</span>(),
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">default_value</span>.<span class="ident">to_string</span>(),
+        <span class="prelude-val">Ok</span>(<span class="ident">value</span>) =&gt; <span class="ident">value</span>.<span class="ident">to_string</span>(),
+        <span class="kw">_</span> =&gt; <span class="ident">default_value</span>.<span class="ident">to_string</span>(),
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_or_panic</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_or_panic</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">String</span> {
     <span class="ident">env::var</span>(<span class="ident">key</span>).<span class="ident">unwrap</span>()
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_any</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_any</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">default_value</span>.<span class="ident">to_string</span>();
 
     <span class="kw">for</span> <span class="ident">key</span> <span class="kw">in</span> <span class="ident">keys</span>.<span class="ident">iter</span>() {
@@ -346,7 +348,7 @@
     <span class="ident">output</span>
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="ident">bool</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="ident">default_str</span> <span class="op">=</span> <span class="ident">util::bool_to_string</span>(<span class="ident">default_value</span>);
 
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">get_or</span>(<span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="ident">default_str</span>);
@@ -354,7 +356,7 @@
     <span class="ident">util::string_to_bool</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">is_or</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="bool-val">false</span>)
 }
 
@@ -367,30 +369,30 @@
     <span class="ident">set</span>(<span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="ident">value_str</span>);
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">set_optional</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">set_optional</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">value</span> {
-        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">value_ref</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">value_ref</span>) =&gt; {
             <span class="ident">set</span>(<span class="ident">key</span>, <span class="ident">value_ref</span>);
             <span class="bool-val">true</span>
         }
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+        <span class="prelude-val">None</span> =&gt; <span class="bool-val">false</span>,
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">set_or_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">set_or_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">value</span> {
-        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">value_ref</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">value_ref</span>) =&gt; {
             <span class="ident">set</span>(<span class="ident">key</span>, <span class="ident">value_ref</span>);
             <span class="bool-val">true</span>
         }
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="prelude-val">None</span> =&gt; {
             <span class="ident">remove</span>(<span class="ident">key</span>);
             <span class="bool-val">false</span>
         }
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_set</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_set</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">pre_value</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">exists</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
         <span class="prelude-val">Some</span>(<span class="ident">get_or</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="string">&quot;&quot;</span>))
     } <span class="kw">else</span> {
@@ -402,21 +404,21 @@
     <span class="ident">pre_value</span>
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">vars</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">vars</span>() -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
     <span class="ident">env::vars</span>().<span class="ident">collect</span>()
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_equal</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_equal</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">if</span> <span class="ident">exists</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
         <span class="kw">let</span> <span class="ident">current_value</span> <span class="op">=</span> <span class="ident">get_or</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="string">&quot;&quot;</span>);
 
-        <span class="ident">current_value</span> <span class="op">=</span><span class="op">=</span> <span class="ident">value</span>
+        <span class="ident">current_value</span> <span class="op">==</span> <span class="ident">value</span>
     } <span class="kw">else</span> {
         <span class="bool-val">false</span>
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">contains</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">contains</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">if</span> <span class="ident">exists</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
         <span class="kw">let</span> <span class="ident">current_value</span> <span class="op">=</span> <span class="ident">get_or</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="string">&quot;&quot;</span>);
 
@@ -426,7 +428,7 @@
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">contains_ignore_case</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">contains_ignore_case</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">if</span> <span class="ident">exists</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
         <span class="kw">let</span> <span class="ident">current_value</span> <span class="op">=</span> <span class="ident">get_or</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="string">&quot;&quot;</span>).<span class="ident">to_lowercase</span>();
 
@@ -441,15 +443,15 @@
     <span class="ident">set_list_with_options</span>(<span class="ident">key</span>, <span class="ident">values</span>, <span class="kw-2">&amp;</span><span class="ident">options</span>)
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_list</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_list</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">options</span> <span class="op">=</span> <span class="ident">ListOptions::new</span>();
     <span class="ident">get_list_with_options</span>(<span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="ident">options</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">get_list_separator</span>(<span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">ListOptions</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">get_list_separator</span>(<span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">ListOptions</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">match</span> <span class="ident">options</span>.<span class="ident">separator</span> {
-        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">separator</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">separator</span>.<span class="ident">to_string</span>(),
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;;&quot;</span>.<span class="ident">to_string</span>(),
+        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">separator</span>) =&gt; <span class="ident">separator</span>.<span class="ident">to_string</span>(),
+        <span class="prelude-val">None</span> =&gt; <span class="string">&quot;;&quot;</span>.<span class="ident">to_string</span>(),
     }
 }
 
@@ -472,12 +474,12 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_list_with_options</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(
     <span class="ident">key</span>: <span class="ident">K</span>,
     <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">ListOptions</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">separator</span> <span class="op">=</span> <span class="ident">get_list_separator</span>(<span class="kw-2">&amp;</span><span class="ident">options</span>);
 
     <span class="kw">match</span> <span class="ident">env::var</span>(<span class="ident">key</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">value_string</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="kw">if</span> <span class="ident">value_string</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">options</span>.<span class="ident">ignore_empty</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">value_string</span>) =&gt; {
+            <span class="kw">if</span> <span class="ident">value_string</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">options</span>.<span class="ident">ignore_empty</span> {
                 <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[])
             } <span class="kw">else</span> {
                 <span class="kw">let</span> <span class="ident">values</span> <span class="op">=</span> <span class="ident">value_string</span>.<span class="ident">split</span>(<span class="kw-2">&amp;</span><span class="ident">separator</span>);
@@ -490,61 +492,61 @@
                 <span class="prelude-val">Some</span>(<span class="ident">values_vec</span>)
             }
         }
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+        <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">expand</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExpandOptions</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
-    <span class="kw">if</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">expand</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExpandOptions</span><span class="op">&gt;</span>) -&gt; <span class="ident">String</span> {
+    <span class="kw">if</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> {
         <span class="kw">return</span> <span class="ident">value</span>.<span class="ident">to_string</span>();
     }
 
     <span class="kw">let</span> <span class="ident">expand_options</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">options</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ExpandOptions::new</span>(),
+        <span class="prelude-val">Some</span>(<span class="ident">value</span>) =&gt; <span class="ident">value</span>,
+        <span class="prelude-val">None</span> =&gt; <span class="ident">ExpandOptions::new</span>(),
     };
     <span class="kw">let</span> <span class="ident">expansion_type</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">expand_options</span>.<span class="ident">expansion_type</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ExpansionType::OS</span>,
+        <span class="prelude-val">Some</span>(<span class="ident">value</span>) =&gt; <span class="ident">value</span>,
+        <span class="prelude-val">None</span> =&gt; <span class="ident">ExpansionType::OS</span>,
     };
 
     <span class="kw">match</span> <span class="ident">expansion_type</span> {
-        <span class="ident">ExpansionType::UnixPrefix</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">ExpansionType::UnixPrefix</span> =&gt; {
             <span class="ident">expansion::expand_by_prefix</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="ident">UNIX_ENV_SYMBOL</span>, <span class="ident">expand_options</span>.<span class="ident">default_to_empty</span>)
         }
-        <span class="ident">ExpansionType::UnixBrackets</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">expansion::expand_by_wrapper</span>(
+        <span class="ident">ExpansionType::UnixBrackets</span> =&gt; <span class="ident">expansion::expand_by_wrapper</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="ident">UNIX_ENV_PREFIX</span>,
             <span class="ident">UNIX_ENV_SUFFIX</span>,
             <span class="ident">expand_options</span>.<span class="ident">default_to_empty</span>,
             <span class="bool-val">false</span>,
         ),
-        <span class="ident">ExpansionType::Unix</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">ExpansionType::Unix</span> =&gt; {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cloned_options</span> <span class="op">=</span>
                 <span class="ident">expand_options</span>.<span class="ident">clone_with_expansion_type</span>(<span class="ident">ExpansionType::UnixBrackets</span>);
             <span class="kw">let</span> <span class="ident">expanded_value</span> <span class="op">=</span> <span class="ident">expand</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="prelude-val">Some</span>(<span class="ident">cloned_options</span>));
             <span class="ident">cloned_options</span> <span class="op">=</span> <span class="ident">expand_options</span>.<span class="ident">clone_with_expansion_type</span>(<span class="ident">ExpansionType::UnixPrefix</span>);
             <span class="ident">expand</span>(<span class="kw-2">&amp;</span><span class="ident">expanded_value</span>, <span class="prelude-val">Some</span>(<span class="ident">cloned_options</span>))
         }
-        <span class="ident">ExpansionType::Windows</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">expansion::expand_by_wrapper</span>(
+        <span class="ident">ExpansionType::Windows</span> =&gt; <span class="ident">expansion::expand_by_wrapper</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="ident">WINDOWS_ENV_SYMBOL_STR</span>,
             <span class="ident">WINDOWS_ENV_SYMBOL_CHAR</span>,
             <span class="ident">expand_options</span>.<span class="ident">default_to_empty</span>,
             <span class="bool-val">false</span>,
         ),
-        <span class="ident">ExpansionType::OS</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">ExpansionType::OS</span> =&gt; {
             <span class="kw">let</span> <span class="ident">os_expansion_type</span> <span class="op">=</span> <span class="ident">expansion::get_os_expansion_type</span>();
             <span class="kw">let</span> <span class="ident">cloned_options</span> <span class="op">=</span> <span class="ident">expand_options</span>.<span class="ident">clone_with_expansion_type</span>(<span class="ident">os_expansion_type</span>);
             <span class="ident">expand</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="prelude-val">Some</span>(<span class="ident">cloned_options</span>))
         }
-        <span class="ident">ExpansionType::All</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">ExpansionType::All</span> =&gt; {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cloned_options</span> <span class="op">=</span> <span class="ident">expand_options</span>.<span class="ident">clone_with_expansion_type</span>(<span class="ident">ExpansionType::Unix</span>);
             <span class="kw">let</span> <span class="ident">expanded_value</span> <span class="op">=</span> <span class="ident">expand</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="prelude-val">Some</span>(<span class="ident">cloned_options</span>));
             <span class="ident">cloned_options</span> <span class="op">=</span> <span class="ident">expand_options</span>.<span class="ident">clone_with_expansion_type</span>(<span class="ident">ExpansionType::Windows</span>);
             <span class="ident">expand</span>(<span class="kw-2">&amp;</span><span class="ident">expanded_value</span>, <span class="prelude-val">Some</span>(<span class="ident">cloned_options</span>))
         }
-        <span class="ident">ExpansionType::UnixBracketsWithDefaults</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">expansion::expand_by_wrapper</span>(
+        <span class="ident">ExpansionType::UnixBracketsWithDefaults</span> =&gt; <span class="ident">expansion::expand_by_wrapper</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="ident">UNIX_ENV_PREFIX</span>,
             <span class="ident">UNIX_ENV_SUFFIX</span>,
@@ -553,7 +555,6 @@
         ),
     }
 }
-</pre></div>
-</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="envmnt" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
+</code></pre></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="envmnt" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (89b9f7b28 2022-01-10)" ></div>
 </body></html>

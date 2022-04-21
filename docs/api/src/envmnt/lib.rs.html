@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../envmnt/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../envmnt/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../envmnt/index.html"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1339,8 +1342,23 @@
 <span id="1339">1339</span>
 <span id="1340">1340</span>
 <span id="1341">1341</span>
-</pre><pre class="rust">
-<span class="attribute">#![<span class="ident">deny</span>(
+<span id="1342">1342</span>
+<span id="1343">1343</span>
+<span id="1344">1344</span>
+<span id="1345">1345</span>
+<span id="1346">1346</span>
+<span id="1347">1347</span>
+<span id="1348">1348</span>
+<span id="1349">1349</span>
+<span id="1350">1350</span>
+<span id="1351">1351</span>
+<span id="1352">1352</span>
+<span id="1353">1353</span>
+<span id="1354">1354</span>
+<span id="1355">1355</span>
+<span id="1356">1356</span>
+<span id="1357">1357</span>
+</pre><pre class="rust"><code><span class="attribute">#![<span class="ident">deny</span>(
     <span class="ident">absolute_paths_not_starting_with_crate</span>,
     <span class="ident">ambiguous_associated_items</span>,
     <span class="ident">anonymous_parameters</span>,
@@ -1349,6 +1367,7 @@
     <span class="ident">asm_sub_register</span>,
     <span class="ident">bad_asm_style</span>,
     <span class="ident">bindings_with_variant_name</span>,
+    <span class="ident">break_with_label_and_loop</span>,
     <span class="ident">cenum_impl_drop_cast</span>,
     <span class="ident">clashing_extern_declarations</span>,
     <span class="ident">coherence_leak_check</span>,
@@ -1359,11 +1378,15 @@
     <span class="ident">const_item_mutation</span>,
     <span class="ident">dead_code</span>,
     <span class="ident">deprecated</span>,
+    <span class="ident">deprecated_cfg_attr_crate_type_name</span>,
     <span class="ident">deprecated_in_future</span>,
+    <span class="ident">deref_into_dyn_supertrait</span>,
     <span class="ident">deref_nullptr</span>,
     <span class="ident">drop_bounds</span>,
+    <span class="ident">duplicate_macro_attributes</span>,
     <span class="ident">dyn_drop</span>,
     <span class="ident">ellipsis_inclusive_range_patterns</span>,
+    <span class="ident">enum_intrinsics_non_enums</span>,
     <span class="ident">explicit_outlives_requirements</span>,
     <span class="ident">exported_private_dependencies</span>,
     <span class="ident">forbidden_lint_groups</span>,
@@ -1377,6 +1400,7 @@
     <span class="ident">indirect_structural_match</span>,
     <span class="ident">ineffective_unstable_trait_impl</span>,
     <span class="ident">inline_no_sanitize</span>,
+    <span class="ident">invalid_atomic_ordering</span>,
     <span class="ident">invalid_doc_attributes</span>,
     <span class="ident">invalid_type_param_default</span>,
     <span class="ident">invalid_value</span>,
@@ -1394,6 +1418,7 @@
     <span class="ident">mixed_script_confusables</span>,
     <span class="ident">mutable_borrow_reservation_conflict</span>,
     <span class="ident">mutable_transmutes</span>,
+    <span class="ident">named_asm_labels</span>,
     <span class="ident">no_mangle_const_items</span>,
     <span class="ident">no_mangle_generic_items</span>,
     <span class="ident">non_ascii_idents</span>,
@@ -1423,6 +1448,8 @@
     <span class="ident">soft_unstable</span>,
     <span class="ident">stable_features</span>,
     <span class="ident">temporary_cstring_as_ptr</span>,
+    <span class="ident">text_direction_codepoint_in_comment</span>,
+    <span class="ident">text_direction_codepoint_in_literal</span>,
     <span class="ident">trivial_bounds</span>,
     <span class="ident">trivial_casts</span>,
     <span class="ident">trivial_numeric_casts</span>,
@@ -1446,6 +1473,7 @@
     <span class="ident">unsupported_naked_functions</span>,
     <span class="ident">unused_allocation</span>,
     <span class="ident">unused_assignments</span>,
+    <span class="ident">unused_assignments</span>,
     <span class="ident">unused_attributes</span>,
     <span class="ident">unused_braces</span>,
     <span class="ident">unused_comparisons</span>,
@@ -1464,7 +1492,9 @@
     <span class="ident">unused_qualifications</span>,
     <span class="ident">unused_unsafe</span>,
     <span class="ident">unused_variables</span>,
-    <span class="ident">useless_deprecated</span>
+    <span class="ident">useless_deprecated</span>,
+    <span class="ident">where_clauses_object_safety</span>,
+    <span class="ident">while_true</span>
 )]</span>
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">macro_use_extern_crate</span>, <span class="ident">unknown_lints</span>)]</span>
 <span class="attribute">#![<span class="ident">allow</span>(
@@ -1672,15 +1702,17 @@
 <span class="doccomment">//!     env.insert(&quot;ENV_VAR1&quot;.to_string(), &quot;MY VALUE&quot;.to_string());</span>
 <span class="doccomment">//!     env.insert(&quot;ENV_VAR2&quot;.to_string(), &quot;MY VALUE2&quot;.to_string());</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let eval_env = |value: String| {</span>
-<span class="doccomment">//!         let mut buffer = String::from(&quot;VALUE-&quot;);</span>
-<span class="doccomment">//!         buffer.push_str(&amp;value);</span>
-<span class="doccomment">//!         buffer</span>
+<span class="doccomment">//!     let eval_env = |key: String, value: String| {</span>
+<span class="doccomment">//!         let mut updated_key = String::from(&quot;KEY-&quot;);</span>
+<span class="doccomment">//!         updated_key.push_str(&amp;key);</span>
+<span class="doccomment">//!         let mut updated_value = String::from(&quot;VALUE-&quot;);</span>
+<span class="doccomment">//!         updated_value.push_str(&amp;value);</span>
+<span class="doccomment">//!         Some((updated_key, updated_value))</span>
 <span class="doccomment">//!     };</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     envmnt::evaluate_and_set_all(&amp;env, eval_env);</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let value = envmnt::get_or_panic(&quot;ENV_VAR1&quot;);</span>
+<span class="doccomment">//!     let value = envmnt::get_or_panic(&quot;KEY-ENV_VAR1&quot;);</span>
 <span class="doccomment">//!     println!(&quot;Value Is: {}&quot;, &amp;value);</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
@@ -1692,10 +1724,10 @@
 <span class="doccomment">//!     let mut output = envmnt::load_file(&quot;./src/test/var.env&quot;);</span>
 <span class="doccomment">//!     assert!(output.is_ok());</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let eval_env = |value: String| {</span>
-<span class="doccomment">//!         let mut buffer = String::from(&quot;PREFIX-&quot;);</span>
-<span class="doccomment">//!         buffer.push_str(&amp;value);</span>
-<span class="doccomment">//!         buffer</span>
+<span class="doccomment">//!     let eval_env = |key: String, value: String| {</span>
+<span class="doccomment">//!         let mut updated_value = String::from(&quot;PREFIX-&quot;);</span>
+<span class="doccomment">//!         updated_value.push_str(&amp;value);</span>
+<span class="doccomment">//!         Some((key, updated_value))</span>
 <span class="doccomment">//!     };</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     output = envmnt::evaluate_and_load_file(&quot;./src/test/var.env&quot;, eval_env);</span>
@@ -1736,7 +1768,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">types</span>;
 <span class="kw">mod</span> <span class="ident">util</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::types::EnvmntResult</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::types::EnvmntResult</span>;
 <span class="kw">use</span> <span class="ident">indexmap::IndexMap</span>;
 <span class="kw">use</span> <span class="ident">std::ffi::OsStr</span>;
 <span class="kw">use</span> <span class="ident">std::fmt::Display</span>;
@@ -1767,7 +1799,7 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::exists</span>(<span class="ident">key</span>)
 }
 
@@ -1810,7 +1842,7 @@
 <span class="doccomment">///     assert_eq!(value.unwrap(), &quot;SOME VALUE&quot;);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="ident">environment::get_remove</span>(<span class="ident">key</span>)
 }
 
@@ -1859,7 +1891,7 @@
 <span class="doccomment">///     assert_eq!(value, &quot;DEFAULT_VALUE&quot;);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
     <span class="ident">environment::get_or</span>(<span class="ident">key</span>, <span class="ident">default_value</span>)
 }
 
@@ -1881,7 +1913,7 @@
 <span class="doccomment">///     assert_eq!(value, &quot;SOME VALUE&quot;);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_or_panic</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_or_panic</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">String</span> {
     <span class="ident">environment::get_or_panic</span>(<span class="ident">key</span>)
 }
 
@@ -1904,7 +1936,7 @@
 <span class="doccomment">///     assert_eq!(value, &quot;SOME VALUE2&quot;);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_any</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_any</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>, <span class="ident">default_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
     <span class="ident">environment::get_any</span>(<span class="ident">keys</span>, <span class="ident">default_value</span>)
 }
 
@@ -1932,7 +1964,7 @@
 <span class="doccomment">///     assert!(flag_value);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_or</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="ident">bool</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::is_or</span>(<span class="ident">key</span>, <span class="ident">default_value</span>)
 }
 
@@ -1961,7 +1993,7 @@
 <span class="doccomment">///     assert!(flag_value);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::is</span>(<span class="ident">key</span>)
 }
 
@@ -2029,7 +2061,7 @@
 <span class="doccomment">///     ));</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_optional</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_optional</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::set_optional</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
@@ -2059,7 +2091,7 @@
 <span class="doccomment">///     assert!(!envmnt::exists(&quot;MY_ENV_VAR&quot;));</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_or_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_or_remove</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::set_or_remove</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
@@ -2084,7 +2116,7 @@
 <span class="doccomment">///     assert_eq!(pre_value.unwrap(), &quot;SOME VALUE&quot;);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_set</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_set</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="ident">environment::get_set</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
@@ -2101,7 +2133,7 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vars</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vars</span>() -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
     <span class="ident">environment::vars</span>()
 }
 
@@ -2122,7 +2154,7 @@
 <span class="doccomment">///     assert!(same);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_equal</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_equal</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::is_equal</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
@@ -2143,7 +2175,7 @@
 <span class="doccomment">///     assert!(contains);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">contains</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">contains</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::contains</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
@@ -2164,7 +2196,7 @@
 <span class="doccomment">///     assert!(contains);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">contains_ignore_case</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">contains_ignore_case</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">environment::contains_ignore_case</span>(<span class="ident">key</span>, <span class="ident">value</span>)
 }
 
@@ -2217,7 +2249,7 @@
 <span class="doccomment">///     );</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_list</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_list</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="ident">environment::get_list</span>(<span class="ident">key</span>)
 }
 
@@ -2281,7 +2313,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_list_with_options</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(
     <span class="ident">key</span>: <span class="ident">K</span>,
     <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">ListOptions</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="ident">environment::get_list_with_options</span>(<span class="ident">key</span>, <span class="ident">options</span>)
 }
 
@@ -2318,7 +2350,7 @@
 <span class="doccomment">/// # Arguments</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// * `env` - The environment variables to set</span>
-<span class="doccomment">/// * `evaluate` - Evalute function which will modify the read value before it is loaded into the environment</span>
+<span class="doccomment">/// * `evaluate` - Evalute function which will modify the key/value before it is loaded into the environment</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
@@ -2330,23 +2362,25 @@
 <span class="doccomment">///     env.insert(&quot;MY_ENV_VAR&quot;.to_string(), &quot;MY VALUE&quot;.to_string());</span>
 <span class="doccomment">///     env.insert(&quot;MY_ENV_VAR2&quot;.to_string(), &quot;MY VALUE2&quot;.to_string());</span>
 <span class="doccomment">///</span>
-<span class="doccomment">///     let eval_env = |value: String| {</span>
-<span class="doccomment">///         let mut buffer = String::from(&quot;VALUE-&quot;);</span>
-<span class="doccomment">///         buffer.push_str(&amp;value);</span>
-<span class="doccomment">///         buffer</span>
+<span class="doccomment">///     let eval_env = |key: String, value: String| {</span>
+<span class="doccomment">///         let mut updated_key = String::from(&quot;KEY-&quot;);</span>
+<span class="doccomment">///         updated_key.push_str(&amp;key);</span>
+<span class="doccomment">///         let mut updated_value = String::from(&quot;VALUE-&quot;);</span>
+<span class="doccomment">///         updated_value.push_str(&amp;value);</span>
+<span class="doccomment">///         Some((updated_key, updated_value))</span>
 <span class="doccomment">///     };</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     envmnt::evaluate_and_set_all(&amp;env, eval_env);</span>
 <span class="doccomment">///</span>
-<span class="doccomment">///     let mut value = envmnt::get_or_panic(&quot;MY_ENV_VAR&quot;);</span>
+<span class="doccomment">///     let mut value = envmnt::get_or_panic(&quot;KEY-MY_ENV_VAR&quot;);</span>
 <span class="doccomment">///     assert_eq!(value, &quot;VALUE-MY VALUE&quot;);</span>
-<span class="doccomment">///     value = envmnt::get_or_panic(&quot;MY_ENV_VAR2&quot;);</span>
+<span class="doccomment">///     value = envmnt::get_or_panic(&quot;KEY-MY_ENV_VAR2&quot;);</span>
 <span class="doccomment">///     assert_eq!(value, &quot;VALUE-MY VALUE2&quot;);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">evaluate_and_set_all</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">env</span>: <span class="kw-2">&amp;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">evaluate</span>: <span class="ident">F</span>)
 <span class="kw">where</span>
-    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span>,
+    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">String</span>, <span class="ident">String</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span>,
 {
     <span class="ident">bulk::evaluate_and_set_all</span>(<span class="kw-2">&amp;</span><span class="ident">env</span>, <span class="ident">evaluate</span>)
 }
@@ -2372,7 +2406,7 @@
 <span class="doccomment">///     assert!(found);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_any_exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_any_exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">bulk::is_any_exists</span>(<span class="ident">keys</span>)
 }
 
@@ -2406,7 +2440,7 @@
 <span class="doccomment">///     assert!(!found);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_all_exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_all_exists</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">keys</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">bulk::is_all_exists</span>(<span class="ident">keys</span>)
 }
 
@@ -2425,7 +2459,7 @@
 <span class="doccomment">///     assert!(output.is_ok());</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">EnvmntResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="ident">file::load_file</span>(<span class="ident">file</span>)
 }
 
@@ -2434,16 +2468,16 @@
 <span class="doccomment">/// # Arguments</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// * `file` - The file path to load and parse</span>
-<span class="doccomment">/// * `evaluate` - Evalute function which will modify the read value before it is loaded into the environment</span>
+<span class="doccomment">/// * `evaluate` - Evalute function which will modify the key and value before it is loaded into the environment</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// fn main() {</span>
-<span class="doccomment">///     let eval_env = |value: String| {</span>
-<span class="doccomment">///         let mut buffer = String::from(&quot;PREFIX-&quot;);</span>
-<span class="doccomment">///         buffer.push_str(&amp;value);</span>
-<span class="doccomment">///         buffer</span>
+<span class="doccomment">///     let eval_env = |key: String, value: String| {</span>
+<span class="doccomment">///         let mut updated_value = String::from(&quot;PREFIX-&quot;);</span>
+<span class="doccomment">///         updated_value.push_str(&amp;value);</span>
+<span class="doccomment">///         Some((key, updated_value))</span>
 <span class="doccomment">///     };</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     let output = envmnt::evaluate_and_load_file(&quot;./src/test/var.env&quot;, eval_env);</span>
@@ -2451,9 +2485,9 @@
 <span class="doccomment">///     assert!(output.is_ok());</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">evaluate_and_load_file</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">evaluate</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">evaluate_and_load_file</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">evaluate</span>: <span class="ident">F</span>) -&gt; <span class="ident">EnvmntResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span>,
+    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">String</span>, <span class="ident">String</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span>,
 {
     <span class="ident">file::evaluate_and_load_file</span>(<span class="ident">file</span>, <span class="ident">evaluate</span>)
 }
@@ -2473,7 +2507,7 @@
 <span class="doccomment">///     println!(&quot;Parsed Env: {:?}&quot;, &amp;env);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_file</span>(<span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="ident">file::parse_file</span>(<span class="ident">file</span>)
 }
 
@@ -2497,7 +2531,7 @@
 <span class="doccomment">///     println!(&quot;Parsed Env: {:?}&quot;, &amp;env);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_env_file_content</span>(<span class="ident">env_content</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_env_file_content</span>(<span class="ident">env_content</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">IndexMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="ident">file::parse_env_file_content</span>(<span class="ident">env_content</span>)
 }
 
@@ -2522,12 +2556,12 @@
 <span class="doccomment">///     assert_eq!(&quot;Env: MY_ENV value is: my expanded value&quot;, &amp;value);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExpandOptions</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExpandOptions</span><span class="op">&gt;</span>) -&gt; <span class="ident">String</span> {
     <span class="ident">environment::expand</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="ident">options</span>)
 }
 
 <span class="macro">macro_rules!</span> <span class="ident">generate_get_numeric</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>) =&gt; {
         <span class="doccomment">/// Returns the environment variable value or a default value</span>
         <span class="doccomment">/// in case the variable is not defined or cannot be parsed.</span>
         <span class="doccomment">///</span>
@@ -2536,7 +2570,7 @@
         <span class="doccomment">/// * `key` - The environment variable name</span>
         <span class="doccomment">/// * `default_value` - Returned if the variable does not exist or cannot be parsed</span>
         <span class="doccomment">///</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="macro-nonterminal">$</span><span class="kw">type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">type</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default_value</span>: <span class="macro-nonterminal">$</span><span class="kw">type</span>) -&gt; <span class="macro-nonterminal">$</span><span class="kw">type</span> {
             <span class="macro-nonterminal">numeric</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>(<span class="ident">key</span>, <span class="ident">default_value</span>)
         }
     };
@@ -2558,7 +2592,7 @@
 <span class="macro">generate_get_numeric!</span>(<span class="ident">get_usize</span>, <span class="ident">usize</span>);
 
 <span class="macro">macro_rules!</span> <span class="ident">generate_set_numeric</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>) =&gt; {
         <span class="doccomment">/// Sets the environment variable value.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// # Arguments</span>
@@ -2604,7 +2638,7 @@
 <span class="doccomment">///     assert_eq!(value, 6);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">increment</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">isize</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">increment</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">isize</span> {
     <span class="ident">numeric::increment</span>(<span class="ident">key</span>)
 }
 
@@ -2625,7 +2659,7 @@
 <span class="doccomment">///     assert_eq!(value, 4);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrement</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">isize</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrement</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">isize</span> {
     <span class="ident">numeric::decrement</span>(<span class="ident">key</span>)
 }
 
@@ -2644,7 +2678,7 @@
 <span class="doccomment">///     assert_eq!(value, 123);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parse</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parse</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>) -&gt; <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>,
     <span class="ident">T</span>: <span class="ident">FromStr</span> <span class="op">+</span> <span class="ident">FromStr</span><span class="op">&lt;</span><span class="prelude-val">Err</span> <span class="op">=</span> <span class="ident">E</span><span class="op">&gt;</span>,
@@ -2673,7 +2707,7 @@
 <span class="doccomment">///     assert_eq!(value, 321);</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parse_or</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parse_or</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">K</span>, <span class="ident">default</span>: <span class="ident">T</span>) -&gt; <span class="ident">EnvmntResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">K</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">OsStr</span><span class="op">&gt;</span>,
     <span class="ident">T</span>: <span class="ident">FromStr</span> <span class="op">+</span> <span class="ident">FromStr</span><span class="op">&lt;</span><span class="prelude-val">Err</span> <span class="op">=</span> <span class="ident">E</span><span class="op">&gt;</span>,
@@ -2681,7 +2715,6 @@
 {
     <span class="ident">generic::get_parse_or</span>(<span class="ident">key</span>, <span class="ident">default</span>)
 }
-</pre></div>
-</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="envmnt" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
+</code></pre></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="envmnt" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (89b9f7b28 2022-01-10)" ></div>
 </body></html>

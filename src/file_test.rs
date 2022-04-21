@@ -47,19 +47,24 @@ fn evaluate_and_load_file_no_evaluation() {
 
 #[test]
 fn evaluate_and_load_file_with_evaluation() {
-    let test_evaluate_fn = |value: String| {
-        let mut buffer = String::from("EVAL-");
-        buffer.push_str(&value);
-        buffer
+    let test_evaluate_fn = |key: String, value: String| {
+        let mut updated_key = String::from("KEY-");
+        updated_key.push_str(&key);
+        let mut updated_value = String::from("VALUE-");
+        updated_value.push_str(&value);
+        Some((updated_key, updated_value))
     };
 
     let output = evaluate_and_load_file("./src/test/eval2.env", test_evaluate_fn);
 
     assert!(output.is_ok());
 
-    assert_eq!(environment::get_or_panic("eval_test_1"), "EVAL-value1");
-    assert_eq!(environment::get_or_panic("eval_test_2"), "EVAL-value2");
-    assert_eq!(environment::get_or_panic("eval_test_3"), "EVAL-==value3==");
+    assert_eq!(environment::get_or_panic("KEY-eval_test_1"), "VALUE-value1");
+    assert_eq!(environment::get_or_panic("KEY-eval_test_2"), "VALUE-value2");
+    assert_eq!(
+        environment::get_or_panic("KEY-eval_test_3"),
+        "VALUE-==value3=="
+    );
 }
 
 #[test]

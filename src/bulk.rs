@@ -25,12 +25,12 @@ pub(crate) fn set_all(env: &IndexMap<String, String>) {
 
 pub(crate) fn evaluate_and_set_all<F>(env: &IndexMap<String, String>, evaluate: F)
 where
-    F: Fn(String) -> String,
+    F: Fn(String, String) -> Option<(String, String)>,
 {
     for (key, value) in env.iter() {
-        let evaluated_value = evaluate(value.to_string());
-
-        environment::set(key.to_string(), evaluated_value);
+        if let Some((updated_key, updated_value)) = evaluate(key.to_string(), value.to_string()) {
+            environment::set(updated_key, updated_value);
+        }
     }
 }
 

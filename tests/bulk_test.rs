@@ -31,10 +31,12 @@ fn get() {
     assert!(envmnt::is_equal("BULK_TEST_ENV3", "3"));
     assert!(envmnt::is_equal("BULK_TEST_ENV4", "4"));
 
-    let eval_env = |value: String| {
-        let mut buffer = String::from("VALUE-");
-        buffer.push_str(&value);
-        buffer
+    let eval_env = |key: String, value: String| {
+        let mut updated_key = String::from("KEY-");
+        updated_key.push_str(&key);
+        let mut updated_value = String::from("VALUE-");
+        updated_value.push_str(&value);
+        Some((updated_key, updated_value))
     };
 
     env = IndexMap::new();
@@ -43,6 +45,6 @@ fn get() {
 
     envmnt::evaluate_and_set_all(&env, eval_env);
 
-    assert!(envmnt::is_equal("BULK_TEST_ENV5", "VALUE-5"));
-    assert!(envmnt::is_equal("BULK_TEST_ENV6", "VALUE-6"));
+    assert!(envmnt::is_equal("KEY-BULK_TEST_ENV5", "VALUE-5"));
+    assert!(envmnt::is_equal("KEY-BULK_TEST_ENV6", "VALUE-6"));
 }

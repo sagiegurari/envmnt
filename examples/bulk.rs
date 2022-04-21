@@ -29,14 +29,16 @@ fn main() {
     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
 
-    let eval_env = |value: String| {
-        let mut buffer = String::from("VALUE-");
-        buffer.push_str(&value);
-        buffer
+    let eval_env = |key: String, value: String| {
+        let mut updated_key = String::from("KEY-");
+        updated_key.push_str(&key);
+        let mut updated_value = String::from("VALUE-");
+        updated_value.push_str(&value);
+        Some((updated_key, updated_value))
     };
 
     envmnt::evaluate_and_set_all(&env, eval_env);
 
-    let value = envmnt::get_or_panic("ENV_VAR1");
+    let value = envmnt::get_or_panic("KEY-ENV_VAR1");
     println!("Value Is: {}", &value);
 }

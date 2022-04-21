@@ -14,8 +14,8 @@ use fsio::error::FsIOError;
 use fsio::file::read_text_file;
 use indexmap::IndexMap;
 
-pub(crate) fn empty_evaluate_fn(value: String) -> String {
-    value
+pub(crate) fn empty_evaluate_fn(key: String, value: String) -> Option<(String, String)> {
+    Some((key, value))
 }
 
 pub(crate) fn load_file(file: &str) -> EnvmntResult<()> {
@@ -24,7 +24,7 @@ pub(crate) fn load_file(file: &str) -> EnvmntResult<()> {
 
 pub(crate) fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> EnvmntResult<()>
 where
-    F: Fn(String) -> String,
+    F: Fn(String, String) -> Option<(String, String)>,
 {
     match parse_file(file) {
         Ok(env) => {

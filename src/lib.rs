@@ -342,15 +342,17 @@
 //!     env.insert("ENV_VAR1".to_string(), "MY VALUE".to_string());
 //!     env.insert("ENV_VAR2".to_string(), "MY VALUE2".to_string());
 //!
-//!     let eval_env = |value: String| {
-//!         let mut buffer = String::from("VALUE-");
-//!         buffer.push_str(&value);
-//!         buffer
+//!     let eval_env = |key: String, value: String| {
+//!         let mut updated_key = String::from("KEY-");
+//!         updated_key.push_str(&key);
+//!         let mut updated_value = String::from("VALUE-");
+//!         updated_value.push_str(&value);
+//!         Some((updated_key, updated_value))
 //!     };
 //!
 //!     envmnt::evaluate_and_set_all(&env, eval_env);
 //!
-//!     let value = envmnt::get_or_panic("ENV_VAR1");
+//!     let value = envmnt::get_or_panic("KEY-ENV_VAR1");
 //!     println!("Value Is: {}", &value);
 //! }
 //! ```
@@ -362,10 +364,10 @@
 //!     let mut output = envmnt::load_file("./src/test/var.env");
 //!     assert!(output.is_ok());
 //!
-//!     let eval_env = |value: String| {
-//!         let mut buffer = String::from("PREFIX-");
-//!         buffer.push_str(&value);
-//!         buffer
+//!     let eval_env = |key: String, value: String| {
+//!         let mut updated_value = String::from("PREFIX-");
+//!         updated_value.push_str(&value);
+//!         Some((key, updated_value))
 //!     };
 //!
 //!     output = envmnt::evaluate_and_load_file("./src/test/var.env", eval_env);
@@ -988,7 +990,7 @@ pub fn set_all(env: &IndexMap<String, String>) {
 /// # Arguments
 ///
 /// * `env` - The environment variables to set
-/// * `evaluate` - Evalute function which will modify the read value before it is loaded into the environment
+/// * `evaluate` - Evalute function which will modify the key/value before it is loaded into the environment
 ///
 /// # Example
 ///
@@ -1000,23 +1002,25 @@ pub fn set_all(env: &IndexMap<String, String>) {
 ///     env.insert("MY_ENV_VAR".to_string(), "MY VALUE".to_string());
 ///     env.insert("MY_ENV_VAR2".to_string(), "MY VALUE2".to_string());
 ///
-///     let eval_env = |value: String| {
-///         let mut buffer = String::from("VALUE-");
-///         buffer.push_str(&value);
-///         buffer
+///     let eval_env = |key: String, value: String| {
+///         let mut updated_key = String::from("KEY-");
+///         updated_key.push_str(&key);
+///         let mut updated_value = String::from("VALUE-");
+///         updated_value.push_str(&value);
+///         Some((updated_key, updated_value))
 ///     };
 ///
 ///     envmnt::evaluate_and_set_all(&env, eval_env);
 ///
-///     let mut value = envmnt::get_or_panic("MY_ENV_VAR");
+///     let mut value = envmnt::get_or_panic("KEY-MY_ENV_VAR");
 ///     assert_eq!(value, "VALUE-MY VALUE");
-///     value = envmnt::get_or_panic("MY_ENV_VAR2");
+///     value = envmnt::get_or_panic("KEY-MY_ENV_VAR2");
 ///     assert_eq!(value, "VALUE-MY VALUE2");
 /// }
 /// ```
 pub fn evaluate_and_set_all<F>(env: &IndexMap<String, String>, evaluate: F)
 where
-    F: Fn(String) -> String,
+    F: Fn(String, String) -> Option<(String, String)>,
 {
     bulk::evaluate_and_set_all(&env, evaluate)
 }
@@ -1104,16 +1108,16 @@ pub fn load_file(file: &str) -> EnvmntResult<()> {
 /// # Arguments
 ///
 /// * `file` - The file path to load and parse
-/// * `evaluate` - Evalute function which will modify the read value before it is loaded into the environment
+/// * `evaluate` - Evalute function which will modify the key and value before it is loaded into the environment
 ///
 /// # Example
 ///
 /// ```
 /// fn main() {
-///     let eval_env = |value: String| {
-///         let mut buffer = String::from("PREFIX-");
-///         buffer.push_str(&value);
-///         buffer
+///     let eval_env = |key: String, value: String| {
+///         let mut updated_value = String::from("PREFIX-");
+///         updated_value.push_str(&value);
+///         Some((key, updated_value))
 ///     };
 ///
 ///     let output = envmnt::evaluate_and_load_file("./src/test/var.env", eval_env);
@@ -1123,7 +1127,7 @@ pub fn load_file(file: &str) -> EnvmntResult<()> {
 /// ```
 pub fn evaluate_and_load_file<F>(file: &str, evaluate: F) -> EnvmntResult<()>
 where
-    F: Fn(String) -> String,
+    F: Fn(String, String) -> Option<(String, String)>,
 {
     file::evaluate_and_load_file(file, evaluate)
 }

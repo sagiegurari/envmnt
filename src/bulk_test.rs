@@ -64,18 +64,40 @@ fn evaluate_and_set_all_valid() {
         "MY VALUE2".to_string(),
     );
 
-    let eval_env = |value: String| {
-        let mut buffer = String::from("VALUE-");
-        buffer.push_str(&value);
-        buffer
+    let eval_env = |key: String, value: String| {
+        let mut updated_key = String::from("KEY-");
+        updated_key.push_str(&key);
+        let mut updated_value = String::from("VALUE-");
+        updated_value.push_str(&value);
+        Some((updated_key, updated_value))
     };
 
     evaluate_and_set_all(&env, eval_env);
 
-    let mut output = environment::is_equal("TEST_EVAL_AND_SET_ALL_VAR1", "VALUE-MY VALUE");
+    let mut output = environment::is_equal("KEY-TEST_EVAL_AND_SET_ALL_VAR1", "VALUE-MY VALUE");
     assert!(output);
-    output = environment::is_equal("TEST_EVAL_AND_SET_ALL_VAR2", "VALUE-MY VALUE2");
+    output = environment::is_equal("KEY-TEST_EVAL_AND_SET_ALL_VAR2", "VALUE-MY VALUE2");
     assert!(output);
+}
+
+#[test]
+fn evaluate_and_set_all_none() {
+    let mut env: IndexMap<String, String> = IndexMap::new();
+    env.insert(
+        "TEST_EVAL_AND_SET_ALL_NONE_VAR1".to_string(),
+        "MY VALUE".to_string(),
+    );
+    env.insert(
+        "TEST_EVAL_AND_SET_ALL_NONE_VAR2".to_string(),
+        "MY VALUE2".to_string(),
+    );
+
+    let eval_env = |_key: String, _value: String| None;
+
+    evaluate_and_set_all(&env, eval_env);
+
+    assert!(!environment::exists("TEST_EVAL_AND_SET_ALL_NONE_VAR1"));
+    assert!(!environment::exists("TEST_EVAL_AND_SET_ALL_NONE_VAR2"));
 }
 
 #[test]
