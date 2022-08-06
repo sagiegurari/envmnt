@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.10.1 (2022-08-06)
+
+* Dependencies upgrade
+
 ### v0.10.0 (2022-04-22)
 
 * \[**backward compatibility break**\] Enhancement: evaluate function accepts both key and value and returns option
