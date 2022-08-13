@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.11.0 (2022-08-13)
+### v0.10.2 (2022-08-13)
 
 * Dependencies upgrade
 
