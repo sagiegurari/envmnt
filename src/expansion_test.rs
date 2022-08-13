@@ -126,6 +126,38 @@ value4:$TEST_EXPAND_BY_PREFIX_PARTIAL_FOUND_KEY_DEFAULT4
 }
 
 #[test]
+fn expand_by_prefix_breaks() {
+    environment::set("TEST_EXPAND_BY_PREFIX_BREAKS1", "test1");
+    environment::set("TEST_EXPAND_BY_PREFIX_BREAKS2", "test2");
+    environment::set("TEST_EXPAND_BY_PREFIX_BREAKS3", "test3");
+    environment::set("TEST_EXPAND_BY_PREFIX_BREAKS4", "test4");
+    environment::set("TEST_EXPAND_BY_PREFIX_BREAKS5", "test5");
+
+    let output = expand_by_prefix(
+        r#"
+value1:$TEST_EXPAND_BY_PREFIX_BREAKS1 A
+value2:$TEST_EXPAND_BY_PREFIX_BREAKS2	A
+value3:$TEST_EXPAND_BY_PREFIX_BREAKS3=
+value4:$TEST_EXPAND_BY_PREFIX_BREAKS4/
+value5:$TEST_EXPAND_BY_PREFIX_BREAKS5\
+    "#,
+        '$',
+        true,
+    );
+
+    assert_eq!(
+        r#"
+value1:test1 A
+value2:test2	A
+value3:test3=
+value4:test4/
+value5:test5\
+    "#,
+        output
+    );
+}
+
+#[test]
 fn expand_by_wrapper_found() {
     environment::set("TEST_EXPAND_BY_WRAPPER_FOUND1", "test1");
     environment::set("TEST_EXPAND_BY_WRAPPER_FOUND2", "test2");

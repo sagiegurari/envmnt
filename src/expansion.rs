@@ -23,6 +23,8 @@ fn should_break_key(value: char, reading_key: bool) -> bool {
         || value == '\n'
         || value == '\t'
         || value == '\r'
+        || value == '/'
+        || value == '\\'
         || (reading_key && value == '=')
 }
 
