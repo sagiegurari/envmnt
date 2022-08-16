@@ -7,4 +7,5 @@ additional_profiles = [
   "ci-all-build-tasks",
   "ci-static-code-analysis-tasks",
   "publish-pre-cleanup",
+  "multi-phase-tests"
 ]

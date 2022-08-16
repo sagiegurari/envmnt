@@ -1,8 +1,7 @@
 use crate::Checkpoint;
-use serial_test::serial;
 
 #[test]
-#[serial]
+#[ignore]
 fn create() {
     crate::remove("VAR");
 
@@ -18,7 +17,7 @@ fn create() {
 }
 
 #[test]
-#[serial]
+#[ignore]
 fn create_exclude() {
     crate::remove("VAR1");
     crate::remove("VAR2");
@@ -39,7 +38,7 @@ fn create_exclude() {
 }
 
 #[test]
-#[serial]
+#[ignore]
 fn remove() {
     crate::remove("VAR");
 
@@ -53,7 +52,7 @@ fn remove() {
 }
 
 #[test]
-#[serial]
+#[ignore]
 fn remove_exclude() {
     crate::remove("VAR1");
     crate::remove("VAR2");
@@ -71,7 +70,7 @@ fn remove_exclude() {
 }
 
 #[test]
-#[serial]
+#[ignore]
 fn modify() {
     crate::remove("VAR");
 
@@ -87,7 +86,7 @@ fn modify() {
 }
 
 #[test]
-#[serial]
+#[ignore]
 fn modify_exclude() {
     crate::remove("VAR1");
     crate::remove("VAR2");

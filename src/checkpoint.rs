@@ -1,3 +1,4 @@
+use crate::environment;
 use std::collections::{HashMap, HashSet};
 
 #[cfg(test)]
@@ -22,7 +23,7 @@ impl Checkpoint {
     /// This captures all currently present environment variables.
     pub fn new() -> Self {
         let mut env = HashMap::new();
-        env.extend(crate::environment::vars());
+        env.extend(environment::vars());
 
         Self {
             snapshot: env,
@@ -33,8 +34,10 @@ impl Checkpoint {
     /// Exclude a key from the [`Checkpoint::restore`]
     ///
     /// Keys that have been excluded will not be removed, created or modified in the restore process.
-    pub fn exclude<T: Into<String>>(&mut self, key: T) {
+    pub fn exclude<T: Into<String>>(&mut self, key: T) -> &mut Self {
         self.exclude.insert(key.into());
+
+        self
     }
 
     /// Restore the current state of environment to the state the checkpoint was taken in.
@@ -45,7 +48,7 @@ impl Checkpoint {
         let chk = self.snapshot;
 
         let mut env = HashMap::new();
-        env.extend(crate::environment::vars());
+        env.extend(environment::vars());
 
         let exclude: HashSet<_> = self.exclude.iter().collect();
 
@@ -66,14 +69,12 @@ impl Checkpoint {
             .filter(|key| &chk[*key] != &env[*key])
             .collect::<HashSet<_>>();
 
-        println!("REMOVE: {remove:?}, CREATE: {create:?}, MODIFY: {modify:?}");
-
         for key in remove {
-            crate::environment::remove(key);
+            environment::remove(key);
         }
 
         for key in &create | &modify {
-            crate::environment::set(key, &chk[key]);
+            environment::set(key, &chk[key]);
         }
     }
 }
