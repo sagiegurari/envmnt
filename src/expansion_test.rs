@@ -132,6 +132,7 @@ fn expand_by_prefix_breaks() {
     environment::set("TEST_EXPAND_BY_PREFIX_BREAKS3", "test3");
     environment::set("TEST_EXPAND_BY_PREFIX_BREAKS4", "test4");
     environment::set("TEST_EXPAND_BY_PREFIX_BREAKS5", "test5");
+    environment::set("TEST_EXPAND_BY_PREFIX_BREAKS6", "test6");
 
     let output = expand_by_prefix(
         r#"
@@ -140,6 +141,7 @@ value2:$TEST_EXPAND_BY_PREFIX_BREAKS2	A
 value3:$TEST_EXPAND_BY_PREFIX_BREAKS3=
 value4:$TEST_EXPAND_BY_PREFIX_BREAKS4/
 value5:$TEST_EXPAND_BY_PREFIX_BREAKS5\
+value5:$TEST_EXPAND_BY_PREFIX_BREAKS6:
     "#,
         '$',
         true,
@@ -152,6 +154,7 @@ value2:test2	A
 value3:test3=
 value4:test4/
 value5:test5\
+value5:test6:
     "#,
         output
     );
@@ -494,4 +497,17 @@ value5:default 5 again
     "#,
         output
     );
+}
+
+#[test]
+fn expand_by_wrapper_prefix_key_not_found() {
+    let output = expand_by_wrapper(
+        "${TEST_EXPAND_BY_WRAPPER_PREFIX_KEY_NOT_FOUND:http://127.0.0.1:1234}",
+        "${",
+        '}',
+        false,
+        true,
+    );
+
+    assert_eq!("http://127.0.0.1:1234", output);
 }

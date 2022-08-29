@@ -18,14 +18,19 @@ pub(crate) fn get_os_expansion_type() -> ExpansionType {
     }
 }
 
-fn should_break_key(value: char, reading_key: bool) -> bool {
-    (reading_key && value == ' ')
+fn should_break_key(value: char, reading_key: bool, prefix_only: bool) -> bool {
+    if (reading_key && value == ' ')
         || value == '\n'
         || value == '\t'
         || value == '\r'
-        || value == '/'
-        || value == '\\'
         || (reading_key && value == '=')
+    {
+        true
+    } else if prefix_only {
+        value == '/' || value == '\\' || value == ':'
+    } else {
+        false
+    }
 }
 
 pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool) -> String {
@@ -45,7 +50,7 @@ pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool
             } else {
                 value_string.push(next_char);
             }
-        } else if last_char || should_break_key(next_char, true) {
+        } else if last_char || should_break_key(next_char, true, true) {
             if last_char {
                 env_key.push(next_char);
             }
@@ -130,7 +135,7 @@ pub(crate) fn expand_by_wrapper(
                 reading_default = false;
                 default_value.clear();
             }
-        } else if should_break_key(next_char, !reading_default) {
+        } else if should_break_key(next_char, !reading_default, false) {
             value_string.push_str(&prefix);
             value_string.push_str(&env_key);
             if reading_default {

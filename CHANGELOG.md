@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.10.3
+
+* Fix: Expansion bugs (defaults broken and ignored invalid chars) #33 #35
+
 ### v0.10.2 (2022-08-13)
 
 * Dependencies upgrade
