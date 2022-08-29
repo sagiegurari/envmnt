@@ -403,6 +403,7 @@ mod lib_test;
 doc_comment::doctest!("../README.md");
 
 mod bulk;
+mod checkpoint;
 mod environment;
 pub mod errors;
 mod expansion;
@@ -412,6 +413,7 @@ mod numeric;
 pub mod types;
 mod util;
 
+use crate::checkpoint::Checkpoint;
 use crate::types::EnvmntResult;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
@@ -1358,4 +1360,40 @@ where
     E: Display,
 {
     generic::get_parse_or(key, default)
+}
+
+/// Create a new checkpoint, for the current environment of the process,
+/// at a later date a checkpoint can be restored using [`Checkpoint::restore`], which will rollback
+/// the environment to all values present at the time this function was called.
+///
+/// # Example
+///
+/// ```
+/// fn main() {
+///     envmnt::set("ENV_VAR", "123");
+///     envmnt::set("ENV_VAR2", "345");
+///
+///     assert!(envmnt::is_equal("ENV_VAR", "123"));
+///     assert!(envmnt::is_equal("ENV_VAR2", "345"));
+///     assert!(!envmnt::exists("ENV_VAR3"));
+///     
+///     let chk = envmnt::checkpoint();
+///
+///     envmnt::set("ENV_VAR", "1234");
+///     envmnt::remove("ENV_VAR2");
+///     envmnt::set("ENV_VAR3", "654");
+///
+///     assert!(envmnt::is_equal("ENV_VAR", "1234"));
+///     assert!(!envmnt::exists("ENV_VAR2"));
+///     assert!(envmnt::is_equal("ENV_VAR3", "654"));
+///     
+///     chk.restore();
+///
+///     assert!(envmnt::is_equal("ENV_VAR", "123"));
+///     assert!(envmnt::is_equal("ENV_VAR2", "345"));
+///     assert!(!envmnt::exists("ENV_VAR3"));
+/// }
+/// ```
+pub fn checkpoint() -> Checkpoint {
+    Checkpoint::new()
 }
