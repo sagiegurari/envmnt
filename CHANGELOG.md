@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.10.3 (2022-08-29)
+### v0.10.4 (2022-08-29)
 
 * Enhancement: Added checkpoint system #34 (thanks @indietyp)
 * Fix: Expansion bugs (defaults broken and ignored invalid chars) #33 #35
