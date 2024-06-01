@@ -20,10 +20,7 @@ static WINDOWS_ENV_SYMBOL_STR: &str = "%";
 static WINDOWS_ENV_SYMBOL_CHAR: char = '%';
 
 pub(crate) fn exists<K: AsRef<OsStr>>(key: K) -> bool {
-    match env::var(key) {
-        Ok(_) => true,
-        _ => false,
-    }
+    env::var(key).is_ok()
 }
 
 pub(crate) fn remove<K: AsRef<OsStr>>(key: K) {
@@ -53,7 +50,7 @@ pub(crate) fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
     env::var(key).unwrap()
 }
 
-pub(crate) fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
+pub(crate) fn get_any<K: AsRef<OsStr>>(keys: &[K], default_value: &str) -> String {
     let mut output = default_value.to_string();
 
     for key in keys.iter() {
@@ -177,10 +174,10 @@ fn get_list_separator(options: &ListOptions) -> String {
 
 pub(crate) fn set_list_with_options<K: AsRef<OsStr>>(
     key: K,
-    values: &Vec<String>,
+    values: &[String],
     options: &ListOptions,
 ) {
-    let separator = get_list_separator(&options);
+    let separator = get_list_separator(options);
 
     if values.is_empty() && options.ignore_empty {
         remove(key)
@@ -195,11 +192,11 @@ pub(crate) fn get_list_with_options<K: AsRef<OsStr>>(
     key: K,
     options: &ListOptions,
 ) -> Option<Vec<String>> {
-    let separator = get_list_separator(&options);
+    let separator = get_list_separator(options);
 
     match env::var(key) {
         Ok(value_string) => {
-            if value_string.len() == 0 && !options.ignore_empty {
+            if value_string.is_empty() && !options.ignore_empty {
                 Some(vec![])
             } else {
                 let values = value_string.split(&separator);
@@ -217,7 +214,7 @@ pub(crate) fn get_list_with_options<K: AsRef<OsStr>>(
 }
 
 pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
-    if value.len() == 0 {
+    if value.is_empty() {
         return value.to_string();
     }
 
@@ -235,7 +232,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
             expansion::expand_by_prefix(&value, UNIX_ENV_SYMBOL, expand_options.default_to_empty)
         }
         ExpansionType::UnixBrackets => expansion::expand_by_wrapper(
-            &value,
+            value,
             UNIX_ENV_PREFIX,
             UNIX_ENV_SUFFIX,
             expand_options.default_to_empty,
@@ -249,7 +246,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
             expand(&expanded_value, Some(cloned_options))
         }
         ExpansionType::Windows => expansion::expand_by_wrapper(
-            &value,
+            value,
             WINDOWS_ENV_SYMBOL_STR,
             WINDOWS_ENV_SYMBOL_CHAR,
             expand_options.default_to_empty,
@@ -258,7 +255,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
         ExpansionType::OS => {
             let os_expansion_type = expansion::get_os_expansion_type();
             let cloned_options = expand_options.clone_with_expansion_type(os_expansion_type);
-            expand(&value, Some(cloned_options))
+            expand(value, Some(cloned_options))
         }
         ExpansionType::All => {
             let mut cloned_options = expand_options.clone_with_expansion_type(ExpansionType::Unix);
@@ -267,7 +264,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
             expand(&expanded_value, Some(cloned_options))
         }
         ExpansionType::UnixBracketsWithDefaults => expansion::expand_by_wrapper(
-            &value,
+            value,
             UNIX_ENV_PREFIX,
             UNIX_ENV_SUFFIX,
             expand_options.default_to_empty,

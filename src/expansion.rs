@@ -40,7 +40,7 @@ pub(crate) fn expand_by_prefix(value: &str, prefix: char, default_to_empty: bool
     let mut env_key = String::new();
     let mut counter = 0;
     for next_char in value.chars() {
-        counter = counter + 1;
+        counter += 1;
         let last_char = counter == value.len();
 
         if !found_prefix {
@@ -99,7 +99,7 @@ pub(crate) fn expand_by_wrapper(
     for next_char in value.chars() {
         if !found_prefix {
             if next_char == prefix_chars[prefix_index] {
-                prefix_index = prefix_index + 1;
+                prefix_index += 1;
 
                 if prefix_index == prefix_length {
                     found_prefix = true;
@@ -136,7 +136,7 @@ pub(crate) fn expand_by_wrapper(
                 default_value.clear();
             }
         } else if should_break_key(next_char, !reading_default, false) {
-            value_string.push_str(&prefix);
+            value_string.push_str(prefix);
             value_string.push_str(&env_key);
             if reading_default {
                 value_string.push(':');
@@ -157,8 +157,8 @@ pub(crate) fn expand_by_wrapper(
         }
     }
 
-    if env_key.len() > 0 {
-        value_string.push_str(&prefix);
+    if !env_key.is_empty() {
+        value_string.push_str(prefix);
         value_string.push_str(&env_key);
         if reading_default {
             value_string.push(':');

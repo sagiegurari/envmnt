@@ -11,7 +11,7 @@ use crate::environment;
 use indexmap::IndexMap;
 use std::ffi::OsStr;
 
-pub(crate) fn remove_all<K: AsRef<OsStr>>(keys: &Vec<K>) {
+pub(crate) fn remove_all<K: AsRef<OsStr>>(keys: &[K]) {
     for key in keys.iter() {
         environment::remove(key);
     }
@@ -34,7 +34,7 @@ where
     }
 }
 
-pub(crate) fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+pub(crate) fn is_any_exists<K: AsRef<OsStr>>(keys: &[K]) -> bool {
     let mut found = false;
 
     for key in keys.iter() {
@@ -48,7 +48,7 @@ pub(crate) fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
     found
 }
 
-pub(crate) fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+pub(crate) fn is_all_exists<K: AsRef<OsStr>>(keys: &[K]) -> bool {
     let mut found = false;
 
     for key in keys.iter() {

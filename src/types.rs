@@ -48,7 +48,7 @@ pub enum ExpansionType {
 }
 
 /// Expand options
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Default)]
 pub struct ExpandOptions {
     /// The expansion type (unix/windows/...)
     pub expansion_type: Option<ExpansionType>,

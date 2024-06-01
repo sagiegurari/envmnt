@@ -17,6 +17,12 @@ pub struct Checkpoint {
     exclude: HashSet<String>,
 }
 
+impl Default for Checkpoint {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Checkpoint {
     /// Create a new Checkpoint
     ///
@@ -66,7 +72,7 @@ impl Checkpoint {
 
         let modify = (&chk_keys & &env_keys)
             .into_iter()
-            .filter(|key| &chk[*key] != &env[*key])
+            .filter(|key| chk[*key] != env[*key])
             .collect::<HashSet<_>>();
 
         for key in remove {
