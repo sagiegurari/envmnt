@@ -5,6 +5,7 @@
     nonstandard_style,
     unused
 )]
+#![allow(clippy::needless_doctest_main)]
 #![warn(unknown_lints)]
 
 //! # envmnt
@@ -366,7 +367,7 @@ pub fn get_remove<K: AsRef<OsStr>>(key: K) -> Option<String> {
 ///     assert!(!envmnt::exists("MY_ENV_VAR2"));
 /// }
 /// ```
-pub fn remove_all<K: AsRef<OsStr>>(keys: &Vec<K>) {
+pub fn remove_all<K: AsRef<OsStr>>(keys: &[K]) {
     bulk::remove_all(keys)
 }
 
@@ -436,7 +437,7 @@ pub fn get_or_panic<K: AsRef<OsStr>>(key: K) -> String {
 ///     assert_eq!(value, "SOME VALUE2");
 /// }
 /// ```
-pub fn get_any<K: AsRef<OsStr>>(keys: &Vec<K>, default_value: &str) -> String {
+pub fn get_any<K: AsRef<OsStr>>(keys: &[K], default_value: &str) -> String {
     environment::get_any(keys, default_value)
 }
 
@@ -474,6 +475,7 @@ pub fn is_or<K: AsRef<OsStr>>(key: K, default_value: bool) -> bool {
 /// * "false" (case insensitive)
 /// * "no" (case insensitive)
 /// * "0"
+///
 /// <br>
 /// Any other value is returned as true.
 /// This is same as calling is_or("varname", false)
@@ -723,7 +725,7 @@ pub fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool {
 ///     );
 /// }
 /// ```
-pub fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
+pub fn set_list<K: AsRef<OsStr>>(key: K, values: &[String]) {
     environment::set_list(key, values)
 }
 
@@ -780,7 +782,7 @@ pub fn get_list<K: AsRef<OsStr>>(key: K) -> Option<Vec<String>> {
 ///     println!("Same: {}", same);
 /// }
 /// ```
-pub fn set_list_with_options<K: AsRef<OsStr>>(key: K, values: &Vec<String>, options: &ListOptions) {
+pub fn set_list_with_options<K: AsRef<OsStr>>(key: K, values: &[String], options: &ListOptions) {
     environment::set_list_with_options(key, values, options)
 }
 
@@ -842,7 +844,7 @@ pub fn get_list_with_options<K: AsRef<OsStr>>(
 /// }
 /// ```
 pub fn set_all(env: &IndexMap<String, String>) {
-    bulk::set_all(&env)
+    bulk::set_all(env)
 }
 
 /// Sets all the provided env key/value pairs.
@@ -882,7 +884,7 @@ pub fn evaluate_and_set_all<F>(env: &IndexMap<String, String>, evaluate: F)
 where
     F: Fn(String, String) -> Option<(String, String)>,
 {
-    bulk::evaluate_and_set_all(&env, evaluate)
+    bulk::evaluate_and_set_all(env, evaluate)
 }
 
 /// Returns true if any of environment variables is defined.
@@ -906,7 +908,7 @@ where
 ///     assert!(found);
 /// }
 /// ```
-pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+pub fn is_any_exists<K: AsRef<OsStr>>(keys: &[K]) -> bool {
     bulk::is_any_exists(keys)
 }
 
@@ -940,7 +942,7 @@ pub fn is_any_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
 ///     assert!(!found);
 /// }
 /// ```
-pub fn is_all_exists<K: AsRef<OsStr>>(keys: &Vec<K>) -> bool {
+pub fn is_all_exists<K: AsRef<OsStr>>(keys: &[K]) -> bool {
     bulk::is_all_exists(keys)
 }
 
@@ -1057,7 +1059,7 @@ pub fn parse_env_file_content(env_content: &str) -> IndexMap<String, String> {
 /// }
 /// ```
 pub fn expand(value: &str, options: Option<ExpandOptions>) -> String {
-    environment::expand(&value, options)
+    environment::expand(value, options)
 }
 
 macro_rules! generate_get_numeric {

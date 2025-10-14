@@ -65,7 +65,7 @@ generate_set_numeric!(set_usize, usize);
 
 pub(crate) fn increment<K: AsRef<OsStr>>(key: K) -> isize {
     let mut value = get_isize(&key, 0);
-    value = value + 1;
+    value += 1;
     set_isize(&key, value);
 
     value

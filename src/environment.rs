@@ -155,7 +155,7 @@ pub(crate) fn contains_ignore_case<K: AsRef<OsStr>>(key: K, value: &str) -> bool
     }
 }
 
-pub(crate) fn set_list<K: AsRef<OsStr>>(key: K, values: &Vec<String>) {
+pub(crate) fn set_list<K: AsRef<OsStr>>(key: K, values: &[String]) {
     let options = ListOptions::new();
     set_list_with_options(key, values, &options)
 }
@@ -229,7 +229,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
 
     match expansion_type {
         ExpansionType::UnixPrefix => {
-            expansion::expand_by_prefix(&value, UNIX_ENV_SYMBOL, expand_options.default_to_empty)
+            expansion::expand_by_prefix(value, UNIX_ENV_SYMBOL, expand_options.default_to_empty)
         }
         ExpansionType::UnixBrackets => expansion::expand_by_wrapper(
             value,
@@ -241,7 +241,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
         ExpansionType::Unix => {
             let mut cloned_options =
                 expand_options.clone_with_expansion_type(ExpansionType::UnixBrackets);
-            let expanded_value = expand(&value, Some(cloned_options));
+            let expanded_value = expand(value, Some(cloned_options));
             cloned_options = expand_options.clone_with_expansion_type(ExpansionType::UnixPrefix);
             expand(&expanded_value, Some(cloned_options))
         }
@@ -259,7 +259,7 @@ pub(crate) fn expand(value: &str, options: Option<ExpandOptions>) -> String {
         }
         ExpansionType::All => {
             let mut cloned_options = expand_options.clone_with_expansion_type(ExpansionType::Unix);
-            let expanded_value = expand(&value, Some(cloned_options));
+            let expanded_value = expand(value, Some(cloned_options));
             cloned_options = expand_options.clone_with_expansion_type(ExpansionType::Windows);
             expand(&expanded_value, Some(cloned_options))
         }

@@ -71,7 +71,7 @@ impl ExpandOptions {
         self: &ExpandOptions,
         expansion_type: ExpansionType,
     ) -> ExpandOptions {
-        let mut options = self.clone();
+        let mut options = *self;
 
         options.expansion_type = Some(expansion_type);
 

@@ -59,7 +59,7 @@ pub(crate) fn parse_env_file_content(env_content: &str) -> IndexMap<String, Stri
     for mut line in lines {
         line = line.trim();
 
-        if line.len() > 0 && !line.starts_with("#") {
+        if !line.is_empty() && !line.starts_with("#") {
             let env_part: Vec<&str> = line.splitn(2, '=').collect();
 
             if env_part.len() == 2 {
